@@ -1,4 +1,4 @@
-<view class="wxNavgationBar"><text class="AppName">NewApp</text></view>
+<view class="wxNavgationBar"><text class="AppName" catchtap="loadmore">NewApp</text></view>
 <scroll-view scroll-x="true" class="sort-tab" style="padding-bottom: 19rpx">
   <view class="tab-outer">
     <view class="tab-items">
@@ -13,10 +13,12 @@
     </view>
   </view>
 </scroll-view>
+<view class="slider {{refresh}}" style="transform: rotate({{refreshRotate}}deg)"><image src="../../images/refresh.svg" /></view>
+<view class="shiftTop {{scrollUp}}" bindtap="scrollToTop"><image src="../../images/upward.svg" /></view>
 <swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped">
   <swiper-item style="background: red; ">
-    <scroll-view class="inner-content" scroll-y="true">
-      <view class="ranking">
+    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="loadmore" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}">
+      <view class="ranking" style="padding-top: {{addpadingtop}}">
         <view class="ranking-title">
           <view class="title1"><text>更新日期：{{updateTime}}</text></view>
           <view class="title2" style="border-bottom-right-radius: 5px"><text style="border-bottom-right-radius: 5px">全国各大高校人气排行</text></view>
@@ -51,54 +53,28 @@
       </view>
       <view class="passages-country">
         <view class="partName">国务要闻</view>
-        <view class="partPorts">
+        <block wx:for="{{partArr}}" wx:key="partKey" wx:for-item="part" wx:for-index="partIdx">
+        <view class="partPorts" data-port="{{part.port}}">
           <view class="out-part">
             <view class="part-header">
-              <view class="part-left">
-                <view class="part-title">视觉风格仍在调整，多任务切换操作进一步优化：Android P DP4 更新 | 具透</view>
-                <view class="part-content">昨天凌晨 Google 例行向 Pixel 和 Pixel 2 设备放出了 7 月安全更新，更重要的是，原计划于 6 月下旬公布的第四个 Android P 开发者预览版（下文简称 DP4）在短暂的跳...</view>
-              </view>
-              <view class="part-right"></view>
+              <block wx:if="{{part.image}}">
+                <view class="part-left">
+                  <view class="part-title">{{part.title}}</view>
+                  <view class="part-content">{{part.shortContent}}</view>
+                </view>
+                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" /></view></view>
+              </block>
+              <block wx:if="{{!part.image}}">
+                <view class="part-left" style="width: 700rpx">
+                  <view class="part-title">{{part.title}}</view>
+                  <view class="part-content">{{part.shortContent}}</view>
+                </view>
+              </block>
             </view>
-            <view class="part-footer"><text class="time-stamp">7月4日</text><text class="origin-site">中央政府网</text><text class="mark-stamp"></text></view>
+            <view class="part-footer"><text class="time-stamp">{{part.timeStamp}}</text><text class="origin-site">{{part.site}}</text><text class="mark-stamp"></text></view>
           </view>
         </view>
-        <view class="partPorts">
-          <view class="out-part">
-            <view class="part-header">
-              <view class="part-left">
-                <view class="part-title">视觉风格仍在调整，多任务切换操作进一步优化：Android P DP4 更新 | 具透</view>
-                <view class="part-content">昨天凌晨 Google 例行向 Pixel 和 Pixel 2 设备放出了 7 月安全更新，更重要的是，原计划于 6 月下旬公布的第四个 Android P 开发者预览版（下文简称 DP4）在短暂的跳...</view>
-              </view>
-              <view class="part-right"></view>
-            </view>
-            <view class="part-footer"><text class="time-stamp">7月4日</text><text class="origin-site">中央政府网</text><text class="mark-stamp"></text></view>
-          </view>
-        </view>
-        <view class="partPorts">
-          <view class="out-part">
-            <view class="part-header">
-              <view class="part-left">
-                <view class="part-title">视觉风格仍在调整，多任务切换操作进一步优化：Android P DP4 更新 | 具透</view>
-                <view class="part-content">昨天凌晨 Google 例行向 Pixel 和 Pixel 2 设备放出了 7 月安全更新，更重要的是，原计划于 6 月下旬公布的第四个 Android P 开发者预览版（下文简称 DP4）在短暂的跳...</view>
-              </view>
-              <view class="part-right"></view>
-            </view>
-            <view class="part-footer"><text class="time-stamp">7月4日</text><text class="origin-site">中央政府网</text><text class="mark-stamp"></text></view>
-          </view>
-        </view>
-        <view class="partPorts">
-          <view class="out-part">
-            <view class="part-header">
-              <view class="part-left">
-                <view class="part-title">视觉风格仍在调整，多任务切换操作进一步优化：Android P DP4 更新 | 具透</view>
-                <view class="part-content">昨天凌晨 Google 例行向 Pixel 和 Pixel 2 设备放出了 7 月安全更新，更重要的是，原计划于 6 月下旬公布的第四个 Android P 开发者预览版（下文简称 DP4）在短暂的跳...</view>
-              </view>
-              <view class="part-right"></view>
-            </view>
-            <view class="part-footer"><text class="time-stamp">7月4日</text><text class="origin-site">中央政府网</text><text class="mark-stamp"></text></view>
-          </view>
-        </view>
+        </block>
       </view>
     </scroll-view>
   </swiper-item>
@@ -114,13 +90,9 @@
   </swiper-item>
   <swiper-item style="background: black">
     <scroll-view class="inner-content" scroll-y="true">
-      <view class="test"></view>
-      <view class="text"></view>
-      <view class="test"></view>
-      <view class="text"></view>
-      <view class="test"></view>
-      <view class="text"></view>
-      <view class="test"></view>
+      <view class="cloudMap">
+        
+      </view>
     </scroll-view>
   </swiper-item>
 </swiper>

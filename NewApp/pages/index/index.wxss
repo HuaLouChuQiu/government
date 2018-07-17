@@ -1,7 +1,7 @@
 page{padding-top: 140rpx; font-family: "Roboto"}
 .wxNavgationBar{width: 100%; height: 140rpx; position: fixed; background: white; top: 0; display: flex; flex-direction: column-reverse}
 .wxNavgationBar .AppName{display: block; width: 100%; height: 60rpx; padding-bottom: 10rpx; text-align: center; font: 600 28rpx/60rpx 'Roboto'}
-.sort-tab{width: 100%; height: 55rpx; background: white; display: flex; flex-direction: column}
+.sort-tab{width: 100%; height: 55rpx; background: white; display: flex; flex-direction: column; position: relative; z-index: 2;}
 .sort-tab .tab-outer{width: 390rpx; height: 55rpx; background: white; padding: 0 10rpx; margin: 0 auto}
 .sort-tab .tab-items{width: 100%; height: 50rpx; background: white; -webkit-transition: all 200ms; transition: all 200ms; display: flex; flex-wrap: nowrap; justify-content: center;}
 .sort-tab .tab-items text{display: block; font-size: 28rpx; line-height: 50rpx; padding: 0 25rpx; text-align: center; width: 80rpx; float: left; color: #888; letter-spacing: 2px; text-indent: 2px}
@@ -9,11 +9,18 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .active{color: black}
 .sort-tab .indicator-box{width: 100%; height: 5rpx; background: white; display: flex}
 .sort-tab .indicator-box .indicator{display: block; width: 35rpx; height: 5rpx; border-radius: 2.5rpx; background: blue; -webkit-transition: all 200ms; transition: all 200ms; margin: 0 auto}
-.content, .inner-content{width: 100%; height: 1120rpx; background: #eee}
-.inner-content{background: white; height: 1120rpx; }
+.slider{width: 60rpx; height: 60rpx; position: fixed; margin: 0 345rpx; background: #fff; border-radius: 50%; top: 154rpx; z-index: 1; display: flex; justify-content: center; align-items: center; opacity: 0; -webkit-transition: all 300ms; transition: all 300ms; box-shadow: 0 0 1em rgba(0, 0, 0, .1)}
+.slider.refresh{top: 400rpx; opacity: 1; -webkit-transform: rotate(360deg); transform: rotate(360deg); -webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
+.slider image{width: 40rpx; height: 40rpx; display: block}
+.shiftTop{width: 50px; height: 50px; position: fixed; bottom: -50px; right: 25rpx; border-radius: 50%; box-shadow: 0 0 1em rgba(0, 0, 0, .1); z-index: 2; background: white; display: flex; align-items: center; justify-content: center; -webkit-transition: all 200ms; transition: all 200ms; opacity: 0}
+.shiftTop:active{background: #ebebeb}
+.shiftTop image{width: 28px; height: 28px;}
+.shiftTop.scrollUp{bottom: 40px; opacity: 1;}
+.content, .inner-content{width: 100%; height: calc(100vh - 214rpx); background: #eee}
+.inner-content{background: white; height: 100%; }
 .test, .text{width: 100%; height: 300rpx; background: yellow}
 .text{background: yellowgreen}
-.ranking{width: 100%; height: 500rpx; background: none; font-family: "Roboto"}
+.ranking{width: 100%; height: 500rpx; background: none; font-family: "Roboto"; -webkit-transition: all 100ms; transition: all 100ms;}
 .ranking-title{width: calc(100%-40rpx); height: 200rpx; background: #eee; display: flex; flex-direction: column-reverse; padding: 0 20rpx}
 .ranking-title .title1{width: 100%; height: 40rpx; background: none; font-size: 20rpx; }
 .ranking-title .title2{width: 100%; height: 100rpx; background: none; font-size: 34rpx; line-height: 70rpx; font-weight: 900; letter-spacing: 1px; text-indent: 1px}
@@ -50,19 +57,30 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .partPorts{width: calc(100%-40rpx); height: 240rpx; background: none; padding: 0 20rpx; padding-bottom: 22rpx; border-bottom: 1px dashed rgba(0, 0, 0, .08)}
 .part-header{width: 100%; height: 220rpx; background: none}
 .part-footer{width: 100%; height: 20rpx; background: none; font-size: 18rpx; line-height: 20rpx; color: #989898;}
-.part-left{width: 700rpx; float: left; height: 210rpx;  background: white; padding: 10rpx 5rpx 0 0}
-.part-right{width: 0rpx; height: 100%; background: black; float: right;}
-.part-title{width: inherit; height: 80rpx; background: none; font: 900 26rpx/40rpx "Roboto"; padding-bottom: 20rpx}
-.part-content{width: inherit; height: 90rpx; color: #989898; font: 400 20rpx/30rpx "Roboto"; padding-bottom: 20rpx}
+.part-left{max-width: 460rpx; float: left; height: 210rpx;  background: white; padding: 10rpx 5rpx 0 0}
+.part-right{width: 240rpx; height: 100%; background: none; float: right; display: flex; align-items: center}
+.part-right .picFrame{width: 240rpx; height: 160rpx; background: none; margin-top: 10rpx; border-radius: 10rpx; display: flex; align-items: center}
+.part-right .picFrame image{width: 240rpx; display: block; border-radius: 8rpx}
+.part-title{width: inherit; height: 80rpx; background: none; font: 900 26rpx/40rpx "Roboto"; padding-bottom: 10rpx}
+.part-content{width: inherit; height: 100rpx; color: #989898; font: 400 17rpx/30rpx "Roboto"; padding-bottom: 20rpx}
 .time-stamp{display: block; float: left;}
 .origin-site{display: block; float: right}
 .mark-stamp{width: 20rpx; height: 20rpx; border-radius: 50%; background: #c00; margin: 0 10rpx; display: block; float: right}
 .r_selector{width: 100%; height: 60rpx; background: none; font: 400 26rpx/60rpx "Roboto"}
 .currProvince{width: 150rpx; height: 60rpx; padding-left: 25rpx; border-radius: 30rpx; border: 1px solid rgba(0, 0, 0, .08); float: left; background: none; margin-left: 20rpx; color: rgba(0, 0, 0, .4)}
 .currProvince:active, .reGPS:active{-webkit-transition: all 100ms; transition: all 100ms; background: rgba(0, 0, 0, .1); color: white}
+.reGPS:active{color: black}
 .currProvince scroll-view{width: 90rpx; float: left; font: 400 26rpx/60rpx "Roboto"; }
 .currProvince scroll-view text{white-space: nowrap}
 .currProvince image{width: 60rpx; float: left; display: block; width: 60rpx; height: 60rpx; -webkit-transform: rotate(90deg); transform: rotate(90deg)}
 .reGPS{width: 185rpx; height: 60rpx; float: right; margin-right: 20rpx; border-radius: 5px}
 .reGPS view{width: 125rpx; height: 60rpx; float: right; }
 .reGPS image{width: 50rpx; height: 50rpx; padding: 5rpx}
+
+.cloudMap{width: calc(100%-20rpx); height: 400rpx; background: green; padding: 10rpx;}
+@-webkit-keyframes spin{
+    100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
+}
+@keyframes spin{
+    100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
+}

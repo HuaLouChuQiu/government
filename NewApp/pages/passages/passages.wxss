@@ -2,12 +2,21 @@ page{height: 100%; width: 100%}
 .passages-view{width: 100%; height: 100%; background: #fff}
 .passages-view .container{width: 100%; padding-top: 150rpx;}
 .passages-header{width: calc(100%-70rpx); height: auto; padding: 0 35rpx}
-.passages-title{min-height: 40rpx; font: 800 32rpx/40rpx "Roboto"; padding: 30rpx 0 20rpx}
+.passages-title{min-height: 40rpx; font: 800 32rpx/40rpx "Roboto"; padding: 30rpx 0 35rpx}
 .keywords, .key-tip{display: inline-block; padding: 0 25rpx; height: 50rpx; border-radius: 25rpx; background: #4082fc; font: 500 26rpx/50rpx "Roboto"; margin: 10rpx 20rpx 0 0; color: white}
 .key-tip{background: none; border: 1px solid #4082fc; color: #4082f3}
 .passages-origin{width: 100%; height: 30rpx; display: flex; align-items: center}
-.origin-site, .origin-time{display: block; float: left; font: 400 20rpx/30rpx "Roboto"; color: #898989}
-.origin-time{padding-left: 10rpx}
+.origin-site, .origin-time, .origin-author{display: block; float: left; font: 400 20rpx/30rpx "Roboto"; color: #898989}
+.origin-time{padding: 0 10rpx}
+.origin-author{color: #222; font-weight: 900}
+.origin-author::before{content: "文 / "; font-weight: 400}
 .mark-stamp{width: 20rpx; height: 20rpx; border-radius: 50%; margin-right: 10rpx; background: #c00; display: block; float: left}
-.passages-body{width: calc(100%-36rpx); padding: 40rpx 0 0 0; height: 100rpx}
-.passages-body p{padding: 0 24rpx; text-indent: 2em; display: block; font: 400 26rpx/45rpx "Roboto"; padding-bottom: 1em}
+.passages-body{width: calc(100%-36rpx); padding: 40rpx 0 0 0; height: auto}
+.passages-body p{width: 750rpx}
+.passages-body p text{padding: 0 24rpx; text-indent: 2em; display: block; font: 400 25rpx/45rpx "Roboto"; padding-bottom: 1em}
+.passages-body p image{width: 750rpx; border-bottom: 1.5em solid transparent; border-top: .5em solid transparent; margin: 0 auto}
+.passages-footer{width: 100%; height: 40rpx; background: none; padding: 30rpx 0 20rpx}
+.outerFooter{margin: 0 auto; width: auto; margin: 0 auto; height: 40rpx; display: flex; justify-content: center; align-items: center}
+.outerFooter.fade{-webkit-transition: all 300ms; transition: all 300ms; -webkit-transform: scale(0); transform: scale(0); opacity: 0}
+.passages-footer image{display: block; float: left; width: 20rpx; height: 20rpx; margin: 10rpx}
+.passages-footer text{display: block; float: left; height: 40rpx; background: white; text-align: center; font: 400 20rpx/40rpx "Roboto";}
