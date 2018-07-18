@@ -20,8 +20,10 @@ require_once("textNews_way.php");
 //$test_obj = new link_way;   //国家政策
 //$test_obj->updatelink();
 
-//$state_news_obj = new linkNew_way;             //国家新闻链接
-//$state_news_obj->savenewsLink();echo "操作完成";
+$state_news_obj = new linkNew_way;             //国家新闻链接
+$state_news_obj->savenewsLink();echo "操作完成";
 
 $state_newsText_obj = new textNews_way;
 $state_newsText_obj->saveNewstext();
+
+"SELECT policy_link.id,policy_link.title,policy_link.link,policy_link.release_time,text_content.text,text_content.source,text_content.edit,policy_link.status FROM policy_link,text_content where policy_link.id=text_content.link_id";

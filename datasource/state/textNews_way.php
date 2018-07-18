@@ -19,7 +19,8 @@ class textNews_way {
         /* $reg1 = '/\s+<div class=\"pages_content\" id=\"UCAP-CONTENT\">.*?<\/div>\s+/';
         preg_match_all($reg1,$text_html,$text);var_dump($text);
         array_push($datas,$text); */
-        $text = $pquery_obj->getDetailedhtml("div.pages_content");
+        $text = $pquery_obj->getDetailedhtml("div.pages_content");  if(empty($text)) return;        //是空就跳过
+        $text[0] = htmlspecialchars($text[0],ENT_QUOTES);
         array_push($datas,$text[0]);
 
         $source = $pquery_obj->getDetailedmess("div.pages-date","span.font");
@@ -45,11 +46,13 @@ class textNews_way {
         foreach($sr_link as $key=>$value){
             $datas = $this->getNewstext($value["link"]);
             
+            if(empty($datas))continue;
+
             $ic_text_news = array("link_id"=>$sr_link[$key]['id'],"text"=>$datas[0],"source"=>$datas[1],"edit"=>$datas[2]);
             $text_id = $pdo_obj->insert("text_content",$ic_text_news);
-            if(is_numeric($text_id)){
+            if(is_numeric($text_id) && $text_id > 0){
                 $uw_link = array("`id`"=>$sr_link[$key]['id']);
-                $pdo_obj->update("policy_link",array("is_use"=>1),$uw_link);die;
+                $pdo_obj->update("policy_link",array("is_use"=>1),$uw_link);
             }
         }
     }
