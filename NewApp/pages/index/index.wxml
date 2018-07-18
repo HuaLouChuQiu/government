@@ -48,7 +48,7 @@
           </view>
         </view>
         <view class="ranking-next-items" id="redirection" >
-            <view class="view_all">查看全部</view>
+            <view class="view_all"><image src="../../images/down_circle.svg" /></view>
         </view>
       </view>
       <view class="passages-country">
@@ -59,7 +59,7 @@
             <view class="part-header">
               <block wx:if="{{part.image}}">
                 <view class="part-left">
-                  <view class="part-title">{{part.title}}</view>
+                  <view class="part-title"><text>{{part.title}}</text></view>
                   <view class="part-content">{{part.shortContent}}</view>
                 </view>
                 <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" /></view></view>
@@ -71,7 +71,7 @@
                 </view>
               </block>
             </view>
-            <view class="part-footer"><text class="time-stamp">{{part.timeStamp}}</text><text class="origin-site">{{part.site}}</text><text class="mark-stamp"></text></view>
+            <view class="part-footer"><text class="time-stamp">{{part.timestamp}}</text><text class="origin-site">{{part.site}}</text><view class="mark-stamp"><image src="../../images/site_origin.svg" /></view></view>
           </view>
         </view>
         </block>

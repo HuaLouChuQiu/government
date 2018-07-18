@@ -44,9 +44,10 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .ranking-next-items .rank-order{width: 45rpx; height: 60rpx; float: left; background: white; padding: 0 20rpx; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee}
 .ranking-next-items .rank-order text{display: block; font-size: 28rpx; line-height: 60rpx; text-align: center; font-weight: 600; color: #ffca28}
 .ranking-next-items .rank-name{float: left; width: calc(100%-165rpx); height: 60rpx; background: white; text-indent: 10rpx; font-size: 24rpx; line-height: 60rpx;}
-.view_all{width: 140rpx; background: none; height: 60rpx; font-size: 30rpx; line-height: 60rpx; color: rgba(0, 0, 0, .5); text-align: center; position: relative; z-index: 2; font-weight: bolder; letter-spacing: 1px; text-indent: 1px; margin: 0 auto}
+.view_all{width: 40rpx; background: none; height: 60rpx; font-size: 30rpx; line-height: 60rpx; color: rgba(0, 0, 0, .5); margin: 0 355rpx; display: flex; align-items: center; justify-content: center}
+.view_all image{width: 40rpx; height: 40rpx; display: block}
 .view_all:active{-webkit-transition: all 100ms; transition: all 100ms; color: #4082fc}
-#redirection{margin-top: -60rpx; position: relative; z-index: inherit; background-image: linear-gradient(0, #ddd 0%, rgba(255, 255, 255, 0) 100%); padding: 5rpx 0}
+#redirection{margin-top: -60rpx; position: relative; z-index: inherit; background-image: linear-gradient(0, #ddd 0%, rgba(255, 255, 255, 0) 100%); padding: 5rpx 0;}
 #redirection::after{display: block; content: ""; width: 100%; height: 2px; -webkit-transform: skewY(30deg) rotate(-30deg) scaleX(1.5); transform: skewY(30deg) rotate(-30deg) scale(1.5); background-image: linear-gradient( to right, #2933E1, #2933E1 12.5%, #E2100D 12.5%, #E2100D 25%, #2933E1 25%, #2933E1 37.5%, #E2100D 37.5%, #E2100D 50%, #2933E1 50%, #2933E1 62.5%, #E2100D 62.5%, #E2100D 75%, #2933E1 75%, #2933E1 87.5%, #E2100D 87.5%, #E2100D);}
 .order-rank{width: 55rpx; height: 55rpx; position: absolute; padding: 15rpx; text-align: center; font-size: 20rpx; font-weight: 700; line-height: 40rpx; color: rgba(255, 255, 255, .5)}
 .goaler{color: #282828; font-weight: bolder}
@@ -60,12 +61,14 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .part-left{max-width: 460rpx; float: left; height: 210rpx;  background: white; padding: 10rpx 5rpx 0 0}
 .part-right{width: 240rpx; height: 100%; background: none; float: right; display: flex; align-items: center}
 .part-right .picFrame{width: 240rpx; height: 160rpx; background: none; margin-top: 10rpx; border-radius: 10rpx; display: flex; align-items: center}
-.part-right .picFrame image{width: 240rpx; display: block; border-radius: 8rpx}
-.part-title{width: inherit; height: 80rpx; background: none; font: 900 26rpx/40rpx "Roboto"; padding-bottom: 10rpx}
-.part-content{width: inherit; height: 100rpx; color: #989898; font: 400 17rpx/30rpx "Roboto"; padding-bottom: 20rpx}
+.part-right .picFrame image{width: 240rpx; display: block; border-radius: 8rpx; height: 220rpx}
+.part-title{width: inherit; height: 80rpx; background: none; font: 900 27rpx/40rpx "Roboto"; padding-bottom: 10rpx; display: flex; align-items: center}
+.part-title text{display: inline-block}
+.part-content{width: inherit; height: 100rpx; color: #989898; font: 400 20rpx/30rpx "Roboto"; padding-bottom: 20rpx}
 .time-stamp{display: block; float: left;}
 .origin-site{display: block; float: right}
-.mark-stamp{width: 20rpx; height: 20rpx; border-radius: 50%; background: #c00; margin: 0 10rpx; display: block; float: right}
+.mark-stamp{width: 20rpx; height: 20rpx; border-radius: 50%; margin: 0 10rpx; background-image: linear-gradient(45deg,  rgb(224, 79, 78), rgb(219, 47, 35) 100%); display: block; float: right}
+.mark-stamp image{width: 18rpx; height: 18rpx; display: block; padding: 2rpx}
 .r_selector{width: 100%; height: 60rpx; background: none; font: 400 26rpx/60rpx "Roboto"}
 .currProvince{width: 150rpx; height: 60rpx; padding-left: 25rpx; border-radius: 30rpx; border: 1px solid rgba(0, 0, 0, .08); float: left; background: none; margin-left: 20rpx; color: rgba(0, 0, 0, .4)}
 .currProvince:active, .reGPS:active{-webkit-transition: all 100ms; transition: all 100ms; background: rgba(0, 0, 0, .1); color: white}

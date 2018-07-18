@@ -8,7 +8,7 @@
             <block wx:for="{{passageJSON.keyWords}}" wx:key="wordsKey" wx:for-item="words" wx:for-index="wordsIdx"><view class="keywords">{{words}}</view></block>
         </view>
         <view class="passages-body">
-            <block wx:for="{{passageJSON.content}}" wx:key="passageKey" wx:for-item="passage" wx:for-index="passageIdx"><p><text wx:if="{{passage.text}}">{{passage.text}}</text><image wx:if="{{passage.image}}" src="{{passage.image}}"/></p></block>
+            <block wx:for="{{passageJSON.content}}" wx:key="passageKey" wx:for-item="passage" wx:for-index="passageIdx"><p><text wx:if="{{passage.text}}">{{passage.text}}</text><image mode="widthFix" wx:if="{{passage.image}}" src="{{passage.image}}"/></p></block>
         </view>
         <view class="passages-footer"><view class="outerFooter {{fade}}"><image style="display: {{okImg}}" src="{{okSrc}}" /><text bindtap="{{okEvent}}" style="color: {{okColor}}">{{okTip}}</text></view></view>
     </view>
