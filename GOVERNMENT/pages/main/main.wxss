@@ -1,0 +1,22 @@
+/* pages/main/main.wxss */
+.tital{
+  color: #333;
+  font-size: 40rpx;
+  padding: 10px 0;
+}
+.main{
+  padding: 10px 10px;
+  height: 100vh;
+  background: #F8F8FF;
+}
+.main .top{
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #CDC9C9;
+}
+.main .tital-bottom{
+  color: 	#CDC9C9;
+  font-size: 25rpx;
+}
+.tital-bottom text{
+  margin-right: 10rpx;
+}

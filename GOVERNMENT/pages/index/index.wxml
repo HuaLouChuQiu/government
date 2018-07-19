@@ -1,0 +1,82 @@
+<view class="tital">中国各省GDP排行榜</view>
+<view class='top'>
+  <navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='frist'>1</view>
+  <text>上海</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='secend'>2</view>
+  <text>上海</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+   </navigator>
+</view>
+<view class='top'>
+  <navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='thrid'>3</view>
+  <text>上海</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>宁夏回族自治区</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>杭州</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>杭州</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>杭州</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>杭州</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>
+<view class='top'>
+<navigator url="/pages/main/main" hover-class="navigator-hover">
+  <view class='next'>4</view>
+  <text>杭州</text>
+  <text>GDP</text>
+  <text>827122亿元</text>   
+  <text>增长6.9%</text>
+  </navigator>
+</view>

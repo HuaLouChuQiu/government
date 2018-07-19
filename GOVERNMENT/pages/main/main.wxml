@@ -1,0 +1,11 @@
+<!--pages/main/main.wxml-->
+<view class='main'>
+  <view class='top'>
+    <view class='tital'>上海GDP分析</view>
+    <view class='tital-bottom'><text>2018-01-20</text><text>08:38:23</text><text>中国人民日报</text> <text>作者：胡小兵</text></view>
+  </view>
+  <view class='content'>
+  </view>
+</view>
+
+

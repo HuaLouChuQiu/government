@@ -1,0 +1,48 @@
+/**index.wxss**/
+.tital{
+  padding: 10rpx 10rpx;
+  text-align: center;
+  border: 2rpx solid #333;
+}
+.top{
+  padding: 20rpx 20rpx; 
+}
+.top .frist{
+  margin-right: 20rpx;
+  display: inline-block;
+  background: red;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center; 
+  color: white;
+}
+.top text{
+  margin: 0 10rpx;
+}
+.top .secend{
+  margin-right: 20rpx;
+  display: inline-block;
+  background: #EE7942;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center; 
+  color: white;
+}
+.top .thrid{
+  margin-right: 20rpx;
+  display: inline-block;
+  background: #EEB422;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center; 
+  color: white;
+}
+.top .next{
+  margin-right: 20rpx;
+  display: inline-block;
+  background: #E6E6FA;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center; 
+  color: white;
+}
