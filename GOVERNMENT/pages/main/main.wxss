@@ -1,5 +1,5 @@
 /* pages/main/main.wxss */
-.tital{
+ .tital{
   color: #333;
   font-size: 40rpx;
   padding: 10px 0;
@@ -19,4 +19,4 @@
 }
 .tital-bottom text{
   margin-right: 10rpx;
-}
+} 
