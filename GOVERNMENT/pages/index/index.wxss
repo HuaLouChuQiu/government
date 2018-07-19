@@ -1,5 +1,5 @@
 /**index.wxss**/
-/* .tital{
+ /* .tital{
   padding: 10rpx 10rpx;
   text-align: center;
   border: 2rpx solid #333;
@@ -15,9 +15,6 @@
   height: 50rpx;
   text-align: center; 
   color: white;
-}
-.top text{
-  margin: 0 10rpx;
 }
 .top .secend{
   margin-right: 20rpx;
@@ -36,8 +33,12 @@
   height: 50rpx;
   text-align: center; 
   color: white;
+} */
+.talk{
+  margin: 0 10rpx;
 }
-.top .next{
+ .next{
+  margin-left: 15rpx;
   margin-right: 20rpx;
   display: inline-block;
   background: #E6E6FA;
@@ -45,7 +46,7 @@
   height: 50rpx;
   text-align: center; 
   color: white;
-} */
+}  
 
 .ranking-content{width: calc(100%-40rpx); height: 300rpx; background: #eee; padding: 0 20rpx; padding-bottom: 5rpx}
 .ranking-content::after{content: ""; display: block; width: 100%; height: 20rpx;}
@@ -64,3 +65,8 @@
 
 .view_more{display: block; height: 40rpx; width: 85rpx; border-radius: 20rpx; border: 1px solid #4082fc; font-size: 24rpx; color: #4082fc; text-align: center; line-height: 40rpx}
 .view_more:active{background-color: #4082fc; color: #fff; -webkit-transition: all 100ms; transition: all 100ms}
+
+.ranking-next-items{width: 100%; height: 60rpx; }
+.ranking-next-items .rank-order{width: 45rpx; height: 60rpx; float: left; background: white; padding: 0 20rpx; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee}
+.ranking-next-items .rank-order text{display: block; font-size: 28rpx; line-height: 60rpx; text-align: center; font-weight: 600; color: #ffca28}
+.ranking-next-items .rank-name{float: left; width: calc(100%-165rpx); height: 60rpx; background: white; text-indent: 10rpx; font-size: 24rpx; line-height: 60rpx;}

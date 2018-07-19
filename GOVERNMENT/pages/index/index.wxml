@@ -81,25 +81,51 @@
   </navigator>
 </view> -->
 <view class="ranking-content">
-          <view class="ranking-top-items" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
-            <view class="tops" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
-              <view class="goal-icon"><view class="order-rank">1</view><image src="../../images/medal_golden.svg" /></view>
-              <view class="goal-name"><text class="goaler">湖南农业大学</text></view>
-              <view class="goal-more"><text class="view_more">查看</text></view>
-            </view>
-            <view class="tops">
-              <view class="goal-icon"><view class="order-rank">2</view><image src="../../images/medal_silver.svg" /></view>
-              <view class="goal-name"><text class="goaler">某一一流大学。。。某一一流大学。。。。</text></view>
-              <view class="goal-more"><text class="view_more">查看</text></view>
-            </view>
-            <view class="tops">
-              <view class="goal-icon"><view class="order-rank">3</view><image src="../../images/medal_bronze.svg" /></view>
-              <view class="goal-name"><text class="goaler">某一一流大学。。。某一一流大学。。。。</text></view>
-              <view class="goal-more"><text class="view_more">查看</text></view>
-            </view>
-          </view>
-          <view class="ranking-next-items" style="background-color: white">
-            <view class="rank-order"><text>4</text></view>
-            <view class="rank-name">某大学。。。</view>
-          </view>
-        </view>
+  <view class="ranking-top-items" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
+    <view class="tops" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
+      <view class="goal-icon">
+        <view class="order-rank">1</view>
+        <image src="../../images/medal_golden.svg" />
+      </view>
+      <view class="goal-name">
+        <text class="goaler">湖南农业大学</text>
+      </view>
+      <view class="goal-more">
+        <text class="view_more">查看</text>
+      </view>
+    </view>
+    <view class="tops">
+      <view class="goal-icon">
+        <view class="order-rank">2</view>
+        <image src="../../images/medal_silver.svg" />
+      </view>
+      <view class="goal-name">
+        <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
+      </view>
+      <view class="goal-more">
+        <text class="view_more">查看</text>
+      </view>
+    </view>
+    <view class="tops">
+      <view class="goal-icon">
+        <view class="order-rank">3</view>
+        <image src="../../images/medal_bronze.svg" />
+      </view>
+      <view class="goal-name">
+        <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
+      </view>
+      <view class="goal-more">
+        <text class="view_more">查看</text>
+      </view>
+    </view>
+  </view>
+  <view class="ranking-next-items" style="background-color: white">
+    <navigator url="/pages/main/main" hover-class="navigator-hover">
+      <view class='next'>4</view>
+        <text class='talk'>杭州</text>
+        <text class='talk'>GDP</text>
+        <text class='talk'>827122亿元</text>
+        <text class='talk'>增长6.9%</text>
+    </navigator>
+  </view>
+</view>
