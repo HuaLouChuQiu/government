@@ -84,4 +84,47 @@ class Index_newsStructur {
         return $r_msg;
 
     }
+
+
+    /**
+     * 处理文章内容和关键字
+     * $data 由模型查找返回的数据
+     */
+    public function su_keyword($data){
+        $r_msg = array();
+
+        if(empty($data)){ $r_msg['err_msg'] = "数据为空"; return $r_msg;}       //为空
+        
+        //一些文章信息
+        $info = array("title"=>$data[0]['title'],"site"=>$data[0]['source'],"time"=>$data[0]['release_time'],"author"=>$data[0]['edit'],"url"=>$data[0]['link']);
+
+        $keyWords = array();                //关键字
+        for($i=1;$i<count($data);$i++){
+            $keyWords[] = $data[$i]['key_word'];
+        }
+
+        $text = htmlspecialchars_decode($data[0]['text']);
+        $pquery_obj = new \phpqueryGet($text);
+        $parags = $pquery_obj->getDetailedmess("p");
+        $imgs = $pquery_obj->getTabAttributes("p > img","src");
+
+        $content = array();$k=0;                    //图片和正文内容
+        foreach($parags as $key=>$value){
+            if(empty($value)){
+                if(is_numeric(strpos($imgs[$k],"http://"))){            //如果图片链接是完整的
+                    $content[] = array("image"=>$imgs[$k]);
+                }else{
+                    $preg = "/http:\/\/www.gov.cn\/(.*?)content/";
+                    preg_match($preg,$data[0]['link'],$prefix);
+                    $content[] = array("image"=>"http://www.gov.cn/".$prefix[1].$imgs[$k]);
+                }
+                $k++;
+            }else{
+                $content[] = array("text"=>$value);
+            }
+        }
+
+        $r_msg = array("info"=>$info,"keyWords"=>$keyWords,"content"=>$content);
+        return $r_msg;
+    }
 }
