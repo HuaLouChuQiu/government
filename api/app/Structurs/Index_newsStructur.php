@@ -17,8 +17,8 @@ class Index_newsStructur {
             $nei_ary = array();
             $nei_ary['port'] = $value['id'];            //id号
 
-            if(mb_strlen($value['title']) > 38){       //标题
-                $nei_ary['title'] = mb_substr($value['title'],0,38)."...";
+            if(mb_strlen($value['title']) > 32){       //标题
+                $nei_ary['title'] = mb_substr($value['title'],0,32)."...";
 
             }else{
                 $nei_ary['title'] = $value['title'];
@@ -106,7 +106,7 @@ class Index_newsStructur {
         $text = htmlspecialchars_decode($data[0]['text']);
         $pquery_obj = new \phpqueryGet($text);
         $parags = $pquery_obj->getDetailedmess("p");
-        $imgs = $pquery_obj->getTabAttributes("p > img","src");
+        $imgs = $pquery_obj->getTabAttributes("p > img,p > span > img","src");
 
         $content = array();$k=0;                    //图片和正文内容
         foreach($parags as $key=>$value){
