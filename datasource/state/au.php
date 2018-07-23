@@ -30,7 +30,7 @@ require_once("linkNew_way.php");             //国家新闻链接获取方法
 require_once("textNews_way.php");             //国家新闻文本获取方法
 require_once("keywordNews.php");               //获取国家新闻关键字的方法
 
-/* $test_obj = new link_way;   //国家政策
+$test_obj = new link_way;   //国家政策
 $test_obj->updatelink();
 echo "国家政策完成<br>";
 
@@ -40,7 +40,7 @@ echo "国家新闻完成<br>";
 
 $state_newsText_obj = new textNews_way;        //新闻内容
 $state_newsText_obj->saveNewstext();
-echo "新闻内容操作完成<br>"; */
+echo "新闻内容操作完成<br>";
 
 $state_newsKeyword_obj = new keywordNews();     //分析出关键字
 $state_newsKeyword_obj->getkeyword();
