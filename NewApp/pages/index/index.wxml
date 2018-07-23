@@ -14,10 +14,13 @@
   </view>
 </scroll-view>
 <view class="slider {{refresh}}" style="transform: rotate({{refreshRotate}}deg)"><image src="../../images/refresh.svg" /></view>
-<view class="shiftTop {{scrollUp}}" bindtap="scrollToTop"><image src="../../images/upward.svg" /></view>
-<swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped">
-  <swiper-item style="background: red; ">
-    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="loadmore" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}">
+<view class="shiftTop {{scrollUp}}" bindtap="{{scrollToTop}}"><image src="../../images/upward.svg" /></view>
+<view class="shiftTop {{loadUp}}"><image src="../../images/refresh.svg" /></view>
+<view class="reachBottomest {{reached}}">-已到达最底部-</view>
+<swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped" style="background-color: {{IndexColor}}">
+  <swiper-item>
+    <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
+    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}"  hidden="{{completeBoolean}}">
       <view class="ranking" style="padding-top: {{addpadingtop}}">
         <view class="ranking-title">
           <view class="title1"><text>更新日期：{{updateTime}}</text></view>
@@ -54,7 +57,7 @@
       <view class="passages-country">
         <view class="partName">国务要闻</view>
         <block wx:for="{{partArr}}" wx:key="partKey" wx:for-item="part" wx:for-index="partIdx">
-        <view class="partPorts" data-port="{{part.port}}">
+        <view class="partPorts" data-port="{{part.port}}" bindtap="LoadPassage">
           <view class="out-part">
             <view class="part-header">
               <block wx:if="{{part.image}}">
@@ -62,7 +65,7 @@
                   <view class="part-title"><text>{{part.title}}</text></view>
                   <view class="part-content">{{part.shortContent}}</view>
                 </view>
-                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" /></view></view>
+                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: green"/></view></view>
               </block>
               <block wx:if="{{!part.image}}">
                 <view class="part-left" style="width: 700rpx">
@@ -78,21 +81,29 @@
       </view>
     </scroll-view>
   </swiper-item>
-  <swiper-item style="background: purple">
+  <swiper-item>
     <scroll-view class="inner-content" scroll-y="true">
       <picker mode="selector" range="{{regions}}" value="{{r_index}}" bindchange="RegionChange">
           <view class="currProvince"><scroll-view scroll-x="true" scroll-left="{{scroll_left}}"><text>{{r_selected}}</text></scroll-view><image src="../../images/chevron_gray.svg" /></view>
       </picker>
       <view class="r_selector">
           <view class="reGPS"><image src="../../images/GPS.svg" /><view>重新定位</view></view>
-        </view>
-    </scroll-view>
-  </swiper-item>
-  <swiper-item style="background: black">
-    <scroll-view class="inner-content" scroll-y="true">
-      <view class="cloudMap">
-        
+      </view>
+      <view class="passages-province">
+        <view class="partName">省内新闻</view>
       </view>
     </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="inner-content" scroll-y="true" style="background-color: #eee;">
+      <view style="background-color: #eee; padding-top: 20rpx"></view>
+      <view class="user-PN">
+        <view class="PN-left">
+          <view class="user-P"><open-data type="userAvatarUrl"></open-data></view>
+          <view class="user-N"><view class="user-name"><open-data type="userNickName" lang="zh_CN"></open-data></view><view class="foot-print">阅读篇目：150000</view></view>
+        </view>
+        <view class="PN-right"><image src="../../images/history.svg" /></view>
+      </view>
+   </scroll-view>
   </swiper-item>
 </swiper>

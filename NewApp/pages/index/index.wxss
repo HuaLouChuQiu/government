@@ -13,10 +13,13 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .slider.refresh{top: 400rpx; opacity: 1; -webkit-transform: rotate(360deg); transform: rotate(360deg); -webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
 .slider image{width: 40rpx; height: 40rpx; display: block}
 .shiftTop{width: 50px; height: 50px; position: fixed; bottom: -50px; right: 25rpx; border-radius: 50%; box-shadow: 0 0 1em rgba(0, 0, 0, .1); z-index: 2; background: white; display: flex; align-items: center; justify-content: center; -webkit-transition: all 200ms; transition: all 200ms; opacity: 0}
+.shiftTop.loadUp image{-webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
 .shiftTop:active{background: #ebebeb}
 .shiftTop image{width: 28px; height: 28px;}
 .shiftTop.scrollUp{bottom: 40px; opacity: 1;}
-.content, .inner-content{width: 100%; height: calc(100vh - 214rpx); background: #eee}
+.reachBottomest{width: 100%; height: 30rpx; position: fixed; bottom: -30rpx; font: 400 22rpx/30rpx "Roboto"; text-align: center; background-color: transparent; -webkit-transition: all 100ms; transition: all 100ms; opacity: 0; z-index: 9}
+.reachBottomest.reached{bottom: 0; opacity: 1; color: #ccc; letter-spacing: 2px; text-indent: 2px}
+.content, .inner-content{width: 100%; height: calc(100vh - 214rpx);}
 .inner-content{background: white; height: 100%; }
 .test, .text{width: 100%; height: 300rpx; background: yellow}
 .text{background: yellowgreen}
@@ -52,9 +55,10 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .order-rank{width: 55rpx; height: 55rpx; position: absolute; padding: 15rpx; text-align: center; font-size: 20rpx; font-weight: 700; line-height: 40rpx; color: rgba(255, 255, 255, .5)}
 .goaler{color: #282828; font-weight: bolder}
 
-.passages-country{width: calc(100%-20rpx); padding: 35rpx 0 0}
-.passages-country .partPorts:last-child{border: 0}
-.partName{width: inherit; height: 30rpx; background: none; font: bolder 25rpx/30rpx "Roboto"; text-indent: 10rpx; border-left: 4px solid #4082fc; margin: 0 10rpx 20rpx}
+.passages-country, .passages-province{width: calc(100%-20rpx); padding: 35rpx 0 0}
+.passages-country .partPorts:last-child, .passages-province .partPorts:last-child{border: 0}
+.passages-country .partName, .passages-province .partName{width: inherit; height: 30rpx; background: none; font: bolder 25rpx/30rpx "Roboto"; text-indent: 10rpx; border-left: 4px solid #4082fc; margin: 0 10rpx 20rpx}
+.passages-province .partName{border-left: 4px solid #e34a3a;}
 .partPorts{width: calc(100%-40rpx); height: 240rpx; background: none; padding: 0 20rpx; padding-bottom: 22rpx; border-bottom: 1px dashed rgba(0, 0, 0, .08)}
 .part-header{width: 100%; height: 220rpx; background: none}
 .part-footer{width: 100%; height: 20rpx; background: none; font-size: 18rpx; line-height: 20rpx; color: #989898;}
@@ -81,6 +85,15 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .reGPS image{width: 50rpx; height: 50rpx; padding: 5rpx}
 
 .cloudMap{width: calc(100%-20rpx); height: 400rpx; background: green; padding: 10rpx;}
+.user-PN{width: 100%; height: 120rpx; background: white;}
+.user-PN .PN-left{width: calc(100% - 120rpx); height: 100%; background: none; float: left; display: flex; align-items: center}
+.user-PN .PN-left .user-P{width: 120rpx; height: 120rpx; background: white; padding-left: 20rpx; float: left;}
+.user-PN .PN-left .user-N{width: calc(100% - 150rpx); padding-left: 10rpx; background: none; float: left}
+.user-PN .PN-left .user-N .user-name{width: 100%; height: 34rpx; font: 400 30rpx/30rpx "Roboto"; display: flex; flex-direction: column-reverse}
+.user-PN .PN-left .user-N .user-name{font-weight: 500; height: 38rpx}
+.user-PN .PN-left .user-N .foot-print{font-size: 24rpx; padding-top: 8rpx; color: #ccc}
+.user-PN .PN-right{width: 120rpx; height: 120rpx; float: left; display: flex; justify-content: center; align-items: center}
+.user-PN .PN-right image{width: 50rpx; height: 50rpx}
 @-webkit-keyframes spin{
     100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
 }

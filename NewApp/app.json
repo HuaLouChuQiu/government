@@ -1,8 +1,8 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/logs/logs",
-        "pages/passages/passages"
+        "pages/passages/passages",
+        "pages/history/history"
     ],
     "window": {
         "backgroundTextStyle": "light",

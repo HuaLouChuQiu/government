@@ -1,26 +1,31 @@
 // pages/passages/passages.js
 var that;
 var clipboardTimer;
+var start_Y=0;
+var end_Y=0;
+var timer;
+var ThePort = 0;
 Page({
   data: {
+    completeBoolean: true,
     okImg: "none",
     okSrc: "",
     okEvent: "copy_to_clipboard",
     okColor: "#898989",
     okTip: "复制原文地址链接",
-    passageJSON: {
-      info: {title: "视觉风格仍在调整，多任务切换操作进一步优化：Android P DP4 更新 | 具透", site: "中央政府网", time: "7月12日", author: "新华社记者", url: "http://www.gov.cn"}, 
-      keyWords: ["A", "AB", "ABC", "ABCD", "ABCDE", "ABCDEF", "ABCDEFG", "ABCDEFGH", "ABCDEFGHI", "ABCDEFGHIJ", "ABCDEFGHIJK"],
-      content: [
-        {text: "现在的互联网上「贩卖焦虑」似乎成了永不缺乏的「十万加」话题。抛开这些文章的观点是否偏激不谈，「贩卖焦虑」的流行至少说明了一个事实：我们当中的很多人，或多或少都会在生活中感到焦虑。"},
-        {text: "焦虑让人睡眠质量下降，注意力无法长时间集中，工作效率也会受其影响，整个人陷入身心俱疲的恶性循环。因此，如何自我调节、舒缓压力就成了大家关心的话题。"},
-        {image: "https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/0.jpg?t=2018712"},
-        {text: "此前我们曾经向大家推荐过番茄钟应用潮汐，不同于传统的番茄钟应用，它利用「白噪音使人内心平静、精神专注」的特点，将白噪音和番茄钟结合，有效地避免了「定个番茄钟然后跑神25分钟」的情况。"},
-        {text: "睡眠的重要性无需强调，你在每一个失眠的夜晚和被闹钟「吓醒又昏倒」的清晨应该都能深切体会到。人的一生有近三分之一时间要在睡眠中度过，与其天天祈祷「睡到自然醒」，不如主动尝试改善自己的睡眠质量。"},
-        {text: "当窗外下雨时，你在屋内就能睡得特别香。这样一种均匀而持续的声音让你忽略环境中突然闯入的鸣笛、脚步等声音，又常常被称为白噪音。潮汐的助眠功能采取的就是这样一种方式，播放白噪音，通过掩蔽睡眠环境下的杂音来达到一个声音波动的相对平衡，帮助我们的大脑在睡眠时减少被外界声音干扰的可能性。"},
-        {text: "不同于系统自带的「吓人」闹钟声，潮汐采用了友好的自然声音唤你起床，挪威森林的鸟鸣、曼彻斯特海边的海浪、东京寺庙的钟声与鸡鸣，相信这些有趣的声音相信一定可以让你每天的醒来都感到愉悦。"}
-      ]
-    }
+    passageJSON: {}
+  },
+  getpassage: function(){
+    wx.request({
+      url: `https://yixinping.top/government/api/index?c=index_news&m=getNews_contecnt&p1=${ThePort}`,
+      success: function(passageData){
+        console.log("run", passageData.data);
+        that.setData({passageJSON: passageData.data});
+      },
+      complete: function(){
+        that.setData({completeBoolean: false})
+      }
+    })
   },
   backPage: function(){
     wx.navigateBack({
@@ -29,6 +34,8 @@ Page({
   },
   onLoad: function (options) {
     that = this;
+    ThePort = options.port;
+    that.getpassage();
   },
   copy_to_clipboard: function(){
     var originUrl = that.data.passageJSON.info.url;
@@ -45,6 +52,22 @@ Page({
         }, 5000)
       }
     })
+  },
+  indexTS: function(e){
+    start_Y = e.touches[0].pageY
+  },
+  indexTE: function(e){
+    end_Y = e.changedTouches[0].pageY;
+    var shift = end_Y - start_Y
+    console.log(shift);
+    if(shift<0){
+      timer = setTimeout(function(){
+        that.setData({hideBar: "hideBar"});
+        clearTimeout(timer);
+      }, 1000)
+    }else if(shift>0){
+      that.setData({hideBar: ""})
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
