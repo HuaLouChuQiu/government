@@ -11,6 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
+<<<<<<< HEAD
 	"libVersion": "2.2.0",
 	"appid": "wx34f96dc3900f04d2",
 	"projectname": "NewApp",
