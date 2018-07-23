@@ -4,7 +4,7 @@
 // 数据库配置
 $config['db']['host'] = '127.0.0.1';
 $config['db']['username'] = 'root';
-$config['db']['password'] = '';
+$config['db']['password'] = '890ccf33a9a4';
 $config['db']['dbname'] = 'government';
 
 //百度云ai接口调用参数

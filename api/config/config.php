@@ -3,7 +3,7 @@
 // 数据库配置
 $config['db']['host'] = '127.0.0.1';
 $config['db']['username'] = 'root';
-$config['db']['password'] = '';
+$config['db']['password'] = '890ccf33a9a4';
 $config['db']['dbname'] = 'government';
 
 //微信小程序AppID和appsecret配置
