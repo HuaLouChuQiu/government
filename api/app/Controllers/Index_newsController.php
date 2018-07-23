@@ -31,7 +31,8 @@ class Index_newsController extends Controller{
 
         //处理是不是第一次加载
         $all_num = $num;
-        while(true){           
+        $max_times=0;
+        while($max_times<20){           
             if($id==0){
                 $r_msg = $innM_obj->sl_state_news($id,$num);
             }else{
@@ -44,8 +45,9 @@ class Index_newsController extends Controller{
                 break;
             }
 
-            $def = $num - count($r_msg);
+            $def = $all_num - count($r_msg);
             $num = $num+$def;
+            $max_times++;
         }
 
         
