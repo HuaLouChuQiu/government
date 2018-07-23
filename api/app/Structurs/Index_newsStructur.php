@@ -27,7 +27,7 @@ class Index_newsStructur {
             $text = htmlspecialchars_decode($value['text']);
             $pquery_obj = new \phpqueryGet($text);
             $parags = $pquery_obj->getDetailedmess("p");
-            $imgs = $pquery_obj->getTabAttributes("p img","src");
+            $imgs = $pquery_obj->getTabAttributes("p > img,p > span > img","src");
 
             $nei_ary['shortContent'] = "";                  //组成短文内容
             foreach($parags as $v){
@@ -111,6 +111,8 @@ class Index_newsStructur {
         $content = array();$k=0;                    //图片和正文内容
         foreach($parags as $key=>$value){
             if(empty($value)){
+                if(!isset($imgs[$k])) continue;                       //检测是不是有这么多图片
+                
                 if(is_numeric(strpos($imgs[$k],"http://"))){            //如果图片链接是完整的
                     $content[] = array("image"=>$imgs[$k]);
                 }else{

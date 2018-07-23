@@ -30,13 +30,25 @@ class Index_newsController extends Controller{
         }
 
         //处理是不是第一次加载
-        if($id==0){
-            $r_msg = $innM_obj->sl_state_news($id,$num);
-        }else{
-            $id_max = $id-$num;
-            $id_min = $id-1;
-            $r_msg = $innM_obj->sl_state_news($id_max,$id_min);
+        $all_num = $num;
+        while(true){           
+            if($id==0){
+                $r_msg = $innM_obj->sl_state_news($id,$num);
+            }else{
+                $id_max = $id-$num;
+                $id_min = $id-1;
+                $r_msg = $innM_obj->sl_state_news($id_max,$id_min);
+            }
+
+            if(count($r_msg)>=$all_num){                 //有些事空的数量就再查找
+                break;
+            }
+
+            $def = $num - count($r_msg);
+            $num = $num+$def;
         }
+
+        
         //$innS_obj->su_processing($r_msg);die;
         $this->output($innS_obj->su_processing($r_msg));
     }
