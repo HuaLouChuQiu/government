@@ -4,6 +4,8 @@
  * 先加载需要的文件
  */
 set_time_limit (0);
+date_default_timezone_set("PRC");               //设置失去，避免php抛出警告
+chdir(dirname(__FILE__));
 require_once("../lib/phpQuery/phpQuery.php");
 require_once("../lib/crawling/reptile.php");
 require_once("../lib/DB/pdosql.php");
