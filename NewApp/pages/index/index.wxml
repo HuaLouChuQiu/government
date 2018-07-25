@@ -15,7 +15,7 @@
 </scroll-view>
 <view class="slider {{refresh}}" style="transform: rotate({{refreshRotate}}deg)"><image src="../../images/refresh.svg" /></view>
 <view class="shiftTop {{scrollUp}}" bindtap="{{scrollToTop}}"><image src="../../images/upward.svg" /></view>
-<view class="shiftTop {{loadUp}}"><image src="../../images/refresh.svg" /></view>
+<view class="shiftTop {{loadUp}}" style="z-index: 2"><image src="../../images/refresh.svg" /></view>
 <view class="reachBottomest {{reached}}">-已到达最底部-</view>
 <swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped" style="background-color: {{IndexColor}}">
   <swiper-item>
@@ -65,7 +65,7 @@
                   <view class="part-title"><text>{{part.title}}</text></view>
                   <view class="part-content">{{part.shortContent}}</view>
                 </view>
-                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: green"/></view></view>
+                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: transparent"/></view></view>
               </block>
               <block wx:if="{{!part.image}}">
                 <view class="part-left" style="width: 700rpx">
@@ -99,10 +99,31 @@
       <view style="background-color: #eee; padding-top: 20rpx"></view>
       <view class="user-PN">
         <view class="PN-left">
-          <view class="user-P"><open-data type="userAvatarUrl"></open-data></view>
-          <view class="user-N"><view class="user-name"><open-data type="userNickName" lang="zh_CN"></open-data></view><view class="foot-print">阅读篇目：150000</view></view>
+          <view class="user-P"><image src="{{_Profile}}" alt="用户头像"  wx:if="{{!theEmerBoolean}}"/><open-data type="userAvatarUrl" lang="en" wx:if="{{theEmerBoolean}}"/></view>
+          <view class="user-N"><view class="user-name"><text  wx:if="{{!theEmerBoolean}}">{{_NickName}}</text><open-data type="userNickName" wx:if="{{theEmerBoolean}}"/></view><view class="foot-print">阅读篇目：150000</view></view>
         </view>
-        <view class="PN-right"><image src="../../images/history.svg" /></view>
+        <view class="PN-right" catchtap="TurnToHistory"><image src="../../images/history.svg" /></view>
+      </view>
+      <view style="background-color: #eee; padding-top: 20rpx"></view>
+      <view class="user-SET">
+        <view class="SET-item">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">周报入口</view>
+              <view class="item-desc">根据用户偏好推送周报</view>
+            </view>
+            <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
+          </view>
+        </view>
+        <view class="SET-item">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">清空阅读记录</view>
+              <view class="item-desc">清空用户本地浏览历史记录</view>
+            </view>
+            <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
+          </view>
+        </view>
       </view>
    </scroll-view>
   </swiper-item>

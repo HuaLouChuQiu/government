@@ -1,6 +1,6 @@
-<view class="wxNavigationBar {{hideBar}}" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">NewApp</text></view>
+<view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">NewApp</text></view>
 <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
-<scroll-view class="passages-view" scroll-y="true" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" hidden="{{completeBoolean}}">
+<scroll-view class="passages-view" scroll-y="true" scroll-with-animation="true" hidden="{{completeBoolean}}">
     <view class="container">
         <view class="passages-header">
             <view class="passages-title">{{passageJSON.info.title}}</view>

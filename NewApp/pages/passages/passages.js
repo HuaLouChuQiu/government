@@ -1,10 +1,32 @@
 // pages/passages/passages.js
+const App = getApp();
 var that;
 var clipboardTimer;
 var start_Y=0;
 var end_Y=0;
 var timer;
 var ThePort = 0;
+function cutArr(array){
+  var tempArr = [];
+  for(var b=0; b<array.length; b++){
+    if(tempArr.indexOf(array[b]) === -1){
+      tempArr.push(array[b]);
+    }
+  }
+  return tempArr;
+}
+function cutJSONArr(array){
+  for(var a=0; a<array.length; a++){
+    for(var b=a+1; b<array.length;){
+      if(array[a].port == array[b].port){
+        array.splice(b, 1);
+      }else{
+        b++;
+      }
+    }
+  }
+  return array;
+}
 Page({
   data: {
     completeBoolean: true,
@@ -19,11 +41,12 @@ Page({
     wx.request({
       url: `https://yixinping.top/government/api/index?c=index_news&m=getNews_contecnt&p1=${ThePort}`,
       success: function(passageData){
-        console.log("run", passageData.data);
-        that.setData({passageJSON: passageData.data});
+        that.setData({passageJSON: passageData.data, completeBoolean: false});
       },
       complete: function(){
-        that.setData({completeBoolean: false})
+      },
+      fail: function(){
+        that.setData({completeBoolean: true});
       }
     })
   },
@@ -35,7 +58,62 @@ Page({
   onLoad: function (options) {
     that = this;
     ThePort = options.port;
-    that.getpassage();
+    that.getpassage(options.net);
+    wx.getStorage({
+      key: "history",
+      success: function(prevHistory){
+        var currentHistory = [];
+        currentHistory.push(options.port);
+        for(var a=0; a<prevHistory.data.length; a++){
+          currentHistory.push(prevHistory.data[a])
+        }
+        var newTempArr = cutArr(currentHistory);
+        if(newTempArr.length>50){newTempArr.splice(50, 1)}
+        wx.setStorageSync("history", newTempArr);
+        wx.getStorage({
+          key: "history",
+          success: function(TempCurrHistoryData){
+            wx.getStorage({
+              key: "historyPartContent",
+              success: function(partContentData){
+                wx.request({
+                  url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(TempCurrHistoryData.data[0])+1}&p2=1`,
+                  success: function(tempData){
+                    var tempPartArr = [];
+                    tempPartArr.push(tempData.data[0]);
+                    for(var c=0; c<partContentData.data.length; c++){
+                      tempPartArr.push(partContentData.data[c])
+                    }
+                    var newTempPartArr = cutJSONArr(tempPartArr);
+                    if(newTempPartArr.length>50){newTempPartArr.splice(50, 1)};
+                    wx.setStorageSync("historyPartContent", newTempPartArr);
+                  },
+                  fail: function(err){
+                    console.log(err)
+                  }
+                })
+              }
+            });
+          },
+          fail: function(err){
+            console.log(err)
+          }
+        })
+      },
+      fail: function(){
+        var newHistory = [];
+        newHistory.push(options.port);
+        wx.setStorageSync("history", newHistory);
+        wx.request({
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(options.port)+1}&p2=1`,
+          success: function(OnePartArr){
+            var newPartArr = [];
+            newPartArr.push(OnePartArr.data[0]);
+            wx.setStorageSync("historyPartContent", newPartArr);
+          }
+        })
+      }
+    })
   },
   copy_to_clipboard: function(){
     var originUrl = that.data.passageJSON.info.url;
@@ -52,22 +130,6 @@ Page({
         }, 5000)
       }
     })
-  },
-  indexTS: function(e){
-    start_Y = e.touches[0].pageY
-  },
-  indexTE: function(e){
-    end_Y = e.changedTouches[0].pageY;
-    var shift = end_Y - start_Y
-    console.log(shift);
-    if(shift<0){
-      timer = setTimeout(function(){
-        that.setData({hideBar: "hideBar"});
-        clearTimeout(timer);
-      }, 1000)
-    }else if(shift>0){
-      that.setData({hideBar: ""})
-    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -1,3 +1,4 @@
+var App = getApp();
 var that;
 var preCurr=0;
 var start_Y=0;
@@ -10,6 +11,10 @@ var arrs = [];
 var NumPerload = 3;
 Page({
   data: {
+    theEmerBoolean: true,
+    netError: false,
+    _NickName: "",
+    _Profile: "../../images/photo.svg",
     completeBoolean: true,
     IndexColor: "#fff",
     loadmore: "loadmore",
@@ -30,17 +35,27 @@ Page({
   onLoad: function () {
     that = this;
     that.setData({currentNum: 0, r_selected: that.data.regions[0]});
-    wx.request({
-      url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news",
-      success: function(newFour){
-        that.setData({partArr: newFour.data});
-        lastPartArr = that.data.partArr;
-        indexLastPort = lastPartArr[lastPartArr.length - 1].port;
+    wx.getStorage({
+      key: "prevPartArr",
+      success: function(prev){
+        that.setData({partArr: prev.data, completeBoolean: false});
+        console.log(prev.data)
       },
-      complete: function(){
-        that.setData({completeBoolean: false, IndexColor: "#eee"})
+      fail: function(){
+        wx.request({
+          url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news",
+          success: function(newFour){
+            that.setData({partArr: newFour.data});
+            lastPartArr = that.data.partArr;
+            indexLastPort = lastPartArr[lastPartArr.length - 1].port;
+            wx.setStorageSync("prevPartArr", newFour.data);
+          },
+          complete: function(){
+            that.setData({completeBoolean: false, IndexColor: "#eee"})
+          }
+        });
       }
-    });
+    })
   },
   swiped: function(e){
     var currNum = e.detail.current;
@@ -50,6 +65,22 @@ Page({
       var colorKey = `indicatorColor[${a}]`;
       var opaKey = `indicatorShow[${a}]`;
       that.setData({[colorKey]: "#888", [opaKey]: "0"})
+    }
+    if(currNum == 2){
+      wx.getStorage({
+        key: "getUserInfoFailed",
+        success: function(theBool){
+          if(theBool){
+            that.setData({theEmerBoolean: true});
+          }else{
+            that.setData({theEmerBoolean: false});
+            that.setData({_NickName: App.globalData.userInfo.nickName});
+            if(App.globalData.hasNet){
+              that.setData({_Profile: App.globalData.userInfo.avatarUrl})
+            }
+          }
+        }
+      })
     }
     that.setData({[currcolorKey]: "black", [curropaKey]: "1", refresh: "", scrollUp: ""})//refresh、scrollUp 用不用 hidden【Boolean】的形式？
   },
@@ -64,9 +95,11 @@ Page({
   loadmore: function(){
     // console.log(indexLastPort);
     that.setData({loadmore: "void", loadUp: "scrollUp loadUp"});
+    if(that.data.netError){that.onLoad()}
     wx.request({
       url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${indexLastPort}&p2=${NumPerload}`,
       success: function(loadTwo){
+        that.setData({netError: false});
         // console.log(loadTwo);
         that.setData({loadUp: ""})
         arrs = loadTwo.data;
@@ -84,11 +117,15 @@ Page({
           indexLastPort = that.data.partArr[that.data.partArr.length-1].port;
           // console.log("loadmore", that.data.partArr[that.data.partArr.length-1].port);
           that.setData({loadmore: "loadmore"});
+      },
+      fail: function(){
+        that.setData({netError: true})
       }
     })
   },
   void: function(){},
   refresh: function(e){
+    that.onLoad();
   },
   scroll: function(e){
     var tempTop = e.detail.scrollTop;
@@ -111,17 +148,18 @@ Page({
     if(that.data.reachedTop){
       if(shift < 0){
         console.log("上滑")
-      }else if(shift > 0){
+      }else if(shift > 10){
         console.log("下滑")
-        that.setData({refresh: "refresh"});
+        that.setData({refresh: "refresh", loadUp: ""});
         refreshTimer = setTimeout(function(){
           that.setData({refresh: ""});
           clearTimeout(refreshTimer)
-        }, 1000)
+        }, 1000);
+        that.refresh();
       }
     }else{
       if(shift > 0){
-        that.setData({scrollUp: "scrollUp", reached: ""})
+        that.setData({scrollUp: "scrollUp", reached: "", loadmore: "loadmore"})
       }else if(shift < 0){
         that.setData({scrollUp: ""})
       }
@@ -135,6 +173,11 @@ Page({
     console.log(e.currentTarget.dataset.port);
     wx.navigateTo({
       url: "../passages/passages?" + `port=${e.currentTarget.dataset.port}`
+    })
+  },
+  TurnToHistory: function(){
+    wx.navigateTo({
+      url: "../history/history"
     })
   }
 });
