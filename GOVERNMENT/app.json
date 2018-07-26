@@ -2,7 +2,6 @@
   "pages":[
     "pages/main/main",
     "pages/index/index",
-    
     "pages/logs/logs"
   ],
   "window":{
@@ -10,5 +9,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
-  }
+  },
+  "debug": true
 }

@@ -1,72 +1,207 @@
 /**index.wxss**/
- /* .tital{
+
+.tital{
   padding: 10rpx 10rpx;
   text-align: center;
-  border: 2rpx solid #333;
+  background: #4082fc;
+  color: #fff;
 }
-.top{
-  padding: 20rpx 20rpx; 
+.tital-content{
+  width: 100%;
+  /* background: pink; */
+  padding:0 15rpx; 
 }
-.top .frist{
-  margin-right: 20rpx;
+.tital-content view{
+  height: 40rpx;
+  border-left: 1px solid #eee;
   display: inline-block;
-  background: red;
-  width: 50rpx;
-  height: 50rpx;
-  text-align: center; 
-  color: white;
+  width: 13%;
+  color: #282828;
+  font-weight: bolder;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  text-align: center;
+  text-indent: 10rpx;
+  margin: 15rpx 10rpx;
 }
-.top .secend{
-  margin-right: 20rpx;
-  display: inline-block;
-  background: #EE7942;
-  width: 50rpx;
-  height: 50rpx;
-  text-align: center; 
-  color: white;
+
+.talk {
+  height:auto;
+  border-left: 1px solid #eee;
+  /* width: calc(100%-1px); */
+  width: 100rpx;
+  text-align: center;
+  color: #282828;
+  font-weight: bolder;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  text-indent: 10rpx;
+  margin: 15rpx 10rpx;
 }
-.top .thrid{
-  margin-right: 20rpx;
+
+.next {
+  position: absolute;
+  font-weight: 700;
+  line-height: 40rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 20rpx 35rpx;
   display: inline-block;
-  background: #EEB422;
-  width: 50rpx;
-  height: 50rpx;
-  text-align: center; 
-  color: white;
-} */
-.talk{
-  margin: 0 10rpx;
+  background: #e6e6fa;
+  width: 45rpx;
+  height: 45rpx;
+  text-align: center;
 }
- .next{
-  margin-left: 15rpx;
-  margin-right: 20rpx;
-  display: inline-block;
-  background: #E6E6FA;
-  width: 50rpx;
-  height: 50rpx;
-  text-align: center; 
-  color: white;
-}  
 
-.ranking-content{width: calc(100%-40rpx); height: 300rpx; background: #eee; padding: 0 20rpx; padding-bottom: 5rpx}
-.ranking-content::after{content: ""; display: block; width: 100%; height: 20rpx;}
-.ranking-top-items{width: inherit; height: 255rpx; background: none}
+.ranking-content {
+  width: calc(100%-40rpx);
+  height: 100vh;
+  background: #eee;
+  padding: 0 20rpx;
+  padding-bottom: 5rpx;
+}
 
-.ranking-top-items .tops{width: calc(100%-60rpx); height: 85rpx; background: #fff}
-.tops .goal-icon{float: left; width: 85rpx; height: 85rpx}
-.tops .goal-icon image{width: 55rpx; height: 55rpx; padding: 15rpx}
-.tops .goal-name{float: left; width: calc(100%-185rpx); height: 85rpx; display: flex; align-items: center}
-.tops .goal-name text{display: block; width: calc(100%-1px); border-left: 1px solid #eee; height: 40rpx; font-size: 24rpx; line-height: 40rpx; text-indent: 10rpx}
-.tops .goal-more{width: 100rpx; height: 85rpx; background: none; float: right; display: flex; justify-content: center; align-items: center; padding-right: 20rpx}
-.tops:active{background: #ebebeb; }
+.ranking-content::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 20rpx;
+}
 
-.order-rank{width: 55rpx; height: 55rpx; position: absolute; padding: 15rpx; text-align: center; font-size: 20rpx; font-weight: 700; line-height: 40rpx; color: rgba(255, 255, 255, .5)}
-.goaler{color: #282828; font-weight: bolder}
+.ranking-top-items {
+  width: inherit;
+  height: 255rpx;
+  background: none;
+}
 
-.view_more{display: block; height: 40rpx; width: 85rpx; border-radius: 20rpx; border: 1px solid #4082fc; font-size: 24rpx; color: #4082fc; text-align: center; line-height: 40rpx}
-.view_more:active{background-color: #4082fc; color: #fff; -webkit-transition: all 100ms; transition: all 100ms}
+.ranking-top-items .tops {
+  width: calc(100%-60rpx);
+  height: 85rpx;
+  background: #fff;
+}
 
-.ranking-next-items{width: 100%; height: 60rpx; }
-.ranking-next-items .rank-order{width: 45rpx; height: 60rpx; float: left; background: white; padding: 0 20rpx; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee}
-.ranking-next-items .rank-order text{display: block; font-size: 28rpx; line-height: 60rpx; text-align: center; font-weight: 600; color: #ffca28}
-.ranking-next-items .rank-name{float: left; width: calc(100%-165rpx); height: 60rpx; background: white; text-indent: 10rpx; font-size: 24rpx; line-height: 60rpx;}
+ .goal-icon {
+  float: left;
+  width: 110rpx;
+  height: 85rpx;
+}
+
+.tops .goal-icon image {
+  width: 55rpx;
+  height: 55rpx;
+  padding: 15rpx 30rpx;
+}
+.goal-next{
+  float: left;
+  width: calc(100%-185rpx);
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tops .goal-name {
+  float: left;
+  /* width: calc(100%-185rpx); */
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tops .goal-name text {
+  text-align: center;
+  display: block;
+  /* width: calc(100%-1px); */
+  width: 100rpx;
+  border-left: 1px solid #eee;
+  height: auto;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  text-indent: 10rpx;
+}
+
+.tops .goal-more {
+  width: 100rpx;
+  height: 85rpx;
+  background: none;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20rpx;
+}
+
+.tops:active {
+  background: #ebebeb;
+}
+
+.order-rank {
+  width: 85rpx;
+  height: 55rpx;
+  position: absolute;
+  padding: 15rpx;
+  text-align: center;
+  font-size: 20rpx;
+  font-weight: 700;
+  line-height: 40rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.goaler {
+  color: #282828;
+  font-weight: bolder;
+}
+
+.view_more {
+  display: block;
+  height: 40rpx;
+  width: 85rpx;
+  border-radius: 20rpx;
+  border: 1px solid #4082fc;
+  font-size: 24rpx;
+  color: #4082fc;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.view_more:active {
+  background-color: #4082fc;
+  color: #fff;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+}
+
+.ranking-next-items {
+  border-bottom: 1rpx solid #e6e6fa;
+  width: 100%;
+  height: 85rpx;
+}
+
+.ranking-next-items .rank-order {
+  width: 45rpx;
+  height: 60rpx;
+  float: left;
+  background: white;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
+}
+
+.ranking-next-items .rank-order text {
+  display: block;
+  font-size: 28rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-weight: 600;
+  color: #ffca28;
+}
+
+.ranking-next-items .rank-name {
+  float: left;
+  width: calc(100%-165rpx);
+  height: 60rpx;
+  background: white;
+  text-indent: 10rpx;
+  font-size: 24rpx;
+  line-height: 60rpx;
+}

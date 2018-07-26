@@ -1,131 +1,80 @@
-<!-- <view class="tital">中国各省GDP排行榜</view>
-<view class='top'>
-  <navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='frist'>1</view>
-  <text>上海</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
+<view class="tital">中国各省GDP排行榜</view>
+<view class="tital-content">
+  <view>排名</view>
+  <view>省份</view>
+  <view>人均GDP</view>
+  <view>城镇化率</view>
+  <view>公共预算收入</view>
+  <view>人类发展指数</view>
 </view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='secend'>2</view>
-  <text>上海</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-   </navigator>
-</view>
-<view class='top'>
-  <navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='thrid'>3</view>
-  <text>上海</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>宁夏回族自治区</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>杭州</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>杭州</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>杭州</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>杭州</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view>
-<view class='top'>
-<navigator url="/pages/main/main" hover-class="navigator-hover">
-  <view class='next'>4</view>
-  <text>杭州</text>
-  <text>GDP</text>
-  <text>827122亿元</text>   
-  <text>增长6.9%</text>
-  </navigator>
-</view> -->
 <view class="ranking-content">
   <view class="ranking-top-items" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
     <view class="tops" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
-      <view class="goal-icon">
-        <view class="order-rank">1</view>
-        <image src="../../images/medal_golden.svg" />
-      </view>
-      <view class="goal-name">
-        <text class="goaler">湖南农业大学</text>
-      </view>
-      <view class="goal-more">
-        <text class="view_more">查看</text>
-      </view>
+      <navigator url="/pages/main/main" hover-class="navigator-hover">
+        <view class="goal-icon">
+          <view class="order-rank">1</view>
+          <image src="../../images/medal_golden.svg" />
+        </view>
+        <view class="goal-name">
+          <text class='talk'>{{index[0].name}}</text>
+          <text class='talk'>{{index[0].gdp}}</text>
+          <text class='talk'>{{index[0].city}}</text>
+          <text class='talk'>{{index[0].public}}</text>
+          <text class='talk'>{{index[0].people}}</text>
+        </view>
+      </navigator>
     </view>
     <view class="tops">
-      <view class="goal-icon">
-        <view class="order-rank">2</view>
-        <image src="../../images/medal_silver.svg" />
-      </view>
-      <view class="goal-name">
-        <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
-      </view>
-      <view class="goal-more">
+      <navigator url="/pages/main/main" hover-class="navigator-hover">
+        <view class="goal-icon">
+          <view class="order-rank">2</view>
+          <image src="../../images/medal_silver.svg" />
+        </view>
+        <view class="goal-name">
+          <text class='talk'>{{index[1].name}}</text>
+          <text class='talk'>{{index[1].gdp}}</text>
+          <text class='talk'>{{index[1].city}}</text>
+          <text class='talk'>{{index[1].public}}</text>
+          <text class='talk'>{{index[1].people}}</text>
+        </view>
+        <!-- <view class="goal-more">
         <text class="view_more">查看</text>
-      </view>
+      </view> -->
+      </navigator>
     </view>
     <view class="tops">
-      <view class="goal-icon">
-        <view class="order-rank">3</view>
-        <image src="../../images/medal_bronze.svg" />
-      </view>
-      <view class="goal-name">
-        <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
-      </view>
-      <view class="goal-more">
+      <navigator url="/pages/main/main" hover-class="navigator-hover">
+        <view class="goal-icon">
+          <view class="order-rank">3</view>
+          <image src="../../images/medal_bronze.svg" />
+        </view>
+        <view class="goal-name">
+          <text class='talk'>{{index[2].name}}</text>
+          <text class='talk'>{{index[2].gdp}}</text>
+          <text class='talk'>{{index[2].city}}</text>
+          <text class='talk'>{{index[2].public}}</text>
+          <text class='talk'>{{index[2].people}}</text>
+        </view>
+        <!-- <view class="goal-more">
         <text class="view_more">查看</text>
-      </view>
+      </view> -->
+      </navigator>
     </view>
   </view>
-  <view class="ranking-next-items" style="background-color: white">
+  <block wx:for="{{next}}" wx:for-index="index">
+  <view class="ranking-next-items" style="background-color: white" catchtap="turnToMain" data-id="{{next[index].id}}">
     <navigator url="/pages/main/main" hover-class="navigator-hover">
-      <view class='next'>4</view>
-        <text class='talk'>杭州</text>
-        <text class='talk'>GDP</text>
-        <text class='talk'>827122亿元</text>
-        <text class='talk'>增长6.9%</text>
+      <view class="goal-icon">
+        <view class="next">{{index+4}}</view>
+      </view>
+      <view class="goal-next">
+        <text class='talk'>{{next[index].name}}</text>
+          <text class='talk'>{{next[index].gdp}}</text>
+          <text class='talk'>{{next[index].city}}</text>
+          <text class='talk'>{{next[index].public}}</text>
+          <text class='talk'>{{next[index].people}}</text>
+      </view>
     </navigator>
   </view>
+  </block>
 </view>
