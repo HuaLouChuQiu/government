@@ -1,2 +1,15 @@
-<!--pages/history/history.wxml-->
-<text>pages/history/history.wxml</text>
+<view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">浏览历史</text></view>
+<view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete" style="padding-top: 150rpx"><view>正在加载</view></view></view>
+<scroll-view class="history-view" scroll-y="true" hidden="{{completeBoolean}}">
+    <view class="history-container {{stretch}}">
+        <block wx:for="{{historyPartArr}}" wx:key="historyKey" wx:for-item="historyItem" wx:for-index="historyIdx">
+            <view class="history-item" style="animation-delay: {{historyIdx*40}}ms" catchtap="LoadPassage" data-port="{{historyItem.port}}">
+                <view class="history-item-body">
+                    <view class="item-part title">{{historyItem.title}}</view>
+                    <view class="item-part content">{{historyItem.shortContent}}</view>
+                    <view class="item-part site">{{historyItem.site}}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+</scroll-view>

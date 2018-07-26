@@ -12,7 +12,7 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .slider{width: 60rpx; height: 60rpx; position: fixed; margin: 0 345rpx; background: #fff; border-radius: 50%; top: 154rpx; z-index: 1; display: flex; justify-content: center; align-items: center; opacity: 0; -webkit-transition: all 300ms; transition: all 300ms; box-shadow: 0 0 1em rgba(0, 0, 0, .1)}
 .slider.refresh{top: 400rpx; opacity: 1; -webkit-transform: rotate(360deg); transform: rotate(360deg); -webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
 .slider image{width: 40rpx; height: 40rpx; display: block}
-.shiftTop{width: 50px; height: 50px; position: fixed; bottom: -50px; right: 25rpx; border-radius: 50%; box-shadow: 0 0 1em rgba(0, 0, 0, .1); z-index: 2; background: white; display: flex; align-items: center; justify-content: center; -webkit-transition: all 200ms; transition: all 200ms; opacity: 0}
+.shiftTop{width: 50px; height: 50px; position: fixed; bottom: -50px; right: 25rpx; border-radius: 50%; box-shadow: 0 0 1em rgba(0, 0, 0, .1); z-index: 3; background: white; display: flex; align-items: center; justify-content: center; -webkit-transition: all 200ms; transition: all 200ms; opacity: 0}
 .shiftTop.loadUp image{-webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
 .shiftTop:active{background: #ebebeb}
 .shiftTop image{width: 28px; height: 28px;}
@@ -21,8 +21,8 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .reachBottomest.reached{bottom: 0; opacity: 1; color: #ccc; letter-spacing: 2px; text-indent: 2px}
 .content, .inner-content{width: 100%; height: calc(100vh - 214rpx);}
 .inner-content{background: white; height: 100%; }
-.test, .text{width: 100%; height: 300rpx; background: yellow}
-.text{background: yellowgreen}
+.test, .text{width: 100%; height: 300rpx; background: none}
+.text{background: none}
 .ranking{width: 100%; height: 500rpx; background: none; font-family: "Roboto"; -webkit-transition: all 100ms; transition: all 100ms;}
 .ranking-title{width: calc(100%-40rpx); height: 200rpx; background: #eee; display: flex; flex-direction: column-reverse; padding: 0 20rpx}
 .ranking-title .title1{width: 100%; height: 40rpx; background: none; font-size: 20rpx; }
@@ -30,7 +30,7 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .ranking-title .title3{width: 100%; height: 60rpx; background: none; font-size: 32rpx; font-weight: 700; display: flex; flex-direction: column-reverse}
 .ranking-title .title2 text, .ranking-title .title3 text{border-left: 4px solid #E2100D; display: block; text-indent: 15rpx; color: #E2100D; background: white}
 .ranking-title .title1 text{border-left: 4px solid #2933E1; display: block; text-indent: 15rpx}
-.medal{width: 80rpx; height: 80rpx; background: green; float: right; position: absolute}
+.medal{width: 80rpx; height: 80rpx; background: none; float: right; position: absolute}
 .ranking-content{width: calc(100%-40rpx); height: 300rpx; background: #eee; padding: 0 20rpx; padding-bottom: 5rpx}
 .ranking-content::after{content: ""; display: block; width: 100%; height: 20rpx;}
 .ranking-top-items{width: inherit; height: 255rpx; background: none}
@@ -84,16 +84,27 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .reGPS view{width: 125rpx; height: 60rpx; float: right; }
 .reGPS image{width: 50rpx; height: 50rpx; padding: 5rpx}
 
-.cloudMap{width: calc(100%-20rpx); height: 400rpx; background: green; padding: 10rpx;}
 .user-PN{width: 100%; height: 120rpx; background: white;}
 .user-PN .PN-left{width: calc(100% - 120rpx); height: 100%; background: none; float: left; display: flex; align-items: center}
 .user-PN .PN-left .user-P{width: 120rpx; height: 120rpx; background: white; padding-left: 20rpx; float: left;}
+.user-PN .PN-left .user-P image{width: 100%; height: 100%;}
 .user-PN .PN-left .user-N{width: calc(100% - 150rpx); padding-left: 10rpx; background: none; float: left}
 .user-PN .PN-left .user-N .user-name{width: 100%; height: 34rpx; font: 400 30rpx/30rpx "Roboto"; display: flex; flex-direction: column-reverse}
 .user-PN .PN-left .user-N .user-name{font-weight: 500; height: 38rpx}
 .user-PN .PN-left .user-N .foot-print{font-size: 24rpx; padding-top: 8rpx; color: #ccc}
 .user-PN .PN-right{width: 120rpx; height: 120rpx; float: left; display: flex; justify-content: center; align-items: center}
 .user-PN .PN-right image{width: 50rpx; height: 50rpx}
+
+.user-SET{width: 100%;}
+.SET-item{width: 100%; height: 120rpx; background: white}
+.SET-item:active{background: #eee}
+.SET-item .item-body{width: 710rpx; height: calc(100% - 1px); margin: 0 auto; border-bottom: 1px solid rgba(0, 0, 0, .05)}
+.SET-item:last-child .item-body{border: 0}
+.SET-item .item-body .body-left{float: left; width: 670rpx; height: 100%; background: none}
+.SET-item .item-body .body-left .item-title{width: 100%; height: 72rpx; font: 400 27rpx/100rpx "Roboto"}
+.SET-item .item-body .body-left .item-desc{width: 100%; height: 48rpx; font: 400 18rpx/16rpx "Roboto"; color: #898989}
+.SET-item .item-body .body-right{float: left; width: 40rpx; height: 100%; background: none; display: flex; align-items: center}
+.SET-item .item-body .body-right image{width: 40rpx; height: 40rpx; }
 @-webkit-keyframes spin{
     100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
 }
