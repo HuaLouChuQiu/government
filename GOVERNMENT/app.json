@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/main/main",
-    "pages/index/index",
+    "pages/paihang/paihang",
     "pages/logs/logs"
   ],
   "window":{
