@@ -10,9 +10,9 @@ define('APP_KEY',$config['ai']['app_key']);
 define('SECRET_KEY',$config['ai']['secret_key']);
 
 $test_text = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);
-$text = "吸收外资,我们更加有魅力";
+$text = "扶贫";
 
-$title = "assdf";
+$title = "时政";
 
-$r_msg = $test_text->keyword($title,$text);
+$r_msg = $test_text->simnet($title,$text);
 var_dump($r_msg);

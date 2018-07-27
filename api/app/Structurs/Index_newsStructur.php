@@ -25,6 +25,9 @@ class Index_newsStructur {
             }
 
             $text = htmlspecialchars_decode($value['text']);
+            $preg = "/<script.*<\/script>/is";                  //去掉js代码
+            $text = preg_replace($preg,"",$text);
+            
             $pquery_obj = new \phpqueryGet($text);
             $parags = $pquery_obj->getDetailedmess("p");
             $imgs = $pquery_obj->getTabAttributes("p > img,p > span > img","src");
@@ -102,8 +105,12 @@ class Index_newsStructur {
         for($i=1;$i<count($data);$i++){
             $keyWords[] = $data[$i]['key_word'];
         }
-
+        
         $text = htmlspecialchars_decode($data[0]['text']);
+        
+        $preg = "/<script.*<\/script>/is";                          //去掉js代码
+        $text = preg_replace($preg,"",$text);
+        //echo preg_match_all($preg,$text,$ary);var_dump($ary);
         $pquery_obj = new \phpqueryGet($text);
         $parags = $pquery_obj->getDetailedmess("p");
         $imgs = $pquery_obj->getTabAttributes("p > img,p > span > img","src");
