@@ -21,20 +21,26 @@ class keywordNews {
             if(mb_strlen($s_data[$key]['title'])>40){                //标题不能大于40个字
                 $s_data[$key]['title'] = trim(mb_substr($s_data[$key]['title'],0,40));
             }
+
             $text = htmlspecialchars_decode($value['text']);
             $pquery_obj = new phpqueryGet($text);
             $parags = $pquery_obj->getDetailedmess("p");            //把文本分段
 
             $check_parag = "";
             foreach($parags as $k=>$v){
-                $check_parag .= $v." ";
+                $v = str_replace(chr(194) . chr(160),"",$v);            //去掉一些gbk的空格
+                $check_parag .= $v."\n";
                 if(mb_strlen($check_parag)>800){
-                    $check_parag = mb_substr($check_parag,0,800);
+                    //$check_parag = mb_substr($check_parag,0,800);
+                    if(mb_strlen($check_parag)>10000){
+                        $check_parag = str_replace($v."\n","",$check_parag);
+                    }
                     break;
                 }
             }
 
             $s_data[$key]['text'] = $check_parag;
+
         }
         
         return $s_data;
