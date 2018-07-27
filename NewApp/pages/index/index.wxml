@@ -1,4 +1,13 @@
 <view class="wxNavgationBar"><text class="AppName" catchtap="loadmore">NewApp</text></view>
+<view class="_cover {{_show}}" catchtap="{{OPTIONNAME.function._CANCEL}}" bindtap="_closeWindow"></view>
+<view class="_alertWindow {{_show}}">
+  <view class="_header">{{OPTIONNAME.surface._header}}</view>
+  <view class="_body">{{OPTIONNAME.surface._body}}</view>
+  <view class="_footer">
+    <button class="_okBtn" catchtap="{{OPTIONNAME.function._OK}}" hidden="{{!OPTIONNAME.surface._okBtn}}">确定</button>
+    <button class="_noBtn" catchtap="{{OPTIONNAME.function._CANCEL}}" hidden="{{OPTIONNAME.surface._CANCEL}}">取消</button>
+  </view>
+</view>
 <scroll-view scroll-x="true" class="sort-tab" style="padding-bottom: 19rpx">
   <view class="tab-outer">
     <view class="tab-items">
@@ -115,7 +124,7 @@
             <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
           </view>
         </view>
-        <view class="SET-item">
+        <view class="SET-item" bindtap="clearHistory">
           <view class="item-body">
             <view class="body-left">
               <view class="item-title">清空阅读记录</view>

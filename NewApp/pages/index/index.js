@@ -11,6 +11,7 @@ var arrs = [];
 var NumPerload = 3;
 Page({
   data: {
+    _show: "",
     theEmerBoolean: true,
     netError: false,
     _NickName: "",
@@ -30,11 +31,25 @@ Page({
     customItem: "allRegion",
     partArr: [],
     reachedTop: true,
-    refreshRotate: 0
+    refreshRotate: 0,
+    IndexWindowOptions: {
+      CleanHistory: {
+        surface: {
+          _header: "清空阅读记录",
+          _body: "确认清空阅读历史记录吗？",
+          _okBtn: true,
+          _noBtn: true
+        },
+        function: {
+          _OK: "_OK_cleanHistory",
+          _CANCEL: "_CANCEL_cleanHistory"
+        }
+      }
+    }
   },
   onLoad: function () {
     that = this;
-    that.setData({currentNum: 0, r_selected: that.data.regions[0]});
+    that.setData({currentNum: 2, r_selected: that.data.regions[0]});
     wx.getStorage({
       key: "prevPartArr",
       success: function(prev){
@@ -179,5 +194,19 @@ Page({
     wx.navigateTo({
       url: "../history/history"
     })
+  },
+  clearHistory: function(){
+    that.setData({OPTIONNAME: that.data.IndexWindowOptions.CleanHistory, _show: "_show"})
+  },
+  _OK_cleanHistory: function(){
+    that._closeWindow();
+    wx.removeStorageSync("historyPartContent");
+    wx.removeStorageSync("history");
+  },
+  _CANCEL_cleanHistory: function(){
+    that.setData({_show: ""})
+  },
+  _closeWindow: function(){
+    that.setData({_show: ""})
   }
 });

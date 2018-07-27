@@ -33,13 +33,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "passages",
 					"pathName": "pages/passages/passages",
-					"query": ""
+					"query": "port=5195"
 				},
 				{
 					"id": -1,
