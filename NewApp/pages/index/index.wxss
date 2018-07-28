@@ -35,6 +35,25 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .ranking-content::after{content: ""; display: block; width: 100%; height: 20rpx;}
 .ranking-top-items{width: inherit; height: 255rpx; background: none}
 .ranking-top-items .tops{width: calc(100%-60rpx); height: 85rpx; background: #fff}
+
+.WeeklyEnter{width: calc(100vw - 20rpx); padding: 10rpx; height: 200rpx; background: #fff; padding-top: 30rpx}
+.WeeklyEnter .weekly-body{width: 100%; height: 190rpx; background: none; display: flex; justify-content: center; align-items: center}
+.WeeklyEnter .weekly-body .imgBox{width: 700rpx; height: 190rpx; display: flex; position: absolute; background: royalblue; z-index: 2; align-items: center; justify-content: center; border-radius: 4rpx}
+.WeeklyEnter .weekly-body .imgBox image{width: 730rpx; height: 190rpx; border-radius: 8rpx}
+.WeeklyEnter .weekly-body .Ringing{width: auto; height: 50rpx; position: absolute; z-index: 2; min-width: 40rpx; background: none; margin-left: -270rpx; display: flex; align-items: center; font: 400 20rpx/44rpx "ROboto"; color: rgba(255, 255, 255, .3)}
+.WeeklyEnter .weekly-body .textBox .textBox-title .Ringing image{width: 40rpx; height: 40rpx; background: rgba(255, 255, 255, .1); border-color: none; border-radius: 50%; }
+.WeeklyEnter .weekly-body .textBox{width: calc(100% - 44rpx); height: 190rpx; position: relative; z-index: 3; background: none}
+.WeeklyEnter .weekly-body .textBox .textBox-title, .WeeklyEnter .weekly-body .textBox .textBox-body, .WeeklyEnter .weekly-body .textBox .textBox-footer{width: 100%; height: 70rpx; background: none; display: flex; align-items: center; justify-content: center}
+.WeeklyEnter .weekly-body .textBox .textBox-title image, .WeeklyEnter .weekly-body .textBox .textBox-body image{height: 30rpx; width: 65.625rpx; border: 1px solid rgba(255, 255, 255, .1); background-color: rgba(255, 255, 255, .2)}
+.WeeklyEnter .weekly-body .textBox .textBox-body{height: 90rpx;}
+.WeeklyEnter .weekly-body .textBox .textBox-footer{height: 40rpx; font: 400 24rpx/24rpx "Roboto"; text-align: center; background: #fff; width: 500rpx; margin: 0 auto; border-radius: 4rpx}
+.WeeklyEnter .weekly-body .textBox .textBox-body image{height: 48rpx; width: 252rpx; border-color: #fff; opacity: .5; background: none}
+.colorLines{width: 100%; height: 5rpx; display: flex; align-items: center; flex-wrap: nowrap}
+.colorLines text{display: block; height: 100%; width: 120rpx}
+.colorLines text:nth-child(odd){background-color: rgb(219, 47, 35)}
+.colorLines text:nth-child(even){background-color: royalblue}
+
+
 .tops .goal-icon{float: left; width: 85rpx; height: 85rpx}
 .tops .goal-icon image{width: 55rpx; height: 55rpx; padding: 15rpx}
 .tops .goal-name{float: left; width: calc(100%-185rpx); height: 85rpx; display: flex; align-items: center}
@@ -98,6 +117,7 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .user-SET{width: 100%;}
 .SET-item{width: 100%; height: 120rpx; background: white}
 .SET-item:active{background: #eee}
+.SET-item.bling{-webkit-animation: 1000ms bling forwards; animation: 1000ms bling forwards; animation-delay: 100ms}
 .SET-item .item-body{width: 710rpx; height: calc(100% - 1px); margin: 0 auto; border-bottom: 1px solid rgba(0, 0, 0, .05)}
 .SET-item:last-child .item-body{border: 0}
 .SET-item .item-body .body-left{float: left; width: 670rpx; height: 100%; background: none}
@@ -110,4 +130,16 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 }
 @keyframes spin{
     100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
+}
+@-webkit-keyframes bling{
+    25%{background-color: #eee}
+    50%{background-color: #fff}
+    75%{background-color: #eee}
+    100%{background-color: #fff}
+}
+@keyframes bling{
+    25%{background-color: #eee}
+    50%{background-color: #fff}
+    75%{background-color: #eee}
+    100%{background-color: #fff}
 }

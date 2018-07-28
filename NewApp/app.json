@@ -2,7 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/passages/passages",
-        "pages/history/history"
+        "pages/history/history",
+        "pages/weekly/weekly"
     ],
     "window": {
         "backgroundTextStyle": "light",

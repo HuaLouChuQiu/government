@@ -4,8 +4,9 @@
   <view class="_header">{{OPTIONNAME.surface._header}}</view>
   <view class="_body">{{OPTIONNAME.surface._body}}</view>
   <view class="_footer">
-    <button class="_okBtn" catchtap="{{OPTIONNAME.function._OK}}" hidden="{{!OPTIONNAME.surface._okBtn}}">确定</button>
-    <button class="_noBtn" catchtap="{{OPTIONNAME.function._CANCEL}}" hidden="{{OPTIONNAME.surface._CANCEL}}">取消</button>
+    <button wx:if="{{OPTIONNAME.surface.GETUSERINFO}}" class="_okBtn" catchtap="{{OPTIONNAME.function._OK}}" hidden="{{!OPTIONNAME.surface._okBtn}}" open-type="getUserInfo" bindgetuserinfo="userInfohandler">{{OPTIONNAME.surface._okBtn}}</button>
+    <button wx:if="{{!OPTIONNAME.surface.GETUSERINFO}}" class="_okBtn" catchtap="{{OPTIONNAME.function._OK}}" hidden="{{!OPTIONNAME.surface._okBtn}}">{{OPTIONNAME.surface._okBtn}}</button>
+    <button class="_noBtn" catchtap="{{OPTIONNAME.function._CANCEL}}" hidden="{{!OPTIONNAME.surface._noBtn}}">{{OPTIONNAME.surface._noBtn}}</button>
   </view>
 </view>
 <scroll-view scroll-x="true" class="sort-tab" style="padding-bottom: 19rpx">
@@ -30,7 +31,7 @@
   <swiper-item>
     <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
     <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}"  hidden="{{completeBoolean}}">
-      <view class="ranking" style="padding-top: {{addpadingtop}}">
+      <!-- <view class="ranking" style="padding-top: {{addpadingtop}}">
         <view class="ranking-title">
           <view class="title1"><text>更新日期：{{updateTime}}</text></view>
           <view class="title2" style="border-bottom-right-radius: 5px"><text style="border-bottom-right-radius: 5px">全国各大高校人气排行</text></view>
@@ -62,6 +63,18 @@
         <view class="ranking-next-items" id="redirection" >
             <view class="view_all"><image src="../../images/down_circle.svg" /></view>
         </view>
+      </view> -->
+      <view class="WeeklyEnter" bindtap="TURNtoCURR2">
+        <view class="colorLines" style="margin-bottom: 10rpx"><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text></view>
+        <view class="weekly-body">
+          <view class="imgBox"><image src="" mode="widthFix" /></view>
+          <view class="textBox">
+            <view class="textBox-title"><view class="Ringing"><image src="../../images/indexStar.svg" /><text style="display: block; text-indent: .5em">每日更新</text></view><image src="../../images/title2.svg" /></view>
+            <view class="textBox-body"><image src="../../images/title.svg" /></view>
+            <view class="textBox-footer">根据用户自行选择的偏好，自动生成的周报</view>
+          </view>
+        </view>
+        <view class="colorLines" style="margin-top: 10rpx"><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text></view>
       </view>
       <view class="passages-country">
         <view class="partName">国务要闻</view>
@@ -115,7 +128,7 @@
       </view>
       <view style="background-color: #eee; padding-top: 20rpx"></view>
       <view class="user-SET">
-        <view class="SET-item">
+        <view class="SET-item {{bling}}" bindtap="enterWeekly">
           <view class="item-body">
             <view class="body-left">
               <view class="item-title">周报入口</view>

@@ -37,19 +37,33 @@ Page({
         surface: {
           _header: "清空阅读记录",
           _body: "确认清空阅读历史记录吗？",
-          _okBtn: true,
-          _noBtn: true
+          _okBtn: "确定",
+          _noBtn: "取消",
+          GETUSERINFO: false
         },
         function: {
           _OK: "_OK_cleanHistory",
           _CANCEL: "_CANCEL_cleanHistory"
+        }
+      },
+      enterWeekly: {
+        surface: {
+          _header: "用户授权",
+          _body: "周报功能需要获取您的个人信息，以方便记下您的偏好，为您准确推送内容，确认继续？",
+          _okBtn: "继续",
+          _noBtn: "取消",
+          GETUSERINFO: true
+        },
+        function: {
+          _OK: "_OK_enterWeekly",
+          _CANCEL: "_CANCEL_enterWeekly"
         }
       }
     }
   },
   onLoad: function () {
     that = this;
-    that.setData({currentNum: 2, r_selected: that.data.regions[0]});
+    that.setData({currentNum: 0, r_selected: that.data.regions[0]});
     wx.getStorage({
       key: "prevPartArr",
       success: function(prev){
@@ -58,8 +72,9 @@ Page({
       },
       fail: function(){
         wx.request({
-          url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news",
+          url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=0&p2=6",
           success: function(newFour){
+            console.log(newFour.data)
             that.setData({partArr: newFour.data});
             lastPartArr = that.data.partArr;
             indexLastPort = lastPartArr[lastPartArr.length - 1].port;
@@ -83,21 +98,33 @@ Page({
     }
     if(currNum == 2){
       wx.getStorage({
-        key: "getUserInfoFailed",
-        success: function(theBool){
-          if(theBool){
-            that.setData({theEmerBoolean: true});
-          }else{
-            that.setData({theEmerBoolean: false});
-            that.setData({_NickName: App.globalData.userInfo.nickName});
-            if(App.globalData.hasNet){
-              that.setData({_Profile: App.globalData.userInfo.avatarUrl})
-            }
-          }
+        key: "userInfo",
+        success: function(userInfo){
+          that.setData({theEmerBoolean: false, _Profile: userInfo.data.avatarUrl, _NickName: userInfo.data.nickName});
+          console.log("用户已授权，本地存在userInfo")
+        },
+        fail: function(){
+          that.setData({theEmerBoolean: true});
+          console.log("用户未授权，本地不存在userInfo")
         }
       })
     }
     that.setData({[currcolorKey]: "black", [curropaKey]: "1", refresh: "", scrollUp: ""})//refresh、scrollUp 用不用 hidden【Boolean】的形式？
+  },
+  TURNtoCURR2: function(){
+    wx.getStorage({
+      key: "userInfo",
+      success: function(){
+        that.enterWeekly();
+      },
+      fail: function(){
+        that.setData({currentNum: 2, bling: "bling"});
+        var temptimer = setTimeout(function(){
+          that.setData({bling: ""});
+          clearTimeout(temptimer);
+        }, 3000);
+      }
+    })
   },
   RegionChange: function(e){
     var r_Idx = e.detail.value;
@@ -195,6 +222,7 @@ Page({
       url: "../history/history"
     })
   },
+  // ----  ----
   clearHistory: function(){
     that.setData({OPTIONNAME: that.data.IndexWindowOptions.CleanHistory, _show: "_show"})
   },
@@ -204,9 +232,41 @@ Page({
     wx.removeStorageSync("history");
   },
   _CANCEL_cleanHistory: function(){
-    that.setData({_show: ""})
+    that._closeWindow()
   },
+  // ----  ----
   _closeWindow: function(){
     that.setData({_show: ""})
+  },
+  // ----  ----
+  enterWeekly: function(){
+    wx.getStorage({
+      key: "userInfo",
+      success: function(){
+        wx.navigateTo({
+          url: "../weekly/weekly"
+        })
+      },
+      fail: function(){
+        that.setData({OPTIONNAME: that.data.IndexWindowOptions.enterWeekly, _show: "_show"})
+      }
+    })
+  },
+  _OK_enterWeekly: function(){
+    that._closeWindow();
+  },
+  _CANCEL_enterWeekly: function(){
+    that._closeWindow()
+  },
+  userInfohandler: function(e){
+    if(e.detail.userInfo){
+      wx.setStorageSync("userInfo", e.detail.userInfo);
+      console.log("授权成功");
+      wx.navigateTo({
+        url: "../weekly/weekly"
+      });
+    }else{
+      console.log("授权拒绝")
+    }
   }
 });

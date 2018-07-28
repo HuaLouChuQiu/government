@@ -1,0 +1,2 @@
+<view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">周报</text></view>
+<view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
