@@ -7,8 +7,8 @@ $config['db']['password'] = '890ccf33a9a4';
 $config['db']['dbname'] = 'government';
 
 //微信小程序AppID和appsecret配置
-$config['app']['id'] = 'wx61e83ae457bdbe47';
-$config['app']['secret'] = 'ea5e6db3e1e306ebbb58fd45b1656dca';
+$config['app']['id'] = 'wx34f96dc3900f04d2';
+$config['app']['secret'] = 'eade5ea88b428f02cef546812ff3eb03';
 
 //百度云ai接口调用参数
 $config['ai']['app_id'] = 11530307;
