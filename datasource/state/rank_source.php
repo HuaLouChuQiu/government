@@ -30,7 +30,7 @@ class rank_source {
 
         foreach($config as $key=>$value){
             $simdata = $ai_obj->simnet($value,$keyword);
-            usleep(500000);
+            usleep(250000);
             $this->ai_num++;
 
             if(!isset($simdata['score'])) break;

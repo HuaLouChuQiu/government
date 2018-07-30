@@ -10,6 +10,11 @@ $config['db']['dbname'] = 'government';
 $config['app']['id'] = 'wx61e83ae457bdbe47';
 $config['app']['secret'] = 'ea5e6db3e1e306ebbb58fd45b1656dca';
 
+//百度云ai接口调用参数
+$config['ai']['app_id'] = 11530307;
+$config['ai']['app_key'] = "7rBfOj6vFhb7OZ8ZFwtm82iU";
+$config['ai']['secret_key'] = "OzqkeFdiLUp9Nzsey31wbGDxvDLxDQoK";
+
 //常用数据配置
 
 

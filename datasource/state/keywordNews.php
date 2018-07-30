@@ -20,6 +20,7 @@ class keywordNews {
 
             if(mb_strlen($s_data[$key]['title'])>40){                //标题不能大于40个字
                 $s_data[$key]['title'] = trim(mb_substr($s_data[$key]['title'],0,40));
+                $s_data[$key]['title'] = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t"),"",$s_data[$key]['title']);        //去掉标题gbk
             }
 
             $text = htmlspecialchars_decode($value['text']);
@@ -61,7 +62,7 @@ class keywordNews {
                 $pdo_obj->update('policy_link',$uc_link,array("`id`"=>$value['id']));
                 continue;
             } 
-            usleep(500000);
+            usleep(250000);
             $key_word = $baiduAi_obj->keyword($value['title'],$value['text']);      $this->ai_num++;   //百度人工智能接口调用量
 
             if(empty($key_word['items'])){                                      //返回空的做标记处理

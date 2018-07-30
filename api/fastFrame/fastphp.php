@@ -22,8 +22,8 @@ class Fastphp
     {
         spl_autoload_register(array($this, 'loadClass'));
         $this->setReporting();
-        $this->removeMagicQuotes();
-        $this->unregisterGlobals();
+        //$this->removeMagicQuotes();
+        //$this->unregisterGlobals();
         $this->setDbConfig();
         $this->route();
     }
@@ -156,6 +156,11 @@ class Fastphp
         if($this->config['app']) {
             define('app_id',$this->config['app']['id']);
             define('app_secret',$this->config['app']['secret']);
+        }
+        if($this->config['ai']){
+            define('APP_ID', $this->config['ai']['app_id']);
+            define('APP_KEY',$this->config['ai']['app_key']);
+            define('SECRET_KEY',$this->config['ai']['secret_key']);                //人工智能配置加载
         }
         
     }
