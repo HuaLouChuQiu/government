@@ -56,7 +56,7 @@ class keywordNews {
         $pdo_obj = new pdoSql();                                                       //pdo类
 
         foreach($textmessage as $key=>$value){
-            $value['text'] = trim(str_replace(array(" ","\n","\t","\n\t"),"",$value["text"]));
+            //$value['text'] = trim(str_replace(array(" ","\n","\t","\n\t"),"",$value["text"]));
             if(mb_strlen($value['text'])<100){                                           //做标记已经处理
                 $uc_link = array("is_use"=>2);
                 $pdo_obj->update('policy_link',$uc_link,array("`id`"=>$value['id']));
@@ -78,7 +78,7 @@ class keywordNews {
                 if(empty($sr_keyword)){
                     $keyword_id = $pdo_obj->insert('keywords',array("key_word"=>$v['tag']));
                 }else{
-                    $keyword_id = $sr_keyword[0]['id'];
+                    $keyword_id = (int)$sr_keyword[0]['id'];
                 }
 
                 if(is_numeric($keyword_id) && $keyword_id>0){
