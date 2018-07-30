@@ -9,7 +9,7 @@ use fastFrmae\db\Db;
  * 
  * @method in_user完成注册（把数据插入数据库）的方法
  */
-class user_wechatModel extends Model {
+class Wechat_loginModel extends Model {
 
     /**
      * 自定义当前模型操作的数据库表名称，
