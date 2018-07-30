@@ -66,8 +66,8 @@ class pubway {
                 $preg = "/$char1([^.]*?)。/is";
                 preg_match_all($preg,$bigchar,$belong);
                 array_push($r_msg,$belong);
-
-                if(empty($belong)){
+               
+                if(empty($belong[0])){
                     if($i<2) $r_msg = array();         //如果只有第一，就去掉匹配项清空
                     break;
                 }
@@ -94,11 +94,7 @@ class pubway {
 
         foreach($checchar as $check){
             $shi = $this->checkchar($check,$text,$num);
-            foreach($shi as $key=>$value){
-                $shi[$key] = array_filter($value);
-            }
-            $shi = array_filter($shi);
-
+            
             if(empty($shi)){
                 continue;
             }else{
@@ -147,4 +143,74 @@ class pubway {
         return $data;
     }
 
+
+    /**
+     * 标题处理函数
+     * @param $title 标题
+     * @param $ai_obj 人工智能对象
+     */
+    public function titleprocess($title,$ai_obj){
+        $r_msg = array();
+
+        $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$title);
+        $title_msg = $ai_obj->lexer($title);                    //词法分析
+        
+        usleep(250000);
+
+        $remainde = count($title_msg['items'])%2;
+        if($remainde===1){
+            $intnum = (count($title_msg['items'])-1)/2;
+        }else{
+            $intnum = count($title_msg['items'])/2-1;
+        }
+
+        $keyvalue_n = "";
+        for($i=$intnum;$i<count($title_msg['items']);$i++){                     //获取标题和名词相关的关键字
+            $part = $title_msg['items'][$i]['pos'];
+            if(is_numeric(strpos($part,"n"))){
+                if(!isset($part_1)){
+                    $part_1 = $part;
+                    $keyvalue_n = $title_msg['items'][$i]['item'];
+                }else{
+                    if($part==$part_1){
+                        $keyvalue_n .= $title_msg['items'][$i]['item'];
+                        $part_1 = $part;
+                    }else{
+                        break;
+                    }
+                }
+            }else{
+                if(isset($part_1)){
+                    break;
+                }
+            }
+        }
+        
+
+        $keyvalue_v = "";
+        for($i=$intnum-1;$i>=0;$i--){                     //获取标题和动词相关的关键字
+            $part = $title_msg['items'][$i]['pos'];
+            if(is_numeric(strpos($part,"v"))){
+                if(!isset($part_2)){
+                    $part_2 = $part;
+                    $keyvalue_v = $title_msg['items'][$i]['item'];
+                }else{
+                    if($part==$part_2){
+                        $keyvalue_v = $title_msg['items'][$i]['item'].$keyvalue_v;
+                        $part_2 = $part;
+                    }else{
+                        break;
+                    }
+                }
+            }else{
+                if(isset($part_2)){
+                    break;
+                }
+            }
+        }
+        $r_msg[] = $keyvalue_v;
+        $r_msg[] = $keyvalue_n;
+
+        return $r_msg;
+    }
 }

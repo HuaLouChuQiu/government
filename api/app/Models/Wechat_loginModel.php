@@ -48,4 +48,17 @@ class Wechat_loginModel extends Model {
             return $is_insert[0]['id'];
         }
     }
+
+    /**
+     * 更改功能，更改用户的喜爱偏好
+     * 
+     * @param 需要更改的偏好的json类型数据
+     * @return 返回对应的
+     */
+    public function up_case($id,$casejson){
+        $ucase_user = array("case_word"=>$casejson);
+        $uw_user = array("`id`"=>$id);
+        $this->update("user_wechat",$ucase_user,$uw_user);
+        
+    }
 }

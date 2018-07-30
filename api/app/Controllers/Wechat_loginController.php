@@ -4,12 +4,15 @@ namespace app\Controllers;
 use fastFrame\base\Controller;
 use app\Models\Wechat_loginModel;
 use method\pubway;
+use method\check;
+
 /**
  * 微信用户登录的控制器
  */
 class Wechat_loginController extends Controller {
     /**
      * 微信用户登录注册
+     * @param $code 微信登录返回的code
      */
     public function login($code=""){
         $r_data = array();
@@ -64,4 +67,30 @@ class Wechat_loginController extends Controller {
 
         $this->output($r_data);
     }
+
+    /**
+     * 更改兴趣爱好接口
+     * @param $id 用户标签
+     * @param $openid openid
+     * @param $caseword 偏好数组
+     */
+    public function chang_hobby($id="",$openid="",$caseword=""){
+        $chghobM_obj = new Wechat_loginModel;
+
+        $c_checkmsg = (new check)->checkParam_prmsg($id,$openid);       //检测参数格式
+        $this->check_err($c_checkmsg);
+
+        $is_user = $chghobM_obj->check_user($id,$openid);               //检查用户id和openid是不是对应
+        $this->check_err($is_user);
+
+        if(!is_array($caseword)){
+            $rerr_msg = array("errMsg"=>"偏好参数格式不对");
+            $this->check_err($is_user);
+        }else{
+            $casejson = json_encode($caseword,JSON_UNESCAPED_UNICODE);
+            $chghobM_obj->up_case($id,$casejson);
+            $this->output(array("isok"=>true));
+        }
+    }
+
 }

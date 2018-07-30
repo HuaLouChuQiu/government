@@ -66,8 +66,8 @@ class keywordNews {
             $key_word = $baiduAi_obj->keyword($value['title'],$value['text']);      $this->ai_num++;   //百度人工智能接口调用量
 
             if(empty($key_word['items'])){                                      //返回空的做标记处理
-                /* $uc_link = array("is_use"=>1);
-                $pdo_obj->update('policy_link',$uc_link,array("`id`"=>$value['id'])); */
+                $uc_link = array("is_use"=>2);
+                $pdo_obj->update('policy_link',$uc_link,array("`id`"=>$value['id'])); 
                 continue;
             }
 

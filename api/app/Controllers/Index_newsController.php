@@ -83,13 +83,20 @@ class Index_newsController extends Controller{
 
     /**
      * 文章摘要处理测试
+     * @param $id 对应文章的id
      */
     public function getnews_sum($id=""){
+        $check_obj = new check;             //通用检测类
         $pubway_obg = new pubway;
         $innM_obj = new Index_newsModel;     //对应的模型类
         $ai_obj = new \AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
+
+        //检查参数
+        $c_msg = $check_obj->check_param($id,"number");
+        $this->check_err($c_msg);
+
         $text_content = $innM_obj->sl_news_keyword($id);        //获取整个数据
-        
+      
         $text = htmlspecialchars_decode($text_content[0]['text']);
 
         $checkary = array("一是","第一","一要");
@@ -104,63 +111,24 @@ class Index_newsController extends Controller{
         }
 
         $title = $text_content[0]['title'];
-        $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$title);
-        $title_msg = $ai_obj->lexer($title);                    //词法分析
-        usleep(250000);
-
-        $remainde = count($title_msg['items'])%2;
-        if($remainde===1){
-            $intnum = (count($title_msg['items'])-1)/2;
-        }else{
-            $intnum = count($title_msg['items'])/2;
-        }
-
-        $keyvalue_n = "";
-        for($i=$intnum;$i<count($title_msg['items']);$i++){                     //获取标题和名词相关的关键字
-            $part = $title_msg['items'][$i]['pos'];
-            if(is_numeric(strpos($part,"n"))){
-                if(!isset($part_1)){
-                    $part_1 = $part;
-                    $keyvalue_n = $title_msg['items'][$i]['item'];
-                }else{
-                    if($part==$part_1){
-                        $keyvalue_n .= $title_msg['items'][$i]['item'];
-                        $part_1 = $part;
-                    }else{
-                        break;
-                    }
-                }
-            }else{
-                if(isset($part_1)){
-                    break;
-                }
-            }
-        }
-
-        $keyvalue_v = "";
-        for($i=$intnum-1;$i>=0;$i--){                     //获取标题和动词相关的关键字
-            $part = $title_msg['items'][$i]['pos'];
-            if(is_numeric(strpos($part,"v"))){
-                if(!isset($part_2)){
-                    $part_2 = $part;
-                    $keyvalue_v = $title_msg['items'][$i]['item'];
-                }else{
-                    if($part==$part_2){
-                        $keyvalue_v = $title_msg['items'][$i]['item'].$keyvalue_v;
-                        $part_2 = $part;
-                    }else{
-                        break;
-                    }
-                }
-            }else{
-                if(isset($part_2)){
-                    break;
-                }
-            }
-        }
+        $title_msg = $pubway_obg->titleprocess($title,$ai_obj);
         
-        var_dump($keyvalue_v);
+        
+        return $check_msg;
+        
     }
 
-    
+    /**
+     * 通过用户id去除用户可能感兴趣的篇文章
+     * @param $id 用户表的主键
+     */
+    public function getlike_news($id=""){
+        $check_obj = new check;             //通用检测类
+
+        //检查参数
+        $c_msg = $check_obj->check_param($id,"number");
+        $this->check_err($c_msg);
+
+        
+    }
 }
