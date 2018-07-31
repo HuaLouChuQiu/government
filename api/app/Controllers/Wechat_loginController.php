@@ -83,9 +83,10 @@ class Wechat_loginController extends Controller {
         $is_user = $chghobM_obj->check_user($id,$openid);               //检查用户id和openid是不是对应
         $this->check_err($is_user);
 
+        $caseword = json_decode($caseword);
         if(!is_array($caseword)){
             $rerr_msg = array("errMsg"=>"偏好参数格式不对");
-            $this->check_err($is_user);
+            $this->check_err($rerr_msg);
         }else{
             $casejson = json_encode($caseword,JSON_UNESCAPED_UNICODE);
             $chghobM_obj->up_case($id,$casejson);
