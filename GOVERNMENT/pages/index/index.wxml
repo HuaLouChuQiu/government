@@ -1,0 +1,251 @@
+<view class="wxNavgationBar">
+  <text class="AppName" catchtap="loadmore">NewApp</text>
+</view>
+<scroll-view scroll-x="true" class="sort-tab" style="padding-bottom: 19rpx">
+  <view class="tab-outer">
+    <view class="tab-items">
+      <text style="color: {{indicatorColor[0]}}" catchtap="Tab" data-idx="0">首页</text>
+      <text style="color: {{indicatorColor[1]}}" catchtap="Tab" data-idx="1">关注</text>
+      <text style="color: {{indicatorColor[2]}}" catchtap="Tab" data-idx="2">我的</text>
+    </view>
+    <view class="indicator-box" style="margin-left: {{IndicatorLeft}}rpx">
+      <text class="indicator" style="opacity: {{indicatorShow[0]}}"></text>
+      <text class="indicator" style="opacity: {{indicatorShow[1]}}"></text>
+      <text class="indicator" style="opacity: {{indicatorShow[2]}}"></text>
+    </view>
+  </view>
+</scroll-view>
+<view class="slider {{refresh}}" style="transform: rotate({{refreshRotate}}deg)">
+  <image src="../../images/refresh.svg" />
+</view>
+<view class="shiftTop {{scrollUp}}" bindtap="{{scrollToTop}}">
+  <image src="../../images/upward.svg" />
+</view>
+<view class="shiftTop {{loadUp}}" style="z-index: 2">
+  <image src="../../images/refresh.svg" />
+</view>
+<view class="reachBottomest {{reached}}">-已到达最底部-</view>
+<swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped" style="background-color: {{IndexColor}}">
+  <swiper-item>
+    <view class="passages-view" hidden="{{!completeBoolean}}">
+      <view class="notComplete">
+        <view>正在加载</view>
+      </view>
+    </view>
+    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}" hidden="{{completeBoolean}}">
+      <view class="ranking" style="padding-top: {{addpadingtop}}">
+        <view class="ranking-title">
+          <view class="title1">
+            <text>更新日期：{{updateTime}}</text>
+          </view>
+          <view class="title2" style="border-bottom-right-radius: 5px">
+            <text style="border-bottom-right-radius: 5px">全国各大高校人气排行</text>
+          </view>
+          <view class="title3" style="border-top-right-radius: 5px">
+            <text style="border-top-right-radius: 5px">TOP 20</text>
+          </view>
+        </view>
+        <view class="ranking-content">
+          <view class="ranking-top-items" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
+            <view class="tops" style="border-top-left-radius: 5px; border-top-right-radius: 5px">
+              <view class="goal-icon">
+                <view class="order-rank">1</view>
+                <image src="../../images/medal_golden.svg" />
+              </view>
+              <view class="goal-name">
+                <text class="goaler">湖南农业大学</text>
+              </view>
+              <view class="goal-more">
+                <text class="view_more">查看</text>
+              </view>
+            </view>
+            <view class="tops">
+              <view class="goal-icon">
+                <view class="order-rank">2</view>
+                <image src="../../images/medal_silver.svg" />
+              </view>
+              <view class="goal-name">
+                <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
+              </view>
+              <view class="goal-more">
+                <text class="view_more">查看</text>
+              </view>
+            </view>
+            <view class="tops">
+              <view class="goal-icon">
+                <view class="order-rank">3</view>
+                <image src="../../images/medal_bronze.svg" />
+              </view>
+              <view class="goal-name">
+                <text class="goaler">某一一流大学。。。某一一流大学。。。。</text>
+              </view>
+              <view class="goal-more">
+                <text class="view_more">查看</text>
+              </view>
+            </view>
+          </view>
+          <view class="ranking-next-items" style="background-color: white">
+            <view class="rank-order">
+              <text>4</text>
+            </view>
+            <view class="rank-name">某大学。。。</view>
+          </view>
+        </view>
+        <view class="ranking-next-items" id="redirection">
+          <view class="view_all">
+            <image src="../../images/down_circle.svg" />
+          </view>
+        </view>
+      </view>
+      <view class="passages-country">
+        <view class="partName">国务要闻</view>
+        <block wx:for="{{partArr}}" wx:key="partKey" wx:for-item="part" wx:for-index="partIdx">
+          <view class="partPorts" data-port="{{part.port}}" bindtap="LoadPassage">
+            <view class="out-part">
+              <view class="part-header">
+                <block wx:if="{{part.image}}">
+                  <view class="part-left">
+                    <view class="part-title">
+                      <text>{{part.title}}</text>
+                    </view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                  <view class="part-right">
+                    <view class="picFrame">
+                      <image mode="widthFix" src="{{part.image}}" style="background-color: transparent" />
+                    </view>
+                  </view>
+                </block>
+                <block wx:if="{{!part.image}}">
+                  <view class="part-left" style="width: 700rpx">
+                    <view class="part-title">{{part.title}}</view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                </block>
+              </view>
+              <view class="part-footer">
+                <text class="time-stamp">{{part.timestamp}}</text>
+                <text class="origin-site">{{part.site}}</text>
+                <view class="mark-stamp">
+                  <image src="../../images/site_origin.svg" />
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="inner-content" scroll-y="true">
+      <!-- <picker mode="selector" range="{{regions}}" value="{{r_index}}" bindchange="RegionChange">
+          <view class="currProvince"><scroll-view scroll-x="true" scroll-left="{{scroll_left}}"><text>{{r_selected}}</text></scroll-view><image src="../../images/chevron_gray.svg" /></view>
+      </picker>
+      <picker mode="selector" range="{{regions}}" value="{{r_index}}" bindchange="RegionChange">
+          <view class="currProvince"><scroll-view scroll-x="true" scroll-left="{{scroll_left}}"><text>{{r_selected}}</text></scroll-view><image src="../../images/chevron_gray.svg" /></view>
+      </picker>
+      
+      <view class="r_selector">
+          <view class="reGPS"><image src="../../images/GPS.svg" /><view>重新定位</view></view>
+      </view> -->
+
+      <!-- 新加 -->
+      <view class='love'>
+        <view class='love_tatal'>关注方向：</view>
+        <view class='like'>
+          <view>湖南省</view>
+          <view>教育方向</view>
+        </view>
+      </view>
+
+      <view class="passages-province">
+        <view class="partName">推荐新闻</view>
+
+
+        <block wx:for="{{partArr}}" wx:key="partKey" wx:for-item="part" wx:for-index="partIdx">
+          <view class="partPorts" data-port="{{part.port}}" bindtap="LoadPassage">
+            <view class="out-part">
+              <view class="part-header">
+                <block wx:if="{{part.image}}">
+                  <view class="part-left">
+                    <view class="part-title">
+                      <text>{{part.title}}</text>
+                    </view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                  <view class="part-right">
+                    <view class="picFrame">
+                      <image mode="widthFix" src="{{part.image}}" style="background-color: transparent" />
+                    </view>
+                  </view>
+                </block>
+                <block wx:if="{{!part.image}}">
+                  <view class="part-left" style="width: 700rpx">
+                    <view class="part-title">{{part.title}}</view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                </block>
+              </view>
+              <view class="part-footer">
+                <text class="time-stamp">{{part.timestamp}}</text>
+                <text class="origin-site">{{part.site}}</text>
+                <view class="mark-stamp">
+                  <image src="../../images/site_origin.svg" />
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+<!-- 新加   -->
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="inner-content" scroll-y="true" style="background-color: #eee;">
+      <view style="background-color: #eee; padding-top: 20rpx"></view>
+      <view class="user-PN">
+        <view class="PN-left">
+          <view class="user-P">
+            <image src="{{_Profile}}" alt="用户头像" wx:if="{{!theEmerBoolean}}" />
+            <open-data type="userAvatarUrl" lang="en" wx:if="{{theEmerBoolean}}" />
+          </view>
+          <view class="user-N">
+            <view class="user-name">
+              <text wx:if="{{!theEmerBoolean}}">{{_NickName}}</text>
+              <open-data type="userNickName" wx:if="{{theEmerBoolean}}" />
+            </view>
+            <view class="foot-print">阅读篇目：150000</view>
+          </view>
+        </view>
+        <view class="PN-right" catchtap="TurnToHistory">
+          <image src="../../images/history.svg" />
+        </view>
+      </view>
+      <view style="background-color: #eee; padding-top: 20rpx"></view>
+      <view class="user-SET">
+        <view class="SET-item">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">周报入口</view>
+              <view class="item-desc">根据用户偏好推送周报</view>
+            </view>
+            <view class="body-right">
+              <image src="../../images/chevron_gray.svg" />
+            </view>
+          </view>
+        </view>
+        <view class="SET-item">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">清空阅读记录</view>
+              <view class="item-desc">清空用户本地浏览历史记录</view>
+            </view>
+            <view class="body-right">
+              <image src="../../images/chevron_gray.svg" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>

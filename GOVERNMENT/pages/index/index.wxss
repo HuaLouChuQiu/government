@@ -1,0 +1,141 @@
+page{padding-top: 140rpx; font-family: "Roboto"}
+.wxNavgationBar{width: 100%; height: 140rpx; position: fixed; background: white; top: 0; display: flex; flex-direction: column-reverse}
+.wxNavgationBar .AppName{display: block; width: 100%; height: 60rpx; padding-bottom: 10rpx; text-align: center; font: 600 28rpx/60rpx 'Roboto'}
+.sort-tab{width: 100%; height: 55rpx; background: white; display: flex; flex-direction: column; position: relative; z-index: 2;}
+.sort-tab .tab-outer{width: 390rpx; height: 55rpx; background: white; padding: 0 10rpx; margin: 0 auto}
+.sort-tab .tab-items{width: 100%; height: 50rpx; background: white; -webkit-transition: all 200ms; transition: all 200ms; display: flex; flex-wrap: nowrap; justify-content: center;}
+.sort-tab .tab-items text{display: block; font-size: 28rpx; line-height: 50rpx; padding: 0 25rpx; text-align: center; width: 80rpx; float: left; color: #888; letter-spacing: 2px; text-indent: 2px}
+.sort-tab .tab-items text:active{background-color: #f0f0f0; -webkit-transition: all 100ms; transition: all 100ms}
+.active{color: black}
+.sort-tab .indicator-box{width: 100%; height: 5rpx; background: white; display: flex}
+.sort-tab .indicator-box .indicator{display: block; width: 35rpx; height: 5rpx; border-radius: 2.5rpx; background: blue; -webkit-transition: all 200ms; transition: all 200ms; margin: 0 auto}
+.slider{width: 60rpx; height: 60rpx; position: fixed; margin: 0 345rpx; background: #fff; border-radius: 50%; top: 154rpx; z-index: 1; display: flex; justify-content: center; align-items: center; opacity: 0; -webkit-transition: all 300ms; transition: all 300ms; box-shadow: 0 0 1em rgba(0, 0, 0, .1)}
+.slider.refresh{top: 400rpx; opacity: 1; -webkit-transform: rotate(360deg); transform: rotate(360deg); -webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
+.slider image{width: 40rpx; height: 40rpx; display: block}
+.shiftTop{width: 50px; height: 50px; position: fixed; bottom: -50px; right: 25rpx; border-radius: 50%; box-shadow: 0 0 1em rgba(0, 0, 0, .1); z-index: 3; background: white; display: flex; align-items: center; justify-content: center; -webkit-transition: all 200ms; transition: all 200ms; opacity: 0}
+.shiftTop.loadUp image{-webkit-animation: 1000ms spin infinite linear; animation: 1000ms spin infinite linear;}
+.shiftTop:active{background: #ebebeb}
+.shiftTop image{width: 28px; height: 28px;}
+.shiftTop.scrollUp{bottom: 40px; opacity: 1;}
+.reachBottomest{width: 100%; height: 30rpx; position: fixed; bottom: -30rpx; font: 400 22rpx/30rpx "Roboto"; text-align: center; background-color: transparent; -webkit-transition: all 100ms; transition: all 100ms; opacity: 0; z-index: 9}
+.reachBottomest.reached{bottom: 0; opacity: 1; color: #ccc; letter-spacing: 2px; text-indent: 2px}
+.content, .inner-content{width: 100%; height: calc(100vh - 214rpx);}
+.inner-content{background: white; height: 100%; }
+.test, .text{width: 100%; height: 300rpx; background: none}
+.text{background: none}
+.ranking{width: 100%; height: 500rpx; background: none; font-family: "Roboto"; -webkit-transition: all 100ms; transition: all 100ms;}
+.ranking-title{width: calc(100%-40rpx); height: 200rpx; background: #eee; display: flex; flex-direction: column-reverse; padding: 0 20rpx}
+.ranking-title .title1{width: 100%; height: 40rpx; background: none; font-size: 20rpx; }
+.ranking-title .title2{width: 100%; height: 100rpx; background: none; font-size: 34rpx; line-height: 70rpx; font-weight: 900; letter-spacing: 1px; text-indent: 1px}
+.ranking-title .title3{width: 100%; height: 60rpx; background: none; font-size: 32rpx; font-weight: 700; display: flex; flex-direction: column-reverse}
+.ranking-title .title2 text, .ranking-title .title3 text{border-left: 4px solid #E2100D; display: block; text-indent: 15rpx; color: #E2100D; background: white}
+.ranking-title .title1 text{border-left: 4px solid #2933E1; display: block; text-indent: 15rpx}
+.medal{width: 80rpx; height: 80rpx; background: none; float: right; position: absolute}
+.ranking-content{width: calc(100%-40rpx); height: 300rpx; background: #eee; padding: 0 20rpx; padding-bottom: 5rpx}
+.ranking-content::after{content: ""; display: block; width: 100%; height: 20rpx;}
+.ranking-top-items{width: inherit; height: 255rpx; background: none}
+.ranking-top-items .tops{width: calc(100%-60rpx); height: 85rpx; background: #fff}
+.tops .goal-icon{float: left; width: 85rpx; height: 85rpx}
+.tops .goal-icon image{width: 55rpx; height: 55rpx; padding: 15rpx}
+.tops .goal-name{float: left; width: calc(100%-185rpx); height: 85rpx; display: flex; align-items: center}
+.tops .goal-name text{display: block; width: calc(100%-1px); border-left: 1px solid #eee; height: 40rpx; font-size: 24rpx; line-height: 40rpx; text-indent: 10rpx}
+.tops .goal-more{width: 100rpx; height: 85rpx; background: none; float: right; display: flex; justify-content: center; align-items: center; padding-right: 20rpx}
+.tops:active{background: #ebebeb; }
+.view_more{display: block; height: 40rpx; width: 85rpx; border-radius: 20rpx; border: 1px solid #4082fc; font-size: 24rpx; color: #4082fc; text-align: center; line-height: 40rpx}
+.view_more:active{background-color: #4082fc; color: #fff; -webkit-transition: all 100ms; transition: all 100ms}
+.ranking-next-items{width: 100%; height: 60rpx; }
+.ranking-next-items .rank-order{width: 45rpx; height: 60rpx; float: left; background: white; padding: 0 20rpx; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee}
+.ranking-next-items .rank-order text{display: block; font-size: 28rpx; line-height: 60rpx; text-align: center; font-weight: 600; color: #ffca28}
+.ranking-next-items .rank-name{float: left; width: calc(100%-165rpx); height: 60rpx; background: white; text-indent: 10rpx; font-size: 24rpx; line-height: 60rpx;}
+.view_all{width: 40rpx; background: none; height: 60rpx; font-size: 30rpx; line-height: 60rpx; color: rgba(0, 0, 0, .5); margin: 0 355rpx; display: flex; align-items: center; justify-content: center}
+.view_all image{width: 40rpx; height: 40rpx; display: block}
+.view_all:active{-webkit-transition: all 100ms; transition: all 100ms; color: #4082fc}
+#redirection{margin-top: -60rpx; position: relative; z-index: inherit; background-image: linear-gradient(0, #ddd 0%, rgba(255, 255, 255, 0) 100%); padding: 5rpx 0;}
+#redirection::after{display: block; content: ""; width: 100%; height: 2px; -webkit-transform: skewY(30deg) rotate(-30deg) scaleX(1.5); transform: skewY(30deg) rotate(-30deg) scale(1.5); background-image: linear-gradient( to right, #2933E1, #2933E1 12.5%, #E2100D 12.5%, #E2100D 25%, #2933E1 25%, #2933E1 37.5%, #E2100D 37.5%, #E2100D 50%, #2933E1 50%, #2933E1 62.5%, #E2100D 62.5%, #E2100D 75%, #2933E1 75%, #2933E1 87.5%, #E2100D 87.5%, #E2100D);}
+.order-rank{width: 55rpx; height: 55rpx; position: absolute; padding: 15rpx; text-align: center; font-size: 20rpx; font-weight: 700; line-height: 40rpx; color: rgba(255, 255, 255, .5)}
+.goaler{color: #282828; font-weight: bolder}
+
+.passages-country, .passages-province{width: calc(100%-20rpx); padding: 35rpx 0 0}
+.passages-country .partPorts:last-child, .passages-province .partPorts:last-child{border: 0}
+.passages-country .partName, .passages-province .partName{width: inherit; height: 30rpx; background: none; font: bolder 25rpx/30rpx "Roboto"; text-indent: 10rpx; border-left: 4px solid #4082fc; margin: 0 10rpx 20rpx}
+.passages-province .partName{border-left: 4px solid #e34a3a;}
+.partPorts{width: calc(100%-40rpx); height: 240rpx; background: none; padding: 0 20rpx; padding-bottom: 22rpx; border-bottom: 1px dashed rgba(0, 0, 0, .08)}
+.part-header{width: 100%; height: 220rpx; background: none}
+.part-footer{width: 100%; height: 20rpx; background: none; font-size: 18rpx; line-height: 20rpx; color: #989898;}
+.part-left{max-width: 460rpx; float: left; height: 210rpx;  background: white; padding: 10rpx 5rpx 0 0}
+.part-right{width: 240rpx; height: 100%; background: none; float: right; display: flex; align-items: center}
+.part-right .picFrame{width: 240rpx; height: 160rpx; background: none; margin-top: 10rpx; border-radius: 10rpx; display: flex; align-items: center}
+.part-right .picFrame image{width: 240rpx; display: block; border-radius: 8rpx; height: 220rpx}
+.part-title{width: inherit; height: 80rpx; background: none; font: 900 27rpx/40rpx "Roboto"; padding-bottom: 10rpx; display: flex; align-items: center}
+.part-title text{display: inline-block}
+.part-content{width: inherit; height: 100rpx; color: #989898; font: 400 20rpx/30rpx "Roboto"; padding-bottom: 20rpx}
+.time-stamp{display: block; float: left;}
+.origin-site{display: block; float: right}
+.mark-stamp{width: 20rpx; height: 20rpx; border-radius: 50%; margin: 0 10rpx; background-image: linear-gradient(45deg,  rgb(224, 79, 78), rgb(219, 47, 35) 100%); display: block; float: right}
+.mark-stamp image{width: 18rpx; height: 18rpx; display: block; padding: 2rpx}
+.r_selector{width: 100%; height: 60rpx; background: none; font: 400 26rpx/60rpx "Roboto"}
+.currProvince{width: 150rpx; height: 60rpx; padding-left: 25rpx; border-radius: 30rpx; border: 1px solid rgba(0, 0, 0, .08); float: left; background: none; margin-left: 20rpx; color: rgba(0, 0, 0, .4)}
+.currProvince:active, .reGPS:active{-webkit-transition: all 100ms; transition: all 100ms; background: rgba(0, 0, 0, .1); color: white}
+.reGPS:active{color: black}
+.currProvince scroll-view{width: 90rpx; float: left; font: 400 26rpx/60rpx "Roboto"; }
+.currProvince scroll-view text{white-space: nowrap}
+.currProvince image{width: 60rpx; float: left; display: block; width: 60rpx; height: 60rpx; -webkit-transform: rotate(90deg); transform: rotate(90deg)}
+.reGPS{width: 185rpx; height: 60rpx; float: right; margin-right: 20rpx; border-radius: 5px}
+.reGPS view{width: 125rpx; height: 60rpx; float: right; }
+.reGPS image{width: 50rpx; height: 50rpx; padding: 5rpx}
+
+.user-PN{width: 100%; height: 120rpx; background: white;}
+.user-PN .PN-left{width: calc(100% - 120rpx); height: 100%; background: none; float: left; display: flex; align-items: center}
+.user-PN .PN-left .user-P{width: 120rpx; height: 120rpx; background: white; padding-left: 20rpx; float: left;}
+.user-PN .PN-left .user-P image{width: 100%; height: 100%;}
+.user-PN .PN-left .user-N{width: calc(100% - 150rpx); padding-left: 10rpx; background: none; float: left}
+.user-PN .PN-left .user-N .user-name{width: 100%; height: 34rpx; font: 400 30rpx/30rpx "Roboto"; display: flex; flex-direction: column-reverse}
+.user-PN .PN-left .user-N .user-name{font-weight: 500; height: 38rpx}
+.user-PN .PN-left .user-N .foot-print{font-size: 24rpx; padding-top: 8rpx; color: #ccc}
+.user-PN .PN-right{width: 120rpx; height: 120rpx; float: left; display: flex; justify-content: center; align-items: center}
+.user-PN .PN-right image{width: 50rpx; height: 50rpx}
+
+.user-SET{width: 100%;}
+.SET-item{width: 100%; height: 120rpx; background: white}
+.SET-item:active{background: #eee}
+.SET-item .item-body{width: 710rpx; height: calc(100% - 1px); margin: 0 auto; border-bottom: 1px solid rgba(0, 0, 0, .05)}
+.SET-item:last-child .item-body{border: 0}
+.SET-item .item-body .body-left{float: left; width: 670rpx; height: 100%; background: none}
+.SET-item .item-body .body-left .item-title{width: 100%; height: 72rpx; font: 400 27rpx/100rpx "Roboto"}
+.SET-item .item-body .body-left .item-desc{width: 100%; height: 48rpx; font: 400 18rpx/16rpx "Roboto"; color: #898989}
+.SET-item .item-body .body-right{float: left; width: 40rpx; height: 100%; background: none; display: flex; align-items: center}
+.SET-item .item-body .body-right image{width: 40rpx; height: 40rpx; }
+@-webkit-keyframes spin{
+    100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
+}
+@keyframes spin{
+    100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
+}
+
+
+
+/* 新加 */
+.love{
+  width: 100%;
+}
+.love .love_tatal{
+  margin-left: 10rpx;
+  font-weight: 600;
+  font-size: 32rpx;
+  display: inline-block;
+}
+
+.love .like{
+  display: inline-block;
+}
+.like view{
+  background: #4082fc;
+  color: #fff;
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border: 1rpx solid #4082fc;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+  margin-left: 20rpx;
+}
+/* 新加 */
