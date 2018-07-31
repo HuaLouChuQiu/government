@@ -61,7 +61,7 @@ class Index_newsModel extends Model {
      * @param $p_id 文章主键
      * @param $num 数量
      */
-    public function sl_user_casepolicy($israndom,$p_id,$num){
+    public function sl_user_casepolicy($caseWord,$israndom,$p_id,$num){
         $slecwall = "";
         foreach($caseWord as $key=>$case_v){        
             switch($key){

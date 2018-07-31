@@ -53,7 +53,7 @@ class Index_newsController extends Controller{
             $max_times++;
         }
 
-        $manum = (int)$manum;
+        $maxnum = (int)$maxnum;
         //$innS_obj->su_processing($r_msg);die;
         $this->output($innS_obj->su_processing($r_msg,$maxnum));
     }
@@ -156,8 +156,8 @@ class Index_newsController extends Controller{
         $caseWord = $innM_obj->sl_user_caseword($id);
         $caseWord = json_decode($caseWord);         //装换成数组
 
-        $pidAry = $innM_obj->sl_user_casepolicy($israndom,$p_id,$num);
-        
+        $pidAry = $innM_obj->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
+        var_dump($pidAry);
 
     }
 }
