@@ -21,7 +21,7 @@ var commonSettings = {
         {// small
             part: {
                 style: "900 27rpx/40rpx",
-                limit: 24
+                limit: 32
             },
             passagesTitle: "800 32rpx/40rpx",
             passagesOrigin: "400 20rpx/30rpx",

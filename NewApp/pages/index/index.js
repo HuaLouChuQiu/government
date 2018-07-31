@@ -95,8 +95,13 @@ Page({
         that.setData({partArr: prev.data, completeBoolean: false});
       },
       fail: function(){
+        var _fontStyleArr = wx.getStorageSync("FontSizeBool");
+        var SizeNum = 0;
+        for(var a=0; a<_fontStyleArr.length; a++){
+          if(_fontStyleArr[a]) SizeNum = a;
+        }
         wx.request({
-          url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=0&p2=6",
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=0&p2=6&p=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}`,
           success: function(newFour){
             if(wx.getStorageSync("FontSizeBool")){
               commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT")
@@ -187,6 +192,7 @@ Page({
     theTempCurrent = 1;
     if(wx.getStorageSync("userPreferenceJson")){
       that.setData({_P_words: wx.getStorageSync("userPreferenceJson")});
+      that.setData({_P_Boolean: wx.getStorageSync("userPreferenceBool")});
     }
     that.setData({_P_close: "", extend: "extend", _P_current: 1, next_Step: "_next_Step", prev_Step: "prev_Step", next_complete: "下一步"})
   },
@@ -260,8 +266,13 @@ Page({
     // console.log(indexLastPort);
     that.setData({loadmore: "void", loadUp: "scrollUp loadUp"});
     if(that.data.netError){that.onLoad()}
+    var fontStyleArr = wx.getStorageSync("FontSizeBool");
+    var SizeNum = 0;
+    for(var a=0; a<fontStyleArr.length; a++){
+      if(fontStyleArr[a]) SizeNum = a;
+    }
     wx.request({
-      url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${indexLastPort}&p2=${NumPerload}`,
+      url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${indexLastPort}&p2=${NumPerload}&p=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}`,
       success: function(loadTwo){
         that.setData({netError: false});
         // console.log(loadTwo);

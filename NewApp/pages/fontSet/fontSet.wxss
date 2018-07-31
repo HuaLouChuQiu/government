@@ -3,19 +3,19 @@
 .setting_box{width: 100vw; height: 150rpx; background: none; display: flex; align-items: center; justify-content: center}
 .passage_container{background: white; display: flex; justify-content: center; flex-wrap: wrap; flex-direction: column; padding: 20rpx 0; box-shadow: 0 0 1em rgba(0 ,0 , 0, .08 )}
 .passage_header, .passage_body{margin: 0 auto; clear: both}
-.passage_header ._title{font: 800 44rpx/48rpx "Roboto"; text-align: left; float: left;}
-._content .passages-origin{width: 100%; height: 30rpx; display: flex; align-items: center; justify-content: center; font: 400 26rpx/40rpx "Roboto"; float: left; padding: 20rpx 0}
+.passage_header ._title{text-align: left; float: left; -webkit-transition: all 200ms; transition: all 200ms}
+._content .passages-origin{width: 100%; height: 30rpx; display: flex; align-items: center; justify-content: center; float: left; padding: 20rpx 0; -webkit-transition: all 300ms; transition: all 300ms}
+.passage-content{-webkit-transition: all 300ms; transition: all 300ms}
 .origin-site, .origin-time, .origin-author{display: block; color: #898989;}
 .origin-time{padding: 0 10rpx}
 .origin-author{color: #222; font-weight: 900}
 .origin-author::before{content: "文 / "; font-weight: 400}
-.passagee-content{font: 400 34rpx/52rpx "Roboto";}
 p{width: 750rpx}
 p text{padding: 0 24rpx; text-indent: 2em; display: block; padding-bottom: 1em}
 .setting_box .controler-box {width: 300rpx; height: 140rpx;}
 .setting_box .controler-box .controler-sliders{width: 100%; height: 80rpx; background: white; display: flex; justify-content: space-between}
-.setting_box .controler-box .controler-name{width: 100%; height: 60rpx; background: none; text-align: center; font: 800 28rpx/60rpx "Roboto"}
+.setting_box .controler-box .controler-name{width: 100%; height: 60rpx; background: none; text-align: center;}
 .sliderBar{width: 220rpx; height: 20rpx; background: rgba(0 ,0 , 0, .1); margin: 30rpx 40rpx; position: absolute}
 .circle{width: 80rpx; height: 80rpx; position: relative; z-index: inherit; display: flex; align-items: center; justify-content: center}
-.circle .active{width: 65rpx; height: 65rpx; background: #4082f3}
+.circle .active{width: 65rpx; height: 65rpx; background: #4082f3; -webkit-transition: all 100ms; transition: all 100ms}
 .circle text{width: 50rpx; height: 50rpx; border-radius: 50%; background: #f5f5f5; box-shadow: 0 0 .3em rgba(0 ,0 , 0, .08 )}

@@ -36,13 +36,13 @@
       </swiper-item>
       <swiper-item style="" >
         <view class="second-item">
-          <view style="display: flex; width: 70%; margin: 0 auto; justify-content: center; flex-wrap: wrap"><block wx:for="{{_P_words}}" wx:for-index="_P_words_Idx" wx:for-item="_P_words_Item" wx:key="{{_P_words_key}}"><view class="_P_word" catchtap="_P_word_select" style="border-color: {{_P_words_Item.BorderColor}}; color: {{_P_words_Item.color}}; background: {{_P_words_Item.fill}}" data-Idx="{{_P_words_Idx}}" data-select="{{_P_words_Item}}">{{_P_words_Item.word}}</view></block></view>
+          <view style="display: flex; width: 70%; margin: 0 auto; justify-content: center; flex-wrap: wrap"><block wx:for="{{_P_words}}" wx:for-index="_P_words_Idx" wx:for-item="_P_words_Item" wx:key="_P_words_key_"><view class="_P_word" catchtap="_P_word_select" style="border-color: {{_P_words_Item.BorderColor}}; color: {{_P_words_Item.color}}; background: {{_P_words_Item.fill}}" data-Idx="{{_P_words_Idx}}" data-select="{{_P_words_Item}}">{{_P_words_Item.word}}</view></block></view>
         </view>
       </swiper-item>
       <swiper-item>
         <view class="third-item">
           <view class="third-item-header">已选择<text style="color: #4082fc; padding: 0 5rpx; font-weight: 700">{{wordsNum}}</text>个感兴趣的内容</view>
-          <view class="third-item-body"><block wx:for="{{selected_P_words}}" wx:for-index="selected_P_words_Idx" wx:for-item="selected_P_words_Item" wx:key="{{selected_P_words_key}}"><view class="_P_word" catchtap="_P_word_select" style="border-color: {{selected_P_words_Item.BorderColor}}; color: #fff; background: {{selected_P_words_Item.BorderColor}}">{{selected_P_words_Item.word}}</view></block></view>
+          <view class="third-item-body"><block wx:for="{{selected_P_words}}" wx:for-index="selected_P_words_Idx" wx:for-item="selected_P_words_Item" wx:key="{{selected_P_words_key}}"><view class="_P_word" style="border-color: {{selected_P_words_Item.BorderColor}}; color: #fff; background: {{selected_P_words_Item.BorderColor}}">{{selected_P_words_Item.word}}</view></block></view>
           <view class="third-item-footer">轻触完成，之后我们仅会推送您关注的内容。</view>
         </view>
       </swiper-item>

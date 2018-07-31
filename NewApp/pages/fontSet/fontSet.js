@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showBool: true,
     styleNameArr: [
       {
         active: "",
@@ -21,7 +22,7 @@ Page({
         data: "大"
       }
     ],
-    displayStyle: "大"
+    displayStyle: ""
   },
 
   /**
@@ -35,6 +36,7 @@ Page({
       if(fontStyleArr[a]) SizeNum = a;
     }
     that.setExampleFontStyle(fontStyleArr.length - SizeNum - 1, that.data.styleNameArr[fontStyleArr.length - SizeNum - 1].data, fontStyleArr.length);
+    that.setData({showBool: false});
   },
   backPage: function(){
     wx.navigateBack({
@@ -42,25 +44,21 @@ Page({
     })
   },
   slected_change: function(e){
-    console.log(e);
     var currStyleNameArr = that.data.styleNameArr;
     var styleName = e.currentTarget.dataset.stylename;
     var currID = e.currentTarget.dataset.currid;
     that.setExampleFontStyle(currID, styleName, currStyleNameArr.length);
     var newFontStyleArr = [false, false, false];
     newFontStyleArr[currStyleNameArr.length - currID - 1] = true;
-    console.log(newFontStyleArr)
     wx.setStorageSync("FontSizeBool", newFontStyleArr);
   },
   setExampleFontStyle: function(currID, styleName, length){
     that.setData({displayStyle: styleName});
-    console.log(styleName)
     for(var a=0; a<length; a++){
       var tempKey = `styleNameArr[${a}].active`;
       that.setData({[tempKey]: ""})
     }
     var OneTempKey = `styleNameArr[${currID}].active`;
-    console.log(OneTempKey)
     that.setData({[OneTempKey]: "active"});
     commonSettings.endowFontStyle(that, "passagesTitle", "_title", length - currID - 1);
     commonSettings.endowFontStyle(that, "passagesOrigin", "passages_origin", length - currID - 1);
