@@ -11,14 +11,14 @@ class Index_newsStructur {
      * 处理刚从数据取出来的数据
      * @paran $data
      */
-    public function su_processing($data){
+    public function su_processing($data,$maxnum){
         $r_msg = array();
         foreach($data as $key=>$value){
             $nei_ary = array();
             $nei_ary['port'] = $value['id'];            //id号
 
-            if(mb_strlen($value['title']) > 32){       //标题
-                $nei_ary['title'] = mb_substr($value['title'],0,32)."...";
+            if(mb_strlen($value['title']) > $maxnum){       //标题
+                $nei_ary['title'] = mb_substr($value['title'],0,$maxnum)."...";
 
             }else{
                 $nei_ary['title'] = $value['title'];

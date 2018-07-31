@@ -63,18 +63,19 @@ class pubway {
                 }
 
                 $char1 = str_replace("一",$weinum,$char);
-                $preg = "/$char1([^.]*?)。/is";
-                preg_match_all($preg,$bigchar,$belong);
-                array_push($r_msg,$belong);
-               
+                $preg = "/$char1([^。].*?)。/is";
+                preg_match($preg,$bigchar,$belong);
+                               
                 if(empty($belong[0])){
                     if($i<2) $r_msg = array();         //如果只有第一，就去掉匹配项清空
                     break;
+                }else{
+                    array_push($r_msg,$belong[0]);
                 }
             }else{
                 $preg = "/<span style=\"font-weight: bold;\">([^<]*?)<\/span>/is";
                 preg_match_all($preg,$bigchar,$belong);
-                $r_msg = $belong;
+                $r_msg = $belong[1];
 
                 break;
             }
@@ -110,23 +111,42 @@ class pubway {
    /**
      * 去除空数组
      * 
-     * $text 原文本
-     * $num 最多数组
+     * @param $text 原文本
+     * @param $num 最多数组
      */
     public function clearebloddempty($text,$num){
         $r_msg = array();
 
         
-        $shi = $this->checkchar("",$text,$num,"span");
-        foreach($shi as $key=>$value){
-            $shi[$key] = array_filter($value);
-        }
+        $shi = $this->checkchar("",$text,$num,"span");      
 
         $shi = array_filter($shi);
         $r_msg = $shi;
 
         return $r_msg;
         
+    }
+
+    /**
+     * 用PHPquery 处理文本获取段落第一句话
+     */
+    public  function clearparagraph($text){
+        $r_msg = array();
+        $pquery_obj = new \phpqueryGet($text);
+        $parags = $pquery_obj->getDetailedmess("p");
+
+        $parags = array_filter($parags);
+        $preg = "/([^。].*?)。/is";
+        foreach($parags as $parag){
+            preg_match($preg,$parag,$belong);
+            if(empty($belong)){
+                $r_msg[] = $parag;
+            }else{
+                $r_msg[] = $belong[0];
+            }
+        }
+
+        return $r_msg;
     }
 
     /**
@@ -180,9 +200,7 @@ class pubway {
                     }
                 }
             }else{
-                if(isset($part_1)){
-                    break;
-                }
+                if(isset($part_1)) break;
             }
         }
         
@@ -190,7 +208,7 @@ class pubway {
         $keyvalue_v = "";
         for($i=$intnum-1;$i>=0;$i--){                     //获取标题和动词相关的关键字
             $part = $title_msg['items'][$i]['pos'];
-            if(is_numeric(strpos($part,"v"))){
+            if(is_numeric(strpos($part,"v")) || is_numeric(strpos($part,"n"))){
                 if(!isset($part_2)){
                     $part_2 = $part;
                     $keyvalue_v = $title_msg['items'][$i]['item'];
@@ -203,9 +221,8 @@ class pubway {
                     }
                 }
             }else{
-                if(isset($part_2)){
-                    break;
-                }
+                if(isset($part_2)) break;
+                
             }
         }
         $r_msg[] = $keyvalue_v;
