@@ -19,6 +19,29 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .shiftTop.scrollUp{bottom: 40px; opacity: 1;}
 .reachBottomest{width: 100%; height: 30rpx; position: fixed; bottom: -30rpx; font: 400 22rpx/30rpx "Roboto"; text-align: center; background-color: transparent; -webkit-transition: all 100ms; transition: all 100ms; opacity: 0; z-index: 9}
 .reachBottomest.reached{bottom: 0; opacity: 1; color: #ccc; letter-spacing: 2px; text-indent: 2px}
+/* 偏好设置 */
+._Preference{width: 100vw; min-height: 400rpx; position: fixed; top: calc(50vh - 200rpx); background: rgba(0, 0, 0, .8); z-index: 9; -webkit-transition: all 400ms; transition: all 400ms; -webkit-transition-delay: 200ms; transition-delay: 200ms;}
+._Preference._P_close{-webkit-transform: scale(.2, 1); transform: scale(.2, 1); opacity: 0; z-index: -1}
+._Preference.extend{height: 600rpx; top: calc(50vh - 400rpx)}
+._Preference.extend ._P_body, ._Preference.extend ._P_body .body-content{height: 420rpx;}
+._Preference ._P_end .end-body ._contain .end-prev{display: none}
+._Preference.extend ._P_end .end-body ._contain .end-prev{display: inline-block; margin-right: 28rpx}
+._Preference.extend ._P_end .end-body ._contain .end-next{display: inline-block; margin-left: 28rpx}
+._Preference.extend ._P_end .end-body ._contain .end-cancel{display: none}
+._Preference ._P_title{width: 100vw; height: 80rpx; background: none; display: flex; justify-content: center}
+._Preference ._P_title .title-body, ._Preference ._P_end .end-body{width: 560rpx; height: 80rpx; margin: 0 auto; background: none}
+._Preference ._P_title .title-body .badge{float: left; width: 80rpx; height: 80rpx; background: none;}
+._Preference ._P_title .title-body .badge image{width: 40rpx; height: 40rpx; padding: 20rpx}
+._Preference ._P_title .title-body .title-center{float: left; width: 260rpx; height: 80rpx; font: 600 28rpx/80rpx "Roboto"; text-align: center; color: #4082fc}
+.title-center text{border-bottom: 1px solid rgba(255, 255, 255, .6); display: inline-block; height: 80rpx}
+._Preference ._P_body{width: 100vw; height: 240rpx; background: none}
+._Preference ._P_body .body-content{width: 100vw; height: 240rpx}
+._Preference ._P_body .body-content .first-swipe{display: flex; align-items: center; justify-content: center}
+._Preference ._P_end{width: 100vw; height: 100rpx; background: rgba(255, 255, 255, .1); display: flex; align-items: center}
+._Preference ._P_end .end-body{display: flex; justify-content: center; align-items: center;}
+.first-item{font: 400 28rpx/50rpx "Roboto"; color: rgba(255, 255, 255, .8); text-shadow: 0 0 .1em rgba(0, 0, 0, .04); background: none; padding: 40rpx}
+.second-item{width: calc(100% - 40rpx); height: 100%; padding: 0 20rpx; display: flex; align-items: center}
+
 .content, .inner-content{width: 100%; height: calc(100vh - 214rpx);}
 .inner-content{background: white; height: 100%; }
 .test, .text{width: 100%; height: 300rpx; background: none}
@@ -85,7 +108,7 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .part-right{width: 240rpx; height: 100%; background: none; float: right; display: flex; align-items: center}
 .part-right .picFrame{width: 240rpx; height: 160rpx; background: none; margin-top: 10rpx; border-radius: 10rpx; display: flex; align-items: center}
 .part-right .picFrame image{width: 240rpx; display: block; border-radius: 8rpx; height: 220rpx}
-.part-title{width: inherit; height: 80rpx; background: none; font: 900 27rpx/40rpx "Roboto"; padding-bottom: 10rpx; display: flex; align-items: center}
+.part-title{width: inherit; height: 80rpx; background: none;/* font: 900 30rpx/40rpx "Roboto"; */padding-bottom: 10rpx; display: flex; align-items: center}
 .part-title text{display: inline-block}
 .part-content{width: inherit; height: 100rpx; color: #989898; font: 400 20rpx/30rpx "Roboto"; padding-bottom: 20rpx}
 .time-stamp{display: block; float: left;}
@@ -125,6 +148,12 @@ page{padding-top: 140rpx; font-family: "Roboto"}
 .SET-item .item-body .body-left .item-desc{width: 100%; height: 48rpx; font: 400 18rpx/16rpx "Roboto"; color: #898989}
 .SET-item .item-body .body-right{float: left; width: 40rpx; height: 100%; background: none; display: flex; align-items: center}
 .SET-item .item-body .body-right image{width: 40rpx; height: 40rpx; }
+.end-next, .end-prev, .end-cancel, ._P_word{display: inline-block; padding: 0 25rpx; height: 50rpx; border-radius: 25rpx; background: #4082fc; margin: 0 auto; font: 500 26rpx/50rpx "Roboto"; color: white}
+.end-cancel, ._P_word{background: none; border: 1px solid #4082fc; color: #4082f3; margin: 0 28rpx}
+._P_word{margin: 38rpx 10rpx 0 10rpx; display: inline-block}
+.third-item{width: 100vw; height: 80rpx; background: none; font: 400 28rpx/80rpx "Roboto"; text-align: center; text-shadow: 0 0 .2 rgba(255, 255, 255, .1); color: #fff}
+.third-item-body, .third-item-footer{width: calc(100vw - 40rpx); padding: 0 20rpx}
+.third-item-footer{text-align: center;}
 @-webkit-keyframes spin{
     100%{-webkit-transform: rotate(720deg); transform: rotate(720deg);}
 }

@@ -3,13 +3,13 @@
 <scroll-view class="passages-view" scroll-y="true" scroll-with-animation="true" hidden="{{completeBoolean}}">
     <view class="container">
         <view class="passages-header">
-            <view class="passages-title">{{passageJSON.info.title}}</view>
-            <view class="passages-origin"><text class="mark-stamp"></text><text class="origin-site">{{passageJSON.info.site}}</text><text class="origin-time">{{passageJSON.info.time}}</text><text class="origin-author">{{passageJSON.info.author}}</text></view>
+            <view class="passages-title" style="font: {{__Title}} 'Roboto'">{{passageJSON.info.title}}</view>
+            <view class="passages-origin" style="font: {{__Origin}} 'Roboto'"><text class="mark-stamp"></text><text class="origin-site">{{passageJSON.info.site}}</text><text class="origin-time">{{passageJSON.info.time}}</text><text class="origin-author">{{passageJSON.info.author}}</text></view>
             <view class="key-tip" wx:if="{{passageJSON.keyWords[0]}}">关键词</view>
             <block wx:if="{{passageJSON.keyWords[0]}}" wx:for="{{passageJSON.keyWords}}" wx:key="wordsKey" wx:for-item="words" wx:for-index="wordsIdx"><view class="keywords">{{words}}</view></block>
         </view>
-        <view class="passages-body">
-            <block wx:for="{{passageJSON.content}}" wx:key="passageKey" wx:for-item="passage" wx:for-index="passageIdx"><p><text wx:if="{{passage.text}}">{{passage.text}}</text><image mode="widthFix" wx:if="{{passage.image}}" src="{{passage.image}}"/></p></block>
+        <view class="passages-body" style="font: {{__Body}} 'Roboto'">
+            <block wx:for="{{passageJSON.content}}" wx:key="passageKey" wx:for-item="passage" wx:for-index="passageIdx"><p class="{{ArrOfCoverShow[passageIdx]}}"><view wx:if="{{passage.image}}" class="coverWith"><view data-imageSrc="{{passage.image}}" catchtap="copyImgSrc">复制图片地址</view></view><text wx:if="{{passage.text}}">{{passage.text}}</text><image mode="widthFix" wx:if="{{passage.image}}" src="{{passage.image}}" data-ID="{{passageIdx}}" bindtap="imageTap"/></p></block>
         </view>
         <view class="passages-footer"><view class="outerFooter {{fade}}"><image style="display: {{okImg}}" src="{{okSrc}}" /><text bindtap="{{okEvent}}" style="color: {{okColor}}">{{okTip}}</text></view></view>
     </view>

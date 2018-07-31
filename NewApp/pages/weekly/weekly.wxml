@@ -1,2 +1,53 @@
 <view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">周报</text></view>
 <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
+<swiper class="weekly" vertical="true" duration="300" next-margin="100rpx" circular="true" bindchange="swiped">
+    <swiper-item class="weekly-item {{ArrInview[0]}}" style="background: white">
+        <view class="bg"></view>
+        <view class="weekly-header">
+            <view class="header-date">
+                <view >2018 </view>
+                <view ><image src="../../images/YEAR.svg" /></view>
+                <view >7</view>
+                <view ><image src="../../images/MONTH.svg" /></view>
+                <view >28</view>
+                <view ><image src="../../images/DAY.svg" /></view>
+            </view>
+            <view class="line"></view>
+        </view>
+        <view class="weekly-body">
+            <view class="body-left">
+                
+            </view>
+            <view class="body-right">
+            </view>
+        </view>
+    </swiper-item>
+    <swiper-item class="weekly-item {{ArrInview[1]}}" style="background: none">
+        <view class="bg"></view>
+        <view class="weekly-header">
+            <view class="header-date">
+                <view >2018 </view>
+                <view ><image src="../../images/YEAR.svg" /></view>
+                <view >7</view>
+                <view ><image src="../../images/MONTH.svg" /></view>
+                <view >28</view>
+                <view ><image src="../../images/DAY.svg" /></view>
+            </view>
+            <view class="line"></view>
+        </view>
+    </swiper-item>
+    <swiper-item class="weekly-item {{ArrInview[2]}}" style="background: none">
+        <view class="bg"></view>
+        <view class="weekly-header">
+            <view class="header-date">
+                <view >2018 </view>
+                <view ><image src="../../images/YEAR.svg" /></view>
+                <view >7</view>
+                <view ><image src="../../images/MONTH.svg" /></view>
+                <view >28</view>
+                <view ><image src="../../images/DAY.svg" /></view>
+            </view>
+            <view class="line"></view>
+        </view>
+    </swiper-item>
+</swiper>

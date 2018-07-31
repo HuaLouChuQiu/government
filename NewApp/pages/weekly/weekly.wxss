@@ -1,1 +1,26 @@
-/* pages/weekly/weekly.wxss */
+page{padding-top: 140rpx}
+.wxNavigationBar{height: 145rpx;}
+.weekly{width: 100vw; height: calc(100vh - 140rpx); background: none}
+.weekly .weekly-item{border-bottom: 1px solid rgba(0, 0, 0, .05);}
+.weekly .weekly-item.Inview .weekly-header .line{-webkit-animation: 700ms extend forwards; animation: 700ms extend forwards}
+.bg{width: 100vw; height: inherit; position: absolute; background: #fdfdfd; z-index: -1; opacity: 0;}
+.weekly .weekly-item.Inview .bg{-webkit-animation: 1000ms fadeIn forwards; animation: 1000ms fadeIn forwards;}
+.weekly .weekly-header{width: calc(100vw - 30rpx); height: 100rpx; background: none; padding: 0 15rpx; display: flex; align-items: center; flex-wrap: wrap}
+.weekly .weekly-header .header-date{height: 45rpx; font: 800 28rpx/60rpx "Roboto"; width: calc(100vw - 30rpx); margin-top: 25rpx}
+.weekly .weekly-header .line{height: 4rpx; width: 18rpx; background: #d13239; clear: both; margin-bottom: 12rpx; opacity: .2;}
+.weekly .weekly-header .header-date view{float: left; min-width: 40rpx; height: 40rpx; display: flex; justify-content: center; align-items: center}
+.weekly .weekly-header .header-date view image{width: 30rpx; height: 30rpx; display: block}
+.weekly .weekly-body{width: 100vw; height: calc(100% - 100rpx); background: green}
+
+@-webkit-keyframes extend{
+    100%{width: 50rpx; opacity: 1}
+}
+@keyframes extend{
+    100%{width: 50rpx; opacity: 1;}
+}
+@-webkit-keyframes fadeIn{
+    100%{opacity: 1}
+}
+@keyframes fadeIn{
+    100%{opacity: 1}
+}

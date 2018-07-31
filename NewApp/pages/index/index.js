@@ -1,4 +1,5 @@
 var App = getApp();
+var commonSettings = require("../../AppSeetings.js");
 var that;
 var preCurr=0;
 var start_Y=0;
@@ -9,8 +10,14 @@ var indexLastPort = 0;
 var lastPartArr = [];
 var arrs = [];
 var NumPerload = 3;
+var theTempCurrent = 0;
 Page({
   data: {
+    prev_Step: "prev_Step",
+    next_Step: "next_Step",
+    next_complete: "下一步",
+    _P_current: 0,
+    _P_close: "_P_close",
     _show: "",
     theEmerBoolean: true,
     netError: false,
@@ -28,6 +35,18 @@ Page({
     updateTime: "7月12日",
     scroll_left: 0,
     regions: ["北京市", "天津市", "上海市", "重庆市", "河北省", "河南省", "云南省", "辽宁省", "黑龙江省", "湖南省", "安徽省", "山东省", "新疆维吾尔自治区", "江苏省", "浙江省", "江西省", "湖北省", "广西壮族自治区", "甘肃省", "山西省", "内蒙古自治区", "陕西省", "吉林省", "福建省", "贵州省", "广东省", "青海省", "西藏自治区", "四川省", "宁夏回族自治区", "海南省", "台湾省", "香港特别行政区", "澳门特别行政区"],
+    _P_words: [
+      {word: "经济", color: "#fbc02d", BorderColor: "#fbc02d", fill: "none"},
+      {word: "医疗", color: "#e51400", BorderColor: "#e51400", fill: "none"},
+      {word: "养老", color: "#26a69a", BorderColor: "#26a69a", fill: "none"},
+      {word: "教育", color: "#42a5f5", BorderColor: "#42a5f5", fill: "none"},
+      {word: "住房", color: "#c5c5c5", BorderColor: "#c5c5c5", fill: "none"},
+      {word: "环境", color: "#8cdcf0", BorderColor: "#8cdcf0", fill: "none"},
+      {word: "办事难", color: "#c5c5c5", BorderColor: "#c5c5c5", fill: "none"},
+      {word: "脱贫", color: "#fbc02d", BorderColor: "#fbc02d", fill: "none"},
+      {word: "三农", color: "#26a69a", BorderColor: "#26a69a", fill: "none"}
+    ],
+    _P_Boolean: [false, false, false, false, false, false, false, false, false],
     customItem: "allRegion",
     partArr: [],
     reachedTop: true,
@@ -63,18 +82,29 @@ Page({
   },
   onLoad: function () {
     that = this;
+    console.log(commonSettings)
+    console.log(commonSettings.commonSettings)
+    if(!wx.getStorageSync("firstTime")){
+      that.setData({_P_close: ""});
+    }
     that.setData({currentNum: 0, r_selected: that.data.regions[0]});
     wx.getStorage({
       key: "prevPartArr",
       success: function(prev){
+        commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT");
         that.setData({partArr: prev.data, completeBoolean: false});
-        console.log(prev.data)
       },
       fail: function(){
         wx.request({
           url: "https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=0&p2=6",
           success: function(newFour){
-            console.log(newFour.data)
+            if(wx.getStorageSync("FontSizeBool")){
+              commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT")
+            }else{
+              var newFontSize = [true, false, false];
+              wx.setStorageSync("FontSizeBool", newFontSize);
+              commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT")
+            }
             that.setData({partArr: newFour.data});
             lastPartArr = that.data.partArr;
             indexLastPort = lastPartArr[lastPartArr.length - 1].port;
@@ -87,6 +117,79 @@ Page({
       }
     })
   },
+  // endowFontStyle: function(nameData){
+  //   commonSettings.endowFontStyle(nameData);
+  // },
+  close_Window: function(){
+    that.setData({_P_close: "_P_close"});
+    wx.setStorageSync("firstTime", true);
+  },
+  next_Step: function(){
+    wx.setStorageSync("firstTime", true);
+    that.setData({_P_current: 1, extend: "extend", next_Step: "_next_Step", prev_Step: "prev_Step", next_complete: "下一步"})
+  },
+  _next_Step: function(){
+    that.setData({_P_current: 2, next_complete: "完成", next_Step: "_P_complete", prev_Step: "_prev_Step"});
+    var emptyArr = [];
+    var selectArr = that.data._P_Boolean;
+    for(var y=0; y<selectArr.length; y++){
+      if(selectArr[y]){
+        emptyArr.push(y)
+      }
+    }
+    var selected_P_words = [];
+    for(var z=0; z<emptyArr.length; z++){
+      var tempWordItem = that.data._P_words[emptyArr[z]];
+      selected_P_words.push(tempWordItem);
+    }
+    that.setData({selected_P_words: selected_P_words, wordsNum: selected_P_words.length})
+  },
+  _prev_Step: function(){
+    that.setData({_P_current: 1, next_Step: "_next_Step", prev_Step: "prev_Step", next_complete: "下一步"})
+  },
+  prev_Step: function(){
+    that.setData({_P_current: 0, extend: "", next_Step: "next_Step", next_complete: "下一步"})
+  },
+  _P_swiped: function(e){
+    var Tempcurrent = e.detail.current;
+    if(Tempcurrent - theTempCurrent<0){
+      if(Tempcurrent == 1){
+        that._prev_Step();
+      }else if(Tempcurrent == 0){
+        that.prev_Step();
+      }
+    }else{
+      if(Tempcurrent == 1){
+        that.next_Step();
+      }else if(Tempcurrent == 2){
+        that._next_Step();
+      }
+    }
+    theTempCurrent = Tempcurrent;
+  },
+  _P_complete: function(){
+    var selectedFormBool = that.data._P_Boolean;
+    var selectedFormJson = that.data._P_words;
+    if(wx.getStorageSync("userPreferenceBool")){
+      var userIds = wx.getStorageSync("userIds");
+      wx.request({
+        url: `https://yixinping.top/government/api/index?c=Wechat_login&m=chang_hobby&p1=${userIds.id}&p2=${userIds.openid}&p3=${JSON.stringify(selectedFormBool)}`,
+        success: function(res){
+          console.log(res);
+        }
+      })
+    }
+    wx.setStorageSync("userPreferenceBool", selectedFormBool);
+    wx.setStorageSync("userPreferenceJson", selectedFormJson);
+    that.setData({_P_close: "_P_close"});
+  },
+  enterPreference: function(){
+    theTempCurrent = 1;
+    if(wx.getStorageSync("userPreferenceJson")){
+      that.setData({_P_words: wx.getStorageSync("userPreferenceJson")});
+    }
+    that.setData({_P_close: "", extend: "extend", _P_current: 1, next_Step: "_next_Step", prev_Step: "prev_Step", next_complete: "下一步"})
+  },
   swiped: function(e){
     var currNum = e.detail.current;
     var currcolorKey = `indicatorColor[${currNum}]`;
@@ -97,6 +200,11 @@ Page({
       that.setData({[colorKey]: "#888", [opaKey]: "0"})
     }
     if(currNum == 2){
+      if(wx.getStorageSync("print_Arr")){
+        that.setData({print_time: wx.getStorageSync("print_Arr").length});
+      }else{
+        that.setData({print_time: 0});
+      }
       wx.getStorage({
         key: "userInfo",
         success: function(userInfo){
@@ -107,9 +215,23 @@ Page({
           that.setData({theEmerBoolean: true});
           console.log("用户未授权，本地不存在userInfo")
         }
-      })
+      });
+    }else if(currNum == 0){
+      commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT");
     }
     that.setData({[currcolorKey]: "black", [curropaKey]: "1", refresh: "", scrollUp: ""})//refresh、scrollUp 用不用 hidden【Boolean】的形式？
+  },
+  _P_word_select: function(e){
+    var _P_Idx = e.currentTarget.dataset.idx;
+    var _P_select = e.currentTarget.dataset.select;
+    var tempKey_color = `_P_words[${_P_Idx}].color`;
+    var tempKey_fill = `_P_words[${_P_Idx}].fill`;
+    var booleanKey = `_P_Boolean[${_P_Idx}]`;
+    if(!that.data._P_Boolean[_P_Idx]){
+      that.setData({[tempKey_color]: "#fff", [tempKey_fill]: _P_select.color, [booleanKey]: true});
+    }else{
+      that.setData({[tempKey_color]: that.data._P_words[_P_Idx].BorderColor, [tempKey_fill]: "none", [booleanKey]: false})
+    }
   },
   TURNtoCURR2: function(){
     wx.getStorage({
@@ -252,6 +374,11 @@ Page({
       }
     })
   },
+  enterFontSet: function(){
+    wx.navigateTo({
+      url: "../fontSet/fontSet"
+    })
+  },
   _OK_enterWeekly: function(){
     that._closeWindow();
   },
@@ -262,6 +389,32 @@ Page({
     if(e.detail.userInfo){
       wx.setStorageSync("userInfo", e.detail.userInfo);
       console.log("授权成功");
+      wx.login({
+        success: function(getCode){
+          console.log(getCode.code);
+          wx.request({
+            url: `https://yixinping.top/government/api/index?c=Wechat_login&m=login&p=${getCode.code}`,
+            method: "POST",
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {avatar: e.detail.userInfo.avatarUrl},
+            success: function(msg){
+              delete msg.data["isok"];
+              wx.setStorageSync("userIds", msg.data);
+              var userIds = wx.getStorageSync("userIds");
+              var userPreferenceBool = JSON.stringify(wx.getStorageSync("userPreferenceBool"));
+              wx.request({
+                url: `https://yixinping.top/government/api/index?c=Wechat_login&m=chang_hobby&p1=${userIds.id}&p2=${userIds.openid}&p3=${userPreferenceBool}`,
+                success: function(res){
+                  console.log(res);
+                }
+              })
+            }
+          })
+
+        }
+      });
       wx.navigateTo({
         url: "../weekly/weekly"
       });

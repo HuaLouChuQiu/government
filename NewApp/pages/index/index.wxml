@@ -1,4 +1,4 @@
-<view class="wxNavgationBar"><text class="AppName" catchtap="loadmore">NewApp</text></view>
+<view class="wxNavigationBar"><text class="AppName" catchtap="loadmore">NewApp</text></view>
 <view class="_cover {{_show}}" catchtap="{{OPTIONNAME.function._CANCEL}}" bindtap="_closeWindow"></view>
 <view class="_alertWindow {{_show}}">
   <view class="_header">{{OPTIONNAME.surface._header}}</view>
@@ -27,10 +27,34 @@
 <view class="shiftTop {{scrollUp}}" bindtap="{{scrollToTop}}"><image src="../../images/upward.svg" /></view>
 <view class="shiftTop {{loadUp}}" style="z-index: 2"><image src="../../images/refresh.svg" /></view>
 <view class="reachBottomest {{reached}}">-已到达最底部-</view>
+<view class="_Preference {{_P_close}} {{extend}}">
+  <view class="_P_title"><view class="title-body" style="width: 440rpx"><view class="badge"><image src="../../images/indexStar.svg" /></view><view class="title-center">选择你<text>感兴趣</text>的内容</view><view class="badge"><image src="../../images/indexStar.svg" /></view></view></view>
+  <view class="_P_body">
+    <swiper class="body-content" duration="200" bindchange="_P_swiped" current="{{_P_current}}" indicator-dots="true" indicator-active-color="#4082fc">
+      <swiper-item class="first-swipe">
+        <view class="first-item">轻触下一步，以选择您的兴趣偏好，您也可以现在关闭窗口，之后在「我的」界面进行修改。</view>
+      </swiper-item>
+      <swiper-item style="" >
+        <view class="second-item">
+          <view style="display: flex; width: 70%; margin: 0 auto; justify-content: center; flex-wrap: wrap"><block wx:for="{{_P_words}}" wx:for-index="_P_words_Idx" wx:for-item="_P_words_Item" wx:key="{{_P_words_key}}"><view class="_P_word" catchtap="_P_word_select" style="border-color: {{_P_words_Item.BorderColor}}; color: {{_P_words_Item.color}}; background: {{_P_words_Item.fill}}" data-Idx="{{_P_words_Idx}}" data-select="{{_P_words_Item}}">{{_P_words_Item.word}}</view></block></view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="third-item">
+          <view class="third-item-header">已选择<text style="color: #4082fc; padding: 0 5rpx; font-weight: 700">{{wordsNum}}</text>个感兴趣的内容</view>
+          <view class="third-item-body"><block wx:for="{{selected_P_words}}" wx:for-index="selected_P_words_Idx" wx:for-item="selected_P_words_Item" wx:key="{{selected_P_words_key}}"><view class="_P_word" catchtap="_P_word_select" style="border-color: {{selected_P_words_Item.BorderColor}}; color: #fff; background: {{selected_P_words_Item.BorderColor}}">{{selected_P_words_Item.word}}</view></block></view>
+          <view class="third-item-footer">轻触完成，之后我们仅会推送您关注的内容。</view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class="_P_end"><view class="end-body"><view class="_contain" style="display: inline-block;"><view class="end-prev" catchtap="{{prev_Step}}">上一步</view><view class="end-cancel" catchtap="close_Window">以后再说</view><view class="end-next" catchtap="{{next_Step}}">{{next_complete}}</view></view></view></view>
+</view>
 <swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped" style="background-color: {{IndexColor}}">
   <swiper-item>
     <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
     <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}"  hidden="{{completeBoolean}}">
+    <!-- 请勿删除 -->
       <!-- <view class="ranking" style="padding-top: {{addpadingtop}}">
         <view class="ranking-title">
           <view class="title1"><text>更新日期：{{updateTime}}</text></view>
@@ -64,6 +88,7 @@
             <view class="view_all"><image src="../../images/down_circle.svg" /></view>
         </view>
       </view> -->
+    <!-- 请勿删除 -->
       <view class="WeeklyEnter" bindtap="TURNtoCURR2">
         <view class="colorLines" style="margin-bottom: 10rpx"><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text><text></text></view>
         <view class="weekly-body">
@@ -84,14 +109,14 @@
             <view class="part-header">
               <block wx:if="{{part.image}}">
                 <view class="part-left">
-                  <view class="part-title"><text>{{part.title}}</text></view>
+                  <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'"><text>{{part.title}}</text></view>
                   <view class="part-content">{{part.shortContent}}</view>
                 </view>
                 <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: transparent"/></view></view>
               </block>
               <block wx:if="{{!part.image}}">
                 <view class="part-left" style="width: 700rpx">
-                  <view class="part-title">{{part.title}}</view>
+                  <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'">{{part.title}}</view>
                   <view class="part-content">{{part.shortContent}}</view>
                 </view>
               </block>
@@ -122,7 +147,7 @@
       <view class="user-PN">
         <view class="PN-left">
           <view class="user-P"><image src="{{_Profile}}" alt="用户头像"  wx:if="{{!theEmerBoolean}}"/><open-data type="userAvatarUrl" lang="en" wx:if="{{theEmerBoolean}}"/></view>
-          <view class="user-N"><view class="user-name"><text  wx:if="{{!theEmerBoolean}}">{{_NickName}}</text><open-data type="userNickName" wx:if="{{theEmerBoolean}}"/></view><view class="foot-print">阅读篇目：150000</view></view>
+          <view class="user-N"><view class="user-name"><text  wx:if="{{!theEmerBoolean}}">{{_NickName}}</text><open-data type="userNickName" wx:if="{{theEmerBoolean}}"/></view><view class="foot-print">阅读计次：{{print_time}}</view></view>
         </view>
         <view class="PN-right" catchtap="TurnToHistory"><image src="../../images/history.svg" /></view>
       </view>
@@ -137,13 +162,30 @@
             <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
           </view>
         </view>
+        <view class="SET-item" bindtap="enterPreference">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">偏好设置</view>
+              <view class="item-desc">设置你的关注内容</view>
+            </view>
+            <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
+          </view>
+        </view>
+        <view class="SET-item" bindtap="enterFontSet">
+          <view class="item-body">
+            <view class="body-left">
+              <view class="item-title">字体大小</view>
+              <view class="item-desc">设置阅读字体大小</view>
+            </view>
+            <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
+          </view>
+        </view>
         <view class="SET-item" bindtap="clearHistory">
           <view class="item-body">
             <view class="body-left">
               <view class="item-title">清空阅读记录</view>
               <view class="item-desc">清空用户本地浏览历史记录</view>
             </view>
-            <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
           </view>
         </view>
       </view>

@@ -1,23 +1,33 @@
 // pages/weekly/weekly.js
+var that;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    ArrInview: ["Inview", "", ""]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    that = this;
   },
   backPage: function(){
     wx.navigateBack({
       delta: 1
     })
+  },
+  swiped: function(e){
+    var current = e.detail.current;
+    var newInviewArr = that.data.ArrInview;
+    for(var a=0; a<newInviewArr.length; a++){
+      newInviewArr[a] = "";
+    }
+    newInviewArr[current] = "Inview";
+    that.setData({ArrInview: newInviewArr});
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

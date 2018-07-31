@@ -1,11 +1,15 @@
 // pages/passages/passages.js
 const App = getApp();
+var commonSettings = require("../../AppSeetings.js");
 var that;
 var clipboardTimer;
 var start_Y=0;
 var end_Y=0;
 var timer;
 var ThePort = 0;
+var picCoverTimer;
+// 【history_limit】浏览记录条数最大限制
+var history_limit = 50;
 function cutArr(array){
   var tempArr = [];
   for(var b=0; b<array.length; b++){
@@ -42,12 +46,43 @@ Page({
       url: `https://yixinping.top/government/api/index?c=index_news&m=getNews_contecnt&p1=${ThePort}`,
       success: function(passageData){
         that.setData({passageJSON: passageData.data, completeBoolean: false});
+        console.log(that.data.passageJSON);
+        var passageContentData = that.data.passageJSON.content;
+        var emptyArr = [];
+        for(var x=0; x<passageContentData.length; x++){
+          emptyArr.push("")
+        }
+        that.setData({ArrOfCoverShow: emptyArr})
       },
       complete: function(){
       },
       fail: function(){
         that.setData({completeBoolean: true});
       }
+    })
+  },
+  imageTap: function(e){
+    clearTimeout(picCoverTimer);
+    console.log(e.currentTarget.dataset)
+    var touchImgID = e.currentTarget.dataset.id;
+    var touchImgSrc = e.currentTarget.datasetimagesrc;
+    var newArrOfCoverShow = that.data.ArrOfCoverShow;
+    for(var x=0; x<newArrOfCoverShow.length; x++){
+      newArrOfCoverShow[x] = ""
+    }
+    newArrOfCoverShow[touchImgID] = "coverWidthShow";
+    that.setData({ArrOfCoverShow: newArrOfCoverShow});
+    picCoverTimer = setTimeout(function(){
+      var tempkey = `ArrOfCoverShow[${touchImgID}]`;
+      that.setData({[tempkey]: ""});
+      clearTimeout(picCoverTimer);
+    }, 5000)
+  },
+  copyImgSrc: function(e){
+    console.log(e)
+    var imgSrc = e.currentTarget.dataset.imagesrc;
+    wx.setClipboardData({
+      data: imgSrc
     })
   },
   backPage: function(){
@@ -57,7 +92,30 @@ Page({
   },
   onLoad: function (options) {
     that = this;
+    var fontStyleArr = wx.getStorageSync("FontSizeBool");
+    var SizeNum = 0;
+    for(var a=0; a<fontStyleArr.length; a++){
+      if(fontStyleArr[a]) SizeNum = a;
+    }
+    commonSettings.endowFontStyle(that, "passagesTitle", "__Title", SizeNum);
+    commonSettings.endowFontStyle(that, "passagesOrigin", "__Origin", SizeNum);
+    commonSettings.endowFontStyle(that, "passagesP", "__Body", SizeNum);
     ThePort = options.port;
+    if(wx.getStorageSync("print_Arr")){
+      var _print_emptyArr = [];
+      var curr_print_Arr = wx.getStorageSync("print_Arr");
+      _print_emptyArr.push(ThePort);
+      for(var a=0; a<curr_print_Arr.length; a++){
+        _print_emptyArr.push(curr_print_Arr[a]);
+      }
+      var new_print_Arr = cutArr(_print_emptyArr);
+      wx.setStorageSync("print_Arr", new_print_Arr);
+      console.log(_print_emptyArr);
+    }else{
+      var tempEmpArr = [];
+      tempEmpArr.push(options.port);
+      wx.setStorageSync("print_Arr", tempEmpArr)
+    }
     that.getpassage(options.net);
     wx.getStorage({
       key: "history",
@@ -68,7 +126,7 @@ Page({
           currentHistory.push(prevHistory.data[a])
         }
         var newTempArr = cutArr(currentHistory);
-        if(newTempArr.length>50){newTempArr.splice(50, 1)}
+        if(newTempArr.length>history_limit){newTempArr.splice(history_limit, 1)}
         wx.setStorageSync("history", newTempArr);
         wx.getStorage({
           key: "history",
@@ -85,7 +143,7 @@ Page({
                       tempPartArr.push(partContentData.data[c])
                     }
                     var newTempPartArr = cutJSONArr(tempPartArr);
-                    if(newTempPartArr.length>50){newTempPartArr.splice(50, 1)};
+                    if(newTempPartArr.length>history_limit){newTempPartArr.splice(history_limit, 1)};
                     wx.setStorageSync("historyPartContent", newTempPartArr);
                   },
                   fail: function(err){
@@ -113,7 +171,7 @@ Page({
           }
         })
       }
-    })
+    });
   },
   copy_to_clipboard: function(){
     var originUrl = that.data.passageJSON.info.url;

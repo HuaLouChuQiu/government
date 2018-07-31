@@ -1,0 +1,28 @@
+<view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">字体大小调整</text></view>
+<view class="preview_box">
+    <view class="setting_box">
+        <view class="controler-box">
+            <view class="controler-sliders">
+                <view class="sliderBar"></view>
+                <block wx:for="{{styleNameArr}}" wx:key="styleName_key" wx:for-index="styleName_Idx" wx:for-item="styleName_Item"><view class="circle"><text class="{{styleName_Item.active}}" bindtap="slected_change" data-styleName="{{styleName_Item.data}}" data-currId="{{styleName_Idx}}"></text></view></block>
+            </view>
+            <view class="controler-name">{{displayStyle}}</view>
+        </view>
+    </view>
+    <view class="example_box">
+        <view class="passage_container">
+            <view class="passage_header"><view class="_title" style="font: {{_title}} 'Roboto'">飞鸟集</view></view>
+            <view class="passage_body">
+                <view class="_content">
+                    <view class="passages-origin" style="font: {{passages_origin}} 'Roboto'"><text class="origin-site">〔印〕</text><text class="origin-time">1916</text><text class="origin-author">泰戈尔</text></view>
+                    <view class="passage-content" style="font: {{passages_P}} 'Roboto'">
+                        <p><text>生如夏花之绚烂，死如秋叶之静美。</text></p>
+                        <p><text>Let Life be beautiful like summer flowers and death like autumn leaves.</text></p>
+                        <p><text>如果你因失去了太阳而流眼泪，那么你也将失去群星了。</text></p>
+                        <p><text>If you shed tears when you miss the sun, you also miss the stars.</text></p>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
