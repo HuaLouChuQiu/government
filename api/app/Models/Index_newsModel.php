@@ -48,6 +48,7 @@ class Index_newsModel extends Model {
     /**
      * 找出用户喜爱的偏好
      * @param $id 用户的主键
+     * @return 用户喜爱组成json类型的数组
      */
     public function sl_user_caseword($id){
         $user_case = $this->select_all("user_wechat",array("case_word"),array("id"=>$id,"status"=>1));
@@ -56,13 +57,30 @@ class Index_newsModel extends Model {
     }
 
     /**
-     * 根据用户的喜爱偏好给用户推荐文章
+     * 根据用户的喜爱偏好给用户推荐文章摘要
      * 
+     * @param $caseWord 用户偏好数组
+     * @param $israndom 是否随机生成首页
      * @param $p_id 文章主键
      * @param $num 数量
+     * @return 用户喜欢的的标签表的id组成的数组
      */
     public function sl_user_casepolicy($caseWord,$israndom,$p_id,$num){
         $slecwall = "";
+
+        if(empty($caseWord)){     //避免调用array_unique参数出错
+            $caseWord = array();
+        }else{
+            $caseWord = json_decode($caseWord);     //json数据转转换成数组
+        }
+
+        $is_allsmae = $caseWord;
+        $is_allsmae = array_unique($is_allsmae);          //数组把相同的东西去掉,如果最后长度为一就证明数组全相同
+        //如果数组全为fale 就重新赋值全为true
+        if(count($is_allsmae)==1 || count($is_allsmae)==0){
+            $caseWord = array(true,true,true,true,true,true,true,true,true);
+        }
+        
         foreach($caseWord as $key=>$case_v){        
             switch($key){
                 case 0:
@@ -130,5 +148,31 @@ class Index_newsModel extends Model {
         }
         $r_msg = $this->select_sql($sql_pid);
         return $r_msg;
+    }
+
+    /**
+     * 通过获取的文章id得到内容
+     * @param $caseWord 用户偏好数组
+     * @param $israndom 是否随机生成首页
+     * @param $p_id 文章主键
+     * @param $num 数量
+     * @return 用户喜欢的文章内容
+     */
+    public function sl_user_casenews($caseWord,$israndom,$p_id,$num){
+        $pidAry = $this->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
+
+        if(empty($pidAry)){
+            $sql = "SELECT * from state_news where state_news.status=1 and id=0";
+        }else{
+            $p_idAry = array();
+            foreach($pidAry as $pid){
+                $p_idAry[] = "id=".$pid['p_id'];
+            }
+            $sw_state = implode(" or ",$p_idAry);
+
+            $sql = "SELECT * FROM (SELECT * from state_news where state_news.status=1) as tmp where $sw_state";
+        }
+        $newsdata = $this->select_sql($sql);
+        return $newsdata;
     }
 }

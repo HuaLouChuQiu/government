@@ -40,6 +40,11 @@ class check {
                 if(!is_array($param)) $r_msg['errMsg'][] = "不是数组类型";
                 break;
 
+            case "json":
+                json_decode($param);
+                if(json_last_error() != JSON_ERROR_NONE) $r_msg['errMsg'][] = "json数据格式不对";
+                break;
+
             default:
                 if(empty($param)) $r_msg['errMsg'][] = "参数为空";
         }

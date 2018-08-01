@@ -7,9 +7,10 @@ namespace method;
 class pubway {
     /**
      * 取出指定字符串在大文章的后面内容，句号结尾
-     * $char1 小字符串
-     * $bigchar 大文章
-     * $num 指定的数量 运行次数找到第几个
+     * @param $char1 小字符串
+     * @param $bigchar 大文章
+     * @param $num 指定的数量 运行次数找到第几个 对应一 二 三
+     * @return array 返回文本的关键句
      */
     public function checkchar($char,$bigchar,$num,$type=""){
         $r_msg = array();
@@ -86,9 +87,10 @@ class pubway {
 
     /**
      * 去除空数组
-     * $checchar 搜索字符组成的数组
-     * $text 原文本
-     * $num 最多数组
+     * @param $checchar 搜索字符组成的数组
+     * @param $text 原文本
+     * @param $num 最多数组
+     * @return array 返回 和数组$checchar 第一个相关的关键句
      */
     public function clearempty($checchar,$text,$num){
         $r_msg = array();
@@ -109,10 +111,11 @@ class pubway {
     }
 
    /**
-     * 去除空数组
+     * 去除空数组 获取文章的黑体字
      * 
      * @param $text 原文本
      * @param $num 最多数组
+     * @return array 返回各段首句组成的数组
      */
     public function clearebloddempty($text,$num){
         $r_msg = array();
@@ -129,6 +132,8 @@ class pubway {
 
     /**
      * 用PHPquery 处理文本获取段落第一句话
+     * @param 包含html标签的文本
+     * @return array 返回每段第一句话组成的数组
      */
     public  function clearparagraph($text){
         $r_msg = array();
@@ -151,6 +156,8 @@ class pubway {
 
     /**
      * 获取微信openid
+     * @param $code微信登录返回的code 
+     * @return array 微信服务器返回的数组包含微信号唯一标识符openid和sessionkey
      */
     public function getopenid($code){
         $api_url = "https://api.weixin.qq.com/sns/jscode2session?appid=".app_id."&secret=".app_secret."&js_code=$code&grant_type=authorization_code";
@@ -168,6 +175,7 @@ class pubway {
      * 标题处理函数
      * @param $title 标题
      * @param $ai_obj 人工智能对象
+     * @return array $r_msg[0] 和标题相关的动词或者名词 $r_msg[1] 和标题相关的名词（相对在标题后面）
      */
     public function titleprocess($title,$ai_obj){
         $r_msg = array();
@@ -206,7 +214,7 @@ class pubway {
         
 
         $keyvalue_v = "";
-        for($i=$intnum-1;$i>=0;$i--){                     //获取标题和动词相关的关键字
+        for($i=$intnum-1;$i>=0;$i--){                     //获取标题和动词名词相关的关键字
             $part = $title_msg['items'][$i]['pos'];
             if(is_numeric(strpos($part,"v")) || is_numeric(strpos($part,"n"))){
                 if(!isset($part_2)){

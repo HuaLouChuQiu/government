@@ -15,7 +15,7 @@ class Index_newsController extends Controller{
      * @param $num 数量
      * @param $manum 标题最大数量
      */
-    public function getState_news($id=0,$num=4,$maxnum=""){
+    public function getState_news($id=0,$num=4,$maxnum=24){
 
         $check_obj = new check;             //通用检测类
         $innM_obj = new Index_newsModel;     //对应的模型类
@@ -61,7 +61,7 @@ class Index_newsController extends Controller{
 
     /**
      * 获取新闻主文内容
-     * 
+     * @param $id
      */
     public function getNews_contecnt($id=""){
 
@@ -84,6 +84,50 @@ class Index_newsController extends Controller{
     }
 
     /**
+     * 根据用户的喜好获取新闻内容 关注页面列表
+     * @param $caseWord 
+     * @param $israndom
+     * @param $p_id
+     * @param $num
+     */
+    public function getState_news_like($israndom=1,$p_id=0,$num=4,$maxnum=24,$caseWord=""){
+        $check_obj = new check;             //通用检测类
+        $innM_obj = new Index_newsModel;     //对应的模型类
+        $innS_obj = new Index_newsStructur;  //对应数据处理的类
+
+        //检查参数
+        $c_msg = $check_obj->check_param($israndom,"number");       //$israndom 参数检测
+        $this->check_err($c_msg); 
+        $c_msg = $check_obj->check_param($p_id,"number");       //p_id
+        $this->check_err($c_msg); 
+        $c_msg = $check_obj->check_param($num,"number");        //$num数量参数检测
+        $this->check_err($c_msg);
+        $c_msg = $check_obj->check_param($maxnum,"number");        //$maxnum数量参数检测
+        $this->check_err($c_msg);
+        if($caseWord != ""){
+            $c_msg = $check_obj->check_param($caseWord,"json");        //判读是不是json类型的数据
+            $this->check_err($c_msg);
+        }
+
+        $all_num = $num;            //通过循环获取用户想要的数组长度
+        $max_times = 0;
+        while($max_times<20){
+            $r_msg = $innM_obj->sl_user_casenews($caseWord,$israndom,$p_id,$num);
+            if(count($r_msg)>=$all_num){
+                $r_msg = array_slice($r_msg,0,$all_num);
+                break;
+            }
+            $def = $all_num - count($r_msg);
+            $num = $num+$def;
+            $max_times++;
+        }
+
+        $maxnum = (int)$maxnum;
+        $this->output($innS_obj->su_processing($r_msg,$maxnum));
+    }
+
+
+    /**
      * 文章摘要处理测试
      * @param $id 对应文章的id
      */
@@ -104,22 +148,22 @@ class Index_newsController extends Controller{
             $this->check_err($c_msg);
         }
 
-        $text = htmlspecialchars_decode($text_content[0]['text']);
+        $text = htmlspecialchars_decode($text_content[0]['text']);          //反转义
 
-        $check_msg = $pubway_obg->clearebloddempty($text,1);        
+        $check_msg = $pubway_obg->clearebloddempty($text,1);                //获取文章的粗体字
         
-        if(empty($check_msg)){
+        if(empty($check_msg)){                                              //获取文章包含 一是，第一，一要的句子
             $checkary = array("一是","第一","一要");
             $check_msg = $pubway_obg->clearempty($checkary,$text,4);
         }
         
         if(empty($check_msg)){
-            $check_msg = $pubway_obg->clearparagraph($text);
+            $check_msg = $pubway_obg->clearparagraph($text);                //简单的获取每段的第一句话
                       
         }
 
         $title = $text_content[0]['title'];
-        $title_msg = $pubway_obg->titleprocess($title,$ai_obj);
+        $title_msg = $pubway_obg->titleprocess($title,$ai_obj);            //标题分词处理
         var_dump($check_msg);
         var_dump($title);    
         var_dump($title_msg);    
@@ -144,6 +188,8 @@ class Index_newsController extends Controller{
         $this->check_err($c_msg);
         /* $c_msg = $check_obj->check_param($openid,"string");     //id
         $this->check_err($c_msg);
+        $c_msg = $check_obj->check_param($israndom,"number");       //$israndom 参数检测
+        $this->check_err($c_msg); 
         $c_msg = $check_obj->check_param($p_id,"number");       //p_id
         $this->check_err($c_msg); 
         $c_msg = $check_obj->check_param($num,"number");        //$num数量参数检测
@@ -154,7 +200,6 @@ class Index_newsController extends Controller{
 
         //取出用户的偏好
         $caseWord = $innM_obj->sl_user_caseword($id);
-        $caseWord = json_decode($caseWord);         //装换成数组
 
         $pidAry = $innM_obj->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
         var_dump($pidAry);
