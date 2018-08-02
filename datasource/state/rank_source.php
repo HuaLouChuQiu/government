@@ -36,7 +36,7 @@ class rank_source {
             if(!isset($simdata['score'])) break;
 
             if($simdata['score']>0.5){
-                $r_score[$key] = (int)(1000000-$key*50000)*round($simdata['score'],4)*100*round($confidence,2);
+                $r_score[$key] = (int)1000000*round($simdata['score'],4)*100*round($confidence,2);
             }else{
                 $r_score[$key] = 0;
             }

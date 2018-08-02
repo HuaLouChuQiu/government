@@ -136,4 +136,135 @@ class Index_newsStructur {
         $r_msg = array("info"=>$info,"keyWords"=>$keyWords,"content"=>$content);
         return $r_msg;
     }
+
+    /**
+     * 获取数组中值最大的键
+     */
+    public function findmaxKey($ary){
+        $max_score_key = "";
+        $max_score_value = 0;
+        foreach($ary as $key=>$value){
+            if($value>$max_score_value){
+                $max_score_value = $value;
+                $max_score_key = $key;
+            }
+        }
+        return $max_score_key;
+    }
+    /**
+     * 处理文章摘要，格式化数据
+     * @param $data 从数据库查找出来的数据
+     */
+    public function su_sumtext($data,$num){
+        $r_msg = array();
+
+        if(empty($data)){ $r_msg['err_msg'] = "数据为空"; return $r_msg;}       //为参数数据空
+
+        $time = $data[0]['release_time'];                   //时间组合
+        $time = explode(".",$time);
+
+        $port = $data[0]['id'];                             //id组合
+
+        $author = $data[0]['edit'];                         //作者组合
+
+        $title = array();                                  //标题组合
+        foreach($data[3] as $k=>$proword){
+            if($proword==""){
+                if(empty($title) && $k==1){
+                    $title[] = array("plain"=>$data[0]['title']);
+                }
+            }else{
+                if(count($title)!=3){
+                    $title_smale = explode($proword,$data[0]['title'],2);
+                    $title[] = array("plain"=>$title_smale[0]);
+                    $title[] = array("point"=>$proword);
+                    $title[] = array("plain"=>$title_smale[1]);
+                }else{
+                    $title_smale = explode($proword,$title[2]['plain'],2);
+                    $title[2] = array("plain"=>$title_smale[0]);
+                    $title[] = array("point"=>$proword);
+                    $title[] = array("plain"=>$title_smale[1]);
+                }
+            }
+        }
+
+        $keyWords = array();
+        for($i=0;$i<$num;$i++){
+            $maxKey = $this->findmaxKey($data[1]);
+            switch($maxKey){
+                case "s_econoimc":
+                $keyWords[] = "经济";
+                break;
+
+                case "s_medical":
+                $keyWords[] = "医疗";
+                break;
+
+                case "s_pension":
+                $keyWords[] = "养老";
+                break;
+
+                case "s_education":
+                $keyWords[] = "教育";
+                break;
+
+                case "s_housing":
+                $keyWords[] = "住房";
+                break;
+
+                case "s_environment":
+                $keyWords[] = "环境";
+                break;
+
+                case "s_hardword":
+                $keyWords[] = "办事难";
+                break;
+
+                case "s_poverty":
+                $keyWords[] = "脱贫";
+                break;
+
+                case "s_sannong":
+                $keyWords[] = "三农";
+                break;
+
+                default:
+                $keyWords[] = "其它";
+            }
+            if(empty($maxKey)){
+                break;
+            }
+            unset($data[1][$maxKey]);
+        }
+
+        $content = array();
+        $allhang = 0;
+        foreach($data[2] as $key=>$text){
+
+            $fontNum = mb_strlen($text);
+            if($fontNum < 16){
+                $text_she = str_replace(array("新华社发","新华社记者","（","）","摄","\n","\t","\n\t"," ",chr(194) . chr(160)),"",$text);
+                $fontNum_small = mb_strlen($text_she);
+                $fontNum_def = $fontNum-$fontNum_small;
+                if($fontNum_small<6 && $fontNum_def>5) continue;                
+            }
+
+            $old_allhang = $allhang;
+            $hang = $fontNum/16;
+            $hang = (int)(is_int($hang)?$hang:$hang+1);
+            $allhang = $allhang+$hang;
+            if($allhang > 8){
+                $def = 8-$old_allhang;              
+                $text = mb_substr($text,0,$def*16-3)."...";
+                $content[] = $text;
+                break;
+            }else{
+                $content[] = $text;
+            }
+        }
+
+        $r_msg = array("time"=>$time,"port"=>$port,"author"=>$author,"title"=>$title,"keyWords"=>$keyWords,"content"=>$content);
+
+        return $r_msg;
+    }
 }

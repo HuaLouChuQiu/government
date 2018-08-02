@@ -130,8 +130,10 @@ class Index_newsController extends Controller{
     /**
      * 文章摘要处理测试
      * @param $id 对应文章的id
+     * @return array 返回文章信息，分数和标题分词组成的数组
      */
-    public function getnews_sum($id=""){
+    public function getcontent_sum($id=""){
+        $r_msg = array();
         $check_obj = new check;             //通用检测类
         $pubway_obg = new pubway;
         $innM_obj = new Index_newsModel;     //对应的模型类
@@ -141,15 +143,19 @@ class Index_newsController extends Controller{
         $c_msg = $check_obj->check_param($id,"number");
         $this->check_err($c_msg);
 
-        $text_content = $innM_obj->sl_news_keyword($id);        //获取整个数据
+        $text_content = $innM_obj->sl_news_score($id);        //获取整个数据
 
         if(empty($text_content)){
-            $c_msg['errMsg'] = "id没有对应内容";
-            $this->check_err($c_msg);
+           return $r_msg;
         }
 
         $text = htmlspecialchars_decode($text_content[0]['text']);          //反转义
-
+        unset($text_content[0]['text']);                                    //去掉大的数据量
+        unset($text_content[1]['id']);
+        unset($text_content[1]['s_title']);
+        unset($text_content[1]['s_culture']);
+        unset($text_content[1]['status']);
+        
         $check_msg = $pubway_obg->clearebloddempty($text,1);                //获取文章的粗体字
         
         if(empty($check_msg)){                                              //获取文章包含 一是，第一，一要的句子
@@ -158,17 +164,16 @@ class Index_newsController extends Controller{
         }
         
         if(empty($check_msg)){
-            $check_msg = $pubway_obg->clearparagraph($text);                //简单的获取每段的第一句话
-                      
+            $check_msg = $pubway_obg->clearparagraph($text);                //简单的获取每段的第一句话                      
         }
 
         $title = $text_content[0]['title'];
         $title_msg = $pubway_obg->titleprocess($title,$ai_obj);            //标题分词处理
-        var_dump($check_msg);
-        var_dump($title);    
-        var_dump($title_msg);    
-        
-        return $check_msg;
+              
+        $r_msg = array_merge($r_msg,$text_content);
+        array_push($r_msg,$check_msg,$title_msg);
+
+        return $r_msg;
         
     }
 
@@ -179,30 +184,51 @@ class Index_newsController extends Controller{
      * @param $p_id 主键
      * @param $num 数量
      */
-    public function getlike_news($id="",$openid="",$israndom=1,$p_id=0,$num=4){
+    public function getlike_sum($id="",$openid="",$israndom=1,$p_id=0,$num=3){
         $check_obj = new check;             //通用检测类
         $innM_obj = new Index_newsModel;     //对应的模型类
+        $innS_obj = new Index_newsStructur;  //对应数据处理的类
 
         //检查参数
         $c_msg = $check_obj->check_param($id,"number");     //id
         $this->check_err($c_msg);
-        /* $c_msg = $check_obj->check_param($openid,"string");     //id
+        $c_msg = $check_obj->check_param($openid,"string");     //id
         $this->check_err($c_msg);
         $c_msg = $check_obj->check_param($israndom,"number");       //$israndom 参数检测
         $this->check_err($c_msg); 
         $c_msg = $check_obj->check_param($p_id,"number");       //p_id
         $this->check_err($c_msg); 
         $c_msg = $check_obj->check_param($num,"number");        //$num数量参数检测
-        $this->check_err($c_msg); */
+        $this->check_err($c_msg);
 
         //检测账号和对应的关系
-        //$innM_obj->check_user($id)
+        $c_msg = $innM_obj->check_user($id,$openid);
+        $this->check_err($c_msg);
 
         //取出用户的偏好
         $caseWord = $innM_obj->sl_user_caseword($id);
 
-        $pidAry = $innM_obj->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
-        var_dump($pidAry);
+        $all_num = $num;            //通过循环获取用户想要的数组长度
+        $max_times = 0;
+        while($max_times<20){
+            $pidAry = $innM_obj->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
+            if(count($pidAry)>=$all_num){
+                $pidAry = array_slice($pidAry,0,$all_num);
+                break;
+            }
+            $def = $all_num - count($pidAry);
+            $num = $num+$def;
+            $max_times++;
+        }
 
+        foreach($pidAry as $id){
+            $maicontent = $this->getcontent_sum($id['id']);
+            $hang = mb_strlen($maicontent[0]["titlt"])/10;
+            $hang = (int)(is_int($hang)?$hang:$hang+1);
+            $keyNum = (9-$hang)*3;
+            $shuju[] = $innS_obj->su_sumtext($maicontent,$keyNum);  //对应数据处理的类
+        }
+        
+        $this->output($shuju);
     }
 }

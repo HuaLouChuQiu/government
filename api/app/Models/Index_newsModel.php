@@ -52,7 +52,11 @@ class Index_newsModel extends Model {
      */
     public function sl_user_caseword($id){
         $user_case = $this->select_all("user_wechat",array("case_word"),array("id"=>$id,"status"=>1));
-        $r_msg = $user_case[0]['case_word'];
+        if(!empty($user_case)){
+            $r_msg = $user_case[0]['case_word'];
+        }else{
+            $r_msg = array();
+        }
         return $r_msg;
     }
 
@@ -80,7 +84,7 @@ class Index_newsModel extends Model {
         if(count($is_allsmae)==1 || count($is_allsmae)==0){
             $caseWord = array(true,true,true,true,true,true,true,true,true);
         }
-        
+    
         foreach($caseWord as $key=>$case_v){        
             switch($key){
                 case 0:
@@ -129,22 +133,22 @@ class Index_newsModel extends Model {
 
         if($p_id==0){
             if($israndom==1){
-                $sql_sourid = "SELECT `p_id` FROM rank_score where DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= date(createtime)";
+                $sql_sourid = "SELECT rank_score.p_id FROM rank_score,policy_link where DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= date(rank_score.createtime) and rank_score.p_id=policy_link.id and policy_link.status=1";
                 $p_idarry = $this->select_sql($sql_sourid);
                 $p_idarrykey = array_rand($p_idarry,1);                     //随机获取数组键值
                 $p_id = $p_idarry[$p_idarrykey]['p_id'];
 
                 $pid_max = $p_id - 1;
                 $pid_min = $p_id - $num;
-                $sql_pid = "SELECT p_id from (SELECT * FROM rank_score where p_id between $pid_min and $pid_max) as tmp where s_title > 0 or s_culture > 0 $slecwall order by p_id desc";
+                $sql_pid = "SELECT id from (SELECT * FROM policy_score where id between $pid_min and $pid_max and policy_score.status=1) as tmp where s_title > 0 or s_culture > 0 $slecwall order by id desc";
             }else{
-                $sql_pid = "SELECT p_id FROM rank_score where s_title > 0 or s_culture > 0 $slecwall order by p_id desc limit $num";        //获取最新的东西
+                $sql_pid = "SELECT id FROM (SELECT * FROM policy_score where policy_score.status=1) as tmp where s_title > 0 or s_culture > 0 $slecwall order by id desc limit $num";        //获取最新的东西
             }
         }else{
             $pid_max = $p_id - 1;
             $pid_min = $p_id - $num;
             //通过pid获取指定数量相连的数据
-            $sql_pid = "SELECT p_id from (SELECT * FROM rank_score where p_id between $pid_min and $pid_max) as tmp where s_title > 0 or s_culture > 0 $slecwall order by p_id desc";       
+            $sql_pid = "SELECT id from (SELECT * FROM policy_score where id between $pid_min and $pid_max and policy_score.status=1) as tmp where s_title > 0 or s_culture > 0 $slecwall order by id desc";       
         }
         $r_msg = $this->select_sql($sql_pid);
         return $r_msg;
@@ -166,7 +170,7 @@ class Index_newsModel extends Model {
         }else{
             $p_idAry = array();
             foreach($pidAry as $pid){
-                $p_idAry[] = "id=".$pid['p_id'];
+                $p_idAry[] = "id=".$pid['id'];
             }
             $sw_state = implode(" or ",$p_idAry);
 
@@ -174,5 +178,15 @@ class Index_newsModel extends Model {
         }
         $newsdata = $this->select_sql($sql);
         return $newsdata;
+    }
+
+    /**
+     * 找出文章的内容和对应的分数
+     */
+    public function sl_news_score($id){
+        $text_content = $this->select_all("state_news",array("*"),array("id"=>$id,"status"=>1));
+        $score = $this->select_all("policy_score",array("*"),array("id"=>$id,"status"=>1));
+        $r_msg = array_merge($text_content,$score);
+        return $r_msg;
     }
 }
