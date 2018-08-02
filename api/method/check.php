@@ -18,7 +18,7 @@ class check {
             case "string":
                 if(empty($param)) $r_msg['errMsg'][] = "参数为空";
                 if(!is_string($param)) $r_msg['errMsg'][] = "不是字符串类型";
-                if($maxlen=0 || !is_numeric($maxlen)){
+                if($maxlen==0 || !is_numeric($maxlen)){
                     break;
                 }else{
                     if(mb_strlen($param)>$maxlen) $r_msg['errMsg'][] = "参数过长";
