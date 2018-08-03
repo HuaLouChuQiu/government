@@ -208,7 +208,7 @@ class Index_newsController extends Controller{
         //取出用户的偏好
         $caseWord = $innM_obj->sl_user_caseword($id);
 
-        $all_num = $num;            //通过循环获取用户想要的数组长度
+        $all_num = $num>0?$num:-$num;            //通过循环获取用户想要的数组长度
         $max_times = 0;
         while($max_times<20){
             $pidAry = $innM_obj->sl_user_casepolicy($caseWord,$israndom,$p_id,$num);
@@ -217,7 +217,7 @@ class Index_newsController extends Controller{
                 break;
             }
             $def = $all_num - count($pidAry);
-            $num = $num+$def;
+            $num = $num>0?$num+$def:$num-$def;
             $max_times++;
         }
 

@@ -145,8 +145,13 @@ class Index_newsModel extends Model {
                 $sql_pid = "SELECT id FROM (SELECT * FROM policy_score where policy_score.status=1) as tmp where s_title > 0 or s_culture > 0 $slecwall order by id desc limit $num";        //获取最新的东西
             }
         }else{
-            $pid_max = $p_id - 1;
-            $pid_min = $p_id - $num;
+            if($num<0){
+                $pid_max = $p_id -$num;
+                $pid_min = $p_id + 1;
+            }else{
+                $pid_max = $p_id - 1;
+                $pid_min = $p_id - $num;
+            }
             //通过pid获取指定数量相连的数据
             $sql_pid = "SELECT id from (SELECT * FROM policy_score where id between $pid_min and $pid_max and policy_score.status=1) as tmp where s_title > 0 or s_culture > 0 $slecwall order by id desc";       
         }
