@@ -75,7 +75,7 @@ class Index_newsModel extends Model {
         if(empty($caseWord)){     //避免调用array_unique参数出错
             $caseWord = array();
         }else{
-            $caseWord = json_decode($caseWord);     //json数据转转换成数组
+            $caseWord = json_decode($caseWord,true);     //json数据转转换成数组
         }
 
         $is_allsmae = $caseWord;
@@ -191,6 +191,8 @@ class Index_newsModel extends Model {
     public function sl_news_score($id){
         $text_content = $this->select_all("state_news",array("*"),array("id"=>$id,"status"=>1));
         $score = $this->select_all("policy_score",array("*"),array("id"=>$id,"status"=>1));
+        $titlejson = $this->select_all("policy_link",array("titlejson"),array("id"=>$id,"status"=>1));
+        $text_content[0]["titlejson"] = $titlejson[0]['titlejson'];
         $r_msg = array_merge($text_content,$score);
         return $r_msg;
     }

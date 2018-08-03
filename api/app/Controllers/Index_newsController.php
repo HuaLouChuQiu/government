@@ -137,7 +137,6 @@ class Index_newsController extends Controller{
         $check_obj = new check;             //通用检测类
         $pubway_obg = new pubway;
         $innM_obj = new Index_newsModel;     //对应的模型类
-        $ai_obj = new \AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
 
         //检查参数
         $c_msg = $check_obj->check_param($id,"number");
@@ -167,8 +166,8 @@ class Index_newsController extends Controller{
             $check_msg = $pubway_obg->clearparagraph($text);                //简单的获取每段的第一句话                      
         }
 
-        $title = $text_content[0]['title'];
-        $title_msg = $pubway_obg->titleprocess($title,$ai_obj);            //标题分词处理
+        $title = $text_content[0]['titlejson'];
+        $title_msg = $pubway_obg->titleprocess($title);            //标题分词处理
               
         $r_msg = array_merge($r_msg,$text_content);
         array_push($r_msg,$check_msg,$title_msg);

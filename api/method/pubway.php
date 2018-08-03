@@ -202,13 +202,14 @@ class pubway {
      * @param $ai_obj 人工智能对象
      * @return array $r_msg[0] 和标题相关的动词或者名词 $r_msg[1] 和标题相关的名词（相对在标题后面）
      */
-    public function titleprocess($title,$ai_obj){
+    public function titleprocess($title){
         $r_msg = array();
 
-        $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$title);
-        $title_msg = $ai_obj->lexer($title);                    //词法分析
-        
-        usleep(250000);
+        if(empty($title)){
+            $r_msg[0] = "";$r_msg[1] = ""; return $r_msg;
+        }else{
+            $title_msg = json_decode($title,true);
+        }
 
         $remainde = count($title_msg['items'])%2;
         if($remainde===1){

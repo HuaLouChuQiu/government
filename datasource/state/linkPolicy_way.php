@@ -108,15 +108,37 @@ class link_way {
                     $rs_data = $pdo_obj->select_all("policy_link",array("`id`"),$sw_link);
 
                     if(empty($rs_data)){                //插入先去重检测
-                    $in_array = array("title"=>$datas[3][$key],"link"=>$datas[8][$key],"index_num"=>$datas[0][$key],
-                    "themclass"=>$datas[1][$key],"organ"=>$datas[2][$key],"written_time"=>$datas[6][$key],"text_num"=>$datas[5][$key],
-                    "release_time"=>$datas[7][$key],"level"=>"state");
-                        $pdo_obj->insert("policy_link",$in_array);
-                    }
+                        $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
+                        $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$datas[3][$key]);
+                        $title_msg = $ai_obj->lexer($title);                    //词法分析 
+                        usleep(250000);
+                        $title_json = json_encode($title_msg,JSON_UNESCAPED_UNICODE);
+
+                        $in_array = array("title"=>$datas[3][$key],"titlejson"=>$title_json,"link"=>$datas[8][$key],"index_num"=>$datas[0][$key],
+                        "themclass"=>$datas[1][$key],"organ"=>$datas[2][$key],"written_time"=>$datas[6][$key],"text_num"=>$datas[5][$key],
+                        "release_time"=>$datas[7][$key],"level"=>"state");
+                            $pdo_obj->insert("policy_link",$in_array);
+                        }
                     
                 }
             }
         }
     }
+
+    /* public function updatetitlejson(){
+        $pdo_obj = new pdoSql();
+        $sw_link = array("status"=>1);
+        $rs_data = $pdo_obj->select_all("policy_link",array("id","`title`"),$sw_link);
+        foreach($rs_data as $v){
+            $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
+            $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$v['title']);
+            $title_msg = $ai_obj->lexer($title);                    //词法分析 
+            usleep(250000);
+            $title_json = json_encode($title_msg,JSON_UNESCAPED_UNICODE);
+
+            $uw_link = array("id"=>$v['id']);
+            $pdo_obj->update('policy_link',array("titlejson"=>$title_json),$uw_link);
+        }
+    } */
 
 }
