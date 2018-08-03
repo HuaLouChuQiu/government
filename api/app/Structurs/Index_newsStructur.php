@@ -250,12 +250,12 @@ class Index_newsStructur {
             }
 
             $old_allhang = $allhang;
-            $hang = $fontNum/16;
+            $hang = $fontNum/20;
             $hang = (int)(is_int($hang)?$hang:$hang+1);
             $allhang = $allhang+$hang;
-            if($allhang > 8){
-                $def = 8-$old_allhang;              
-                $text = mb_substr($text,0,$def*16-3)."...";
+            if($allhang > 7){
+                $def = 7-$old_allhang;              
+                $text = mb_substr($text,0,$def*20-3)."...";
                 $content[] = $text;
                 break;
             }else{
