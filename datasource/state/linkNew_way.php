@@ -34,6 +34,7 @@ class linkNew_way {
     public function  savenewsLink($day=1){
         $nowtime = date("Y.m.d",strtotime("-$day day"));
         $pdo_obj = new pdoSql();
+        $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
 
         for($i=0;true;$i++){
             $url = "http://sousuo.gov.cn/column/31421/$i.htm";
@@ -52,8 +53,13 @@ class linkNew_way {
                         /* $uw_new = array("title"=>$value);
                         $uc_new = array("link"=>$datas[1][$key]);
                         $pdo_obj->update("policy_link",$uc_new,$uw_new); */
-                        $in_array = array("title"=>$value,"link"=>$datas[1][$key],"release_time"=>$datas[2][$key],"level"=>"state_news");
-                        $pdo_obj->insert("policy_link",$in_array);
+                        $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$value);
+                        $title_msg = $ai_obj->lexer($title);                    //词法分析 
+                        usleep(250000);
+                        $title_json = json_encode($title_msg,JSON_UNESCAPED_UNICODE);
+
+                        $in_array = array("title"=>$value,"titlejson"=>$title_json,"link"=>$datas[1][$key],"release_time"=>$datas[2][$key],"level"=>"state_news");
+                        $i = $pdo_obj->insert("policy_link",$in_array);
                     }
                 }
             }

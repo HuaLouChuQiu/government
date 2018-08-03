@@ -97,6 +97,7 @@ class link_way {
     public function updatelink($page=1,$day=1){
         $time = date("Y年m月d日",strtotime("-$day day"));
         $pdo_obj = new pdoSql();
+        $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
 
         for($i=0;$i<$page;$i++){
             $datas = $this->getpolichtml($i);       //爬取数据
@@ -107,8 +108,7 @@ class link_way {
                     
                     $rs_data = $pdo_obj->select_all("policy_link",array("`id`"),$sw_link);
 
-                    if(empty($rs_data)){                //插入先去重检测
-                        $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
+                    if(empty($rs_data)){                //插入先去重检测                        
                         $title = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t")," ",$datas[3][$key]);
                         $title_msg = $ai_obj->lexer($title);                    //词法分析 
                         usleep(250000);
@@ -127,7 +127,7 @@ class link_way {
 
     /* public function updatetitlejson(){
         $pdo_obj = new pdoSql();
-        $sw_link = array("status"=>1);
+        $sw_link = array("status"=>1,"id"=>5368);
         $rs_data = $pdo_obj->select_all("policy_link",array("id","`title`"),$sw_link);
         foreach($rs_data as $v){
             $ai_obj = new AipNlp(APP_ID, APP_KEY, SECRET_KEY);     //ai接口对象
