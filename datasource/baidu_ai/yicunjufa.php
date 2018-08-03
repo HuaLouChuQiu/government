@@ -15,6 +15,5 @@ $data[0]['title'] = "李克强主持召开国务院常务会议 部署持续优�
 $data[3][1] = " ";
 
 //$r_msg = $test_text->depParser($title);
-
-$hang = 16/16;var_dump($hang);
-            $hang = (int)(is_int($hang)?$hang:$hang+1);var_dump($hang);
+$belong = array(1,2,3,4,5); $belong_1 = array(1,2,3);
+var_dump(array_splice($belong,0,count($belong_1)));

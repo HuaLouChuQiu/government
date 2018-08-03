@@ -221,12 +221,16 @@ class Index_newsController extends Controller{
             $max_times++;
         }
 
-        foreach($pidAry as $id){
-            $maicontent = $this->getcontent_sum($id['id']);
-            $hang = mb_strlen($maicontent[0]["title"])/10;
-            $hang = (int)(is_int($hang)?$hang:$hang+1);
-            $keyNum = (9-$hang)*3;
-            $shuju[] = $innS_obj->su_sumtext($maicontent,$keyNum);  //对应数据处理的类
+        if(empty($pidAry)){
+            $shuju = array();
+        }else{
+            foreach($pidAry as $id){
+                $maicontent = $this->getcontent_sum($id['id']);
+                $hang = mb_strlen($maicontent[0]["title"])/10;
+                $hang = (int)(is_int($hang)?$hang:$hang+1);
+                $keyNum = (9-$hang)*3;
+                $shuju[] = $innS_obj->su_sumtext($maicontent,$keyNum);  //对应数据处理的类
+            }
         }
         
         $this->output($shuju);

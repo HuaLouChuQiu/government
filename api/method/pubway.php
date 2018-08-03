@@ -74,8 +74,31 @@ class pubway {
                     array_push($r_msg,$belong[0]);
                 }
             }else{
-                $preg = "/<span style=\"font-weight: bold;\">([^<]*?)<\/span>/is";
-                preg_match_all($preg,$bigchar,$belong);
+                $preg_1 = "/font-weight: bold;\">([^<]*?)<br><\/span>/is";
+                preg_match_all($preg_1,$bigchar,$belong_1);
+                if(empty($belong_1)){
+                    $preg = "/<span style=\"font-weight: bold;\">([^<]*?)<\/span>/is";
+                    preg_match_all($preg,$bigchar,$belong);
+                }else{
+                    $preg = "/<span style=\"font-weight: bold;\">([^<]*?)<\/span>/is";
+                    preg_match_all($preg,$bigchar,$belong);
+                    if(count($belong[1]) != count($belong_1[1])){
+                        foreach($belong[1] as $k=>$v){
+                            $belong[1][$k] = str_replace(array(chr(194) . chr(160),"\n","\t"," ","\n\t"),"",$v);
+                        }
+                        $belong[1] = array_values(array_filter($belong[1]));
+
+                        if(count($belong[1]) > count($belong_1[1])){
+                            $belong[1] = array_splice($belong[1],0,count($belong_1[1]));
+                        }else if(count($belong[1]) < count($belong_1[1])){
+                            $belong_1[1] = array_splice($belong_1[1],0,count($belong[1]));
+                        }
+                    }
+
+                    foreach($belong[1] as $k=>$v){
+                        $belong[1][$k] = $belong_1[1][$k].$v;
+                    }
+                }
                 $r_msg = $belong[1];
 
                 break;
