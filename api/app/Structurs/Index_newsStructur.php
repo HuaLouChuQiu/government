@@ -254,7 +254,7 @@ class Index_newsStructur {
             $hang = (int)(is_int($hang)?$hang:$hang+1);
             $allhang = $allhang+$hang;
             $maxhang = count($content)>=3?6:7;
-            if($allhang > $maxhang){
+            if($allhang >= $maxhang){
                 $def = $maxhang-$old_allhang;              
                 $text = mb_substr($text,0,$def*20)."...";
                 $content[] = $text;
