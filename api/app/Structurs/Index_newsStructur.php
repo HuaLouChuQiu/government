@@ -253,9 +253,10 @@ class Index_newsStructur {
             $hang = $fontNum/20;
             $hang = (int)(is_int($hang)?$hang:$hang+1);
             $allhang = $allhang+$hang;
-            if($allhang > 7){
-                $def = 7-$old_allhang;              
-                $text = mb_substr($text,0,$def*20-3)."...";
+            $maxhang = count($content)>=3?6:7;
+            if($allhang > $maxhang){
+                $def = $maxhang-$old_allhang;              
+                $text = mb_substr($text,0,$def*20)."...";
                 $content[] = $text;
                 break;
             }else{
