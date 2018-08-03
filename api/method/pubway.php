@@ -164,8 +164,10 @@ class pubway {
         $parags = $pquery_obj->getDetailedmess("p");
 
         $parags = array_filter($parags);
-        $preg = "/([^。].*?)。/is";
+        $preg = "/([^。].*?)。/uis";
         foreach($parags as $parag){
+            $parag = str_replace(array(chr(194) . chr(160)),"",$parag);
+            
             preg_match($preg,$parag,$belong);
             if(empty($belong)){
                 $r_msg[] = $parag;

@@ -23,6 +23,9 @@ class Controller
     {
         header('Content-Type: application/json; charset=utf8'); 
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        if(json_last_error() != 0){
+            echo json_last_error();
+        }
     }
 
     /**
