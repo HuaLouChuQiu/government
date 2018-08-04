@@ -53,7 +53,7 @@
 <swiper class="content" current="{{currentNum}}" duration="300" bindchange="swiped" style="background-color: {{IndexColor}}">
   <swiper-item>
     <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
-    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}"  hidden="{{completeBoolean}}">
+    <scroll-view class="inner-content" scroll-y="true" bindscrolltolower="{{loadmore}}" bindscrolltoupper="refresh" bindscroll="scroll" bindtouchstart="indexTS" bindtouchend="indexTE" scroll-with-animation="true" scroll-top="{{IndexTop}}" hidden="{{completeBoolean}}">
     <!-- 请勿删除 -->
       <!-- <view class="ranking" style="padding-top: {{addpadingtop}}">
         <view class="ranking-title">
@@ -104,40 +104,63 @@
       <view class="passages-country">
         <view class="partName">国务要闻</view>
         <block wx:for="{{partArr}}" wx:key="partKey" wx:for-item="part" wx:for-index="partIdx">
-        <view class="partPorts" data-port="{{part.port}}" bindtap="LoadPassage">
-          <view class="out-part">
-            <view class="part-header">
-              <block wx:if="{{part.image}}">
-                <view class="part-left">
-                  <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'"><text>{{part.title}}</text></view>
-                  <view class="part-content">{{part.shortContent}}</view>
-                </view>
-                <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: transparent"/></view></view>
-              </block>
-              <block wx:if="{{!part.image}}">
-                <view class="part-left" style="width: 700rpx">
-                  <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'">{{part.title}}</view>
-                  <view class="part-content">{{part.shortContent}}</view>
-                </view>
-              </block>
+          <view class="partPorts" data-port="{{part.port}}" bindtap="LoadPassage">
+            <view class="out-part">
+              <view class="part-header">
+                <block wx:if="{{part.image}}">
+                  <view class="part-left">
+                    <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'"><text>{{part.title}}</text></view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                  <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{part.image}}" style="background-color: transparent"/></view></view>
+                </block>
+                <block wx:if="{{!part.image}}">
+                  <view class="part-left" style="width: 700rpx">
+                    <view class="part-title" style="font: {{PARTTITLEFONT}} 'Roboto'">{{part.title}}</view>
+                    <view class="part-content">{{part.shortContent}}</view>
+                  </view>
+                </block>
+              </view>
+              <view class="part-footer"><text class="time-stamp">{{part.timestamp}}</text><text class="origin-site">{{part.site}}</text><view class="mark-stamp"><image src="../../images/site_origin.svg" /></view></view>
             </view>
-            <view class="part-footer"><text class="time-stamp">{{part.timestamp}}</text><text class="origin-site">{{part.site}}</text><view class="mark-stamp"><image src="../../images/site_origin.svg" /></view></view>
           </view>
-        </view>
         </block>
       </view>
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <scroll-view class="inner-content" scroll-y="true">
-      <picker mode="selector" range="{{regions}}" value="{{r_index}}" bindchange="RegionChange">
+    <view class="passages-view" hidden="{{!_completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
+    <scroll-view class="inner-content" hidden="{{_completeBoolean}}" scroll-y="true" bindscrolltolower="{{_loadmore}}" bindscroll="_scroll" bindtouchstart="indexTS" bindtouchend="_indexTE" scroll-with-animation="true" scroll-top="{{_IndexTop}}">
+      <!-- <picker mode="selector" range="{{regions}}" value="{{r_index}}" bindchange="RegionChange">
           <view class="currProvince"><scroll-view scroll-x="true" scroll-left="{{scroll_left}}"><text>{{r_selected}}</text></scroll-view><image src="../../images/chevron_gray.svg" /></view>
       </picker>
       <view class="r_selector">
           <view class="reGPS"><image src="../../images/GPS.svg" /><view>重新定位</view></view>
-      </view>
+      </view> -->
       <view class="passages-province">
-        <view class="partName">省内新闻</view>
+        <view class="partName">省内关注</view>
+        <block wx:for="{{_partArr}}" wx:key="_partKey" wx:for-item="_part" wx:for-index="_partIdx">
+          <view class="partPorts" data-port="{{_part.port}}" bindtap="LoadPassage">
+            <view class="out-part">
+              <view class="part-header">
+                <block wx:if="{{_part.image}}">
+                  <view class="part-left">
+                    <view class="part-title" style="font: {{_PARTTITLEFONT}} 'Roboto'"><text>{{_part.title}}</text></view>
+                    <view class="part-content">{{_part.shortContent}}</view>
+                  </view>
+                  <view class="part-right"><view class="picFrame"><image mode="widthFix" src="{{_part.image}}" style="background-color: transparent"/></view></view>
+                </block>
+                <block wx:if="{{!_part.image}}">
+                  <view class="part-left" style="width: 700rpx">
+                    <view class="part-title" style="font: {{_PARTTITLEFONT}} 'Roboto'">{{_part.title}}</view>
+                    <view class="part-content">{{_part.shortContent}}</view>
+                  </view>
+                </block>
+              </view>
+              <view class="part-footer"><text class="time-stamp">{{_part.timestamp}}</text><text class="origin-site">{{_part.site}}</text><view class="mark-stamp"><image src="../../images/site_origin.svg" /></view></view>
+            </view>
+          </view>
+        </block>
       </view>
     </scroll-view>
   </swiper-item>
@@ -180,6 +203,7 @@
             <view class="body-right"><image src="../../images/chevron_gray.svg" /></view>
           </view>
         </view>
+        <view style="background-color: #eee; padding-top: 20rpx"></view>
         <view class="SET-item" bindtap="clearHistory">
           <view class="item-body">
             <view class="body-left">

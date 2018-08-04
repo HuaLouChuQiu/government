@@ -1,53 +1,47 @@
-<view class="wxNavigationBar" style="border-bottom: 1px solid rgba(0, 0, 0, .08);"><view class="backIcon"><image src="../../images/chevron_gray.svg" catchtap="backPage"/></view><text class="AppName">周报</text></view>
 <view class="passages-view" hidden="{{!completeBoolean}}"><view class="notComplete"><view>正在加载</view></view></view>
-<swiper class="weekly" vertical="true" duration="300" next-margin="100rpx" circular="true" bindchange="swiped">
-    <swiper-item class="weekly-item {{ArrInview[0]}}" style="background: white">
-        <view class="bg"></view>
-        <view class="weekly-header">
-            <view class="header-date">
-                <view >2018 </view>
-                <view ><image src="../../images/YEAR.svg" /></view>
-                <view >7</view>
-                <view ><image src="../../images/MONTH.svg" /></view>
-                <view >28</view>
-                <view ><image src="../../images/DAY.svg" /></view>
+<view class="tipsTop" hidden="{{reachTop}}"><image src="../../images/ReachTop.svg" /></view>
+<swiper class="weekly" vertical="true" duration="300" next-margin="100rpx" bindchange="swiped" current="{{weeklyCurrent}}" circular="{{circularBoolean}}" bindtouchstart="_w_start" bindtouchend="_w_end">
+    <block wx:for="{{weeklyData}}" wx:for-index="weeklyIdx" wx:for-item="weeklyItem" wx:key="weeklyKey">
+        <swiper-item class="weekly-item {{ArrInview[weeklyIdx]}}">
+            <view class="bg"></view>
+            <view class="weekly-header">
+                <view class="header-date">
+                    <view >{{weeklyItem.time[0]}} </view>
+                    <view ><image src="../../images/YEAR.svg" /></view>
+                    <view >{{weeklyItem.time[1]}}</view>
+                    <view ><image src="../../images/MONTH.svg" /></view>
+                    <view >{{weeklyItem.time[2]}}</view>
+                    <view ><image src="../../images/DAY.svg" /></view>
+                </view>
+                <view class="line"></view>
             </view>
-            <view class="line"></view>
-        </view>
-        <view class="weekly-body">
-            <view class="body-left">
-                
+            <view class="weekly-body" data-port="{{weeklyItem.port}}" bindtap="turnToPassage">
+                <view class="body-bottom">
+                    <view class="bottom-content">
+                        <view class="b_content_header">文章简要</view>
+                        <block wx:for="{{weeklyItem.content}}" wx:for-index="_w_Idx" wx:for-item="_w_Item" wx:key="_w_Key">
+                            <view class="b_content_body">
+                                <view class="left-dot"></view>
+                                <view class="right-body"><text>{{_w_Item}}</text></view>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+                <view class="body-top">
+                    <view class="vertical-keywords">
+                        <view class="keyword-content"><block wx:for="{{weeklyItem.keyWords}}" wx:for-index="_w_kw_Idx" wx:for-item="_w_kw_Item" wx:key="_w_kw_Key"><view>{{_w_kw_Item}}</view></block></view>
+                    </view>
+                    <view class="IMG-desc"><image style="width: 48rpx; height: 140rpx; margin-top: 15rpx" src="../../images/_w_keyW.svg" /></view>
+                    <view class="vertical-title">
+                        <view class="title-content"><block wx:for="{{weeklyItem.title}}" wx:for-index="_w_t_Idx" wx:for-item="_w_t_Item" wx:key="_w_t_key"><text wx:if="{{_w_t_Item.plain}}">{{_w_t_Item.plain}}</text><text wx:if="{{_w_t_Item.point}}" style="color: #d13239; font-weight: 400; padding: 10rpx 0">{{_w_t_Item.point}}</text></block></view>
+                    </view>
+                    <view class="IMG-desc"><image style="width: 48rpx; height: 100rpx; margin-top: 15rpx" src="../../images/_w_title.svg" /></view>
+                    <view class="vertical-origin">
+                        <view class="mark-stamp"></view>
+                        <view class="author">{{weeklyItem.author}}</view>
+                    </view>
+                </view>
             </view>
-            <view class="body-right">
-            </view>
-        </view>
-    </swiper-item>
-    <swiper-item class="weekly-item {{ArrInview[1]}}" style="background: none">
-        <view class="bg"></view>
-        <view class="weekly-header">
-            <view class="header-date">
-                <view >2018 </view>
-                <view ><image src="../../images/YEAR.svg" /></view>
-                <view >7</view>
-                <view ><image src="../../images/MONTH.svg" /></view>
-                <view >28</view>
-                <view ><image src="../../images/DAY.svg" /></view>
-            </view>
-            <view class="line"></view>
-        </view>
-    </swiper-item>
-    <swiper-item class="weekly-item {{ArrInview[2]}}" style="background: none">
-        <view class="bg"></view>
-        <view class="weekly-header">
-            <view class="header-date">
-                <view >2018 </view>
-                <view ><image src="../../images/YEAR.svg" /></view>
-                <view >7</view>
-                <view ><image src="../../images/MONTH.svg" /></view>
-                <view >28</view>
-                <view ><image src="../../images/DAY.svg" /></view>
-            </view>
-            <view class="line"></view>
-        </view>
-    </swiper-item>
+        </swiper-item>
+    </block>
 </swiper>

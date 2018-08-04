@@ -44,7 +44,6 @@ function endowFontStyle(those, key, nameData, userDefined=-1){
     if(key == "passagesOrigin") fontStyle = commonSettings.fontSize[SizeNum].passagesOrigin;
     if(key == "passagesP") fontStyle = commonSettings.fontSize[SizeNum].passagesP;
     if(key == "part") fontStyle = commonSettings.fontSize[SizeNum].part.style;
-    console.log(fontStyle)
     those.setData({[nameData]: fontStyle});
 }
 module.exports.commonSettings = commonSettings;

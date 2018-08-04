@@ -92,6 +92,7 @@ Page({
   },
   onLoad: function (options) {
     that = this;
+    console.log(options)
     var fontStyleArr = wx.getStorageSync("FontSizeBool");
     var SizeNum = 0;
     for(var a=0; a<fontStyleArr.length; a++){
@@ -135,13 +136,16 @@ Page({
               key: "historyPartContent",
               success: function(partContentData){
                 wx.request({
-                  url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(TempCurrHistoryData.data[0])+1}&p2=1`,
+                  url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(TempCurrHistoryData.data[0])+1}&p2=1&p=32`,
                   success: function(tempData){
+                    console.log(parseInt(TempCurrHistoryData.data[0])+1)
+                    console.log(tempData)
                     var tempPartArr = [];
                     tempPartArr.push(tempData.data[0]);
                     for(var c=0; c<partContentData.data.length; c++){
                       tempPartArr.push(partContentData.data[c])
                     }
+                    console.log(tempPartArr)
                     var newTempPartArr = cutJSONArr(tempPartArr);
                     if(newTempPartArr.length>history_limit){newTempPartArr.splice(history_limit, 1)};
                     wx.setStorageSync("historyPartContent", newTempPartArr);
@@ -163,7 +167,7 @@ Page({
         newHistory.push(options.port);
         wx.setStorageSync("history", newHistory);
         wx.request({
-          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(options.port)+1}&p2=1`,
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news&p1=${parseInt(options.port)+1}&p2=1&32`,
           success: function(OnePartArr){
             var newPartArr = [];
             newPartArr.push(OnePartArr.data[0]);

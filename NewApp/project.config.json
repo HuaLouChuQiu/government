@@ -33,13 +33,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "passages",
 					"pathName": "pages/passages/passages",
-					"query": "port=5195"
+					"query": "port=5363"
 				},
 				{
 					"id": -1,
@@ -56,7 +56,8 @@
 				{
 					"id": -1,
 					"name": "fontSet",
-					"pathName": "pages/fontSet/fontSet"
+					"pathName": "pages/fontSet/fontSet",
+					"query": ""
 				}
 			]
 		}

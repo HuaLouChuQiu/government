@@ -5,8 +5,10 @@ var preCurr=0;
 var start_Y=0;
 var end_Y=0;
 var indexScrollTop=0;
+var _indexScrollTop=0;
 var refreshTimer;
 var indexLastPort = 0;
+var _indexLastPort = 0;
 var lastPartArr = [];
 var arrs = [];
 var NumPerload = 3;
@@ -24,8 +26,10 @@ Page({
     _NickName: "",
     _Profile: "../../images/photo.svg",
     completeBoolean: true,
+    _completeBoolean: true,
     IndexColor: "#fff",
     loadmore: "loadmore",
+    _loadmore: "_loadmore",
     scrollToTop: "scrollToTop",
     currentNum: 0,
     IndicatorLeft: 0,
@@ -50,6 +54,7 @@ Page({
     customItem: "allRegion",
     partArr: [],
     reachedTop: true,
+    _reachedTop: true,
     refreshRotate: 0,
     IndexWindowOptions: {
       CleanHistory: {
@@ -120,7 +125,11 @@ Page({
           }
         });
       }
-    })
+    });
+    that.LoadPrefer();
+  },
+  LoadPrefer: function(){
+    that._refresh();
   },
   // endowFontStyle: function(nameData){
   //   commonSettings.endowFontStyle(nameData);
@@ -224,6 +233,8 @@ Page({
       });
     }else if(currNum == 0){
       commonSettings.endowFontStyle(that, "part", "PARTTITLEFONT");
+    }else if(currNum == 1){
+      commonSettings.endowFontStyle(that, "part", "_PARTTITLEFONT");
     }
     that.setData({[currcolorKey]: "black", [curropaKey]: "1", refresh: "", scrollUp: ""})//refresh、scrollUp 用不用 hidden【Boolean】的形式？
   },
@@ -298,9 +309,98 @@ Page({
       }
     })
   },
+  _loadmore: function(){
+    that.setData({_loadmore: "void", loadUp: "scrollUp loadUp"});
+    var fontStyleArr = wx.getStorageSync("FontSizeBool");
+    var SizeNum = 0;
+    for(var a=0; a<fontStyleArr.length; a++){
+      if(fontStyleArr[a]) SizeNum = a;
+    }
+    wx.getStorage({
+      key: "userPreferenceBool",
+      success: function(userPrefer){
+        wx.request({
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news_like&p1=0&p2=${_indexLastPort}&p3=2&p4=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}&p5=${JSON.stringify(userPrefer.data)}`,
+          success: function(_P_data){
+            var newPrePartArr = that.data._partArr.concat(_P_data.data.reverse());
+            that.setData({_partArr: newPrePartArr, loadUp: ""});
+            if(_P_data.data.length < 2){
+              console.log("已到底");
+              that.setData({reached: "reached", scrollUp: "scrollUp"})
+            }
+            that.setData({_loadmore: "_loadmore"});
+            _indexLastPort = that.data._partArr[that.data._partArr.length - 1].port;
+            console.log(_indexLastPort)
+          },
+          fail: function(err){
+            console.log(err)
+          }
+        })
+      },
+      fail: function(){
+        wx.request({
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news_like&p1=0&p2=${_indexLastPort}&p3=2&p4=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}&p5=${JSON.stringify(that.data._P_Boolean)}`,
+          success: function(_P_data){
+            var newPrePartArr = that.data._partArr.concat(_P_data.data.reverse());
+            that.setData({_partArr: newPrePartArr, loadUp: ""});
+            if(_P_data.data.length < 2){
+              console.log("已到底");
+              that.setData({reached: "reached", scrollUp: "scrollUp"})
+            }
+            that.setData({_loadmore: "_loadmore"});
+            _indexLastPort = that.data._partArr[that.data._partArr.length - 1].port;
+            console.log(_indexLastPort)
+          },
+          fail: function(err){
+            console.log(err)
+          }
+        })
+      }
+    })
+  },
   void: function(){},
   refresh: function(e){
     that.onLoad();
+  },
+  _refresh: function(){
+    var _fontStyleArr = wx.getStorageSync("FontSizeBool");
+    var SizeNum = 0;
+    for(var a=0; a<_fontStyleArr.length; a++){
+      if(_fontStyleArr[a]) SizeNum = a;
+    }
+    wx.getStorage({
+      key: "userPreferenceBool",
+      success: function(userPrefer){
+        console.log(userPrefer);
+        wx.request({
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news_like&p1=1&p2=0&p3=6&p4=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}&p5=${JSON.stringify(userPrefer.data)}`,
+          success: function(_P_data){
+            that.setData({_partArr: _P_data.data.reverse()});
+            commonSettings.endowFontStyle(that, "part", "_PARTTITLEFONT");
+            that.setData({_completeBoolean: false});
+            _indexLastPort = _P_data.data[_P_data.data.length - 1].port;
+            console.log(_indexLastPort)
+          }
+        })
+      },
+      fail: function(){
+        console.log("未选择");
+        wx.request({
+          url: `https://yixinping.top/government/api/index?c=index_news&m=getState_news_like&p1=1&p2=0&p3=6&p4=${commonSettings.commonSettings.fontSize[SizeNum].part.limit}&p5=${JSON.stringify(that.data._P_Boolean)}`,
+          success: function(_P_data){
+            console.log(_P_data.data);
+            that.setData({_partArr: _P_data.data.reverse()});
+            commonSettings.endowFontStyle(that, "part", "_PARTTITLEFONT");
+            that.setData({_completeBoolean: false});
+            _indexLastPort = _P_data.data[_P_data.data.length - 1].port;
+            console.log(_indexLastPort)
+          },
+          fail: function(err){
+            console.log(err)
+          }
+        })
+      },
+    })
   },
   scroll: function(e){
     var tempTop = e.detail.scrollTop;
@@ -311,6 +411,18 @@ Page({
       that.setData({reachedTop: false})
     }
     if(tempTop < 300){
+      that.setData({scrollUp: ""})
+    }
+  },
+  _scroll: function(e){
+    var tempTop = e.detail.scrollTop;
+    _indexScrollTop = tempTop;
+    if(tempTop < 10){
+      that.setData({_reachedTop: true});
+    }else{
+      that.setData({_reachedTop: false})
+    }
+    if(tempTop < 200){
       that.setData({scrollUp: ""})
     }
   },
@@ -340,9 +452,38 @@ Page({
       }
     }
   },
+  _indexTE: function(e){
+    end_Y = e.changedTouches[0].pageY;
+    var shift = end_Y - start_Y
+    if(that.data._reachedTop){
+      if(shift < 0){
+        console.log("上滑")
+      }else if(shift > 10){
+        console.log("下滑")
+        that.setData({refresh: "refresh"});
+        refreshTimer = setTimeout(function(){
+          that.setData({refresh: ""});
+          clearTimeout(refreshTimer)
+        }, 1000);
+        that._refresh();
+      }
+    }else{
+      if(shift > 0){
+        that.setData({scrollUp: "scrollUp", reached: "", _loadmore: "_loadmore"})
+      }else if(shift < 0){
+        that.setData({scrollUp: ""})
+      }
+    }
+  },
   scrollToTop: function(){
     console.log(indexScrollTop);
-    that.setData({IndexTop: 0});
+    var temCurrt = that.data.currentNum;
+    if(temCurrt == 0){
+      that.setData({IndexTop: 0});
+    }else if(temCurrt == 1){
+      that.setData({_IndexTop: 0});
+    }
+    that.setData({scrollUp: ""})
   },
   LoadPassage: function(e){
     console.log(e.currentTarget.dataset.port);
@@ -419,15 +560,15 @@ Page({
                 url: `https://yixinping.top/government/api/index?c=Wechat_login&m=chang_hobby&p1=${userIds.id}&p2=${userIds.openid}&p3=${userPreferenceBool}`,
                 success: function(res){
                   console.log(res);
+                  wx.navigateTo({
+                    url: "../weekly/weekly"
+                  });
                 }
               })
             }
           })
 
         }
-      });
-      wx.navigateTo({
-        url: "../weekly/weekly"
       });
     }else{
       console.log("授权拒绝")
