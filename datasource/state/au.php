@@ -37,7 +37,7 @@ require_once("rank_source.php");                //根据人民关系事的相似
 $test_obj = new link_way;   //国家政策
 $test_obj->updatelink();
 //$test_obj->updatetitlejson();
-echo "国家政策完成<br>\n";die;
+echo "国家政策完成<br>\n";
 
 $state_news_obj = new linkNew_way;             //国家新闻链接
 $state_news_obj->savenewsLink();
